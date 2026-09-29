@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-29T18:07:35Z",
+  "updatedAt": "2026-09-29T18:18:55Z",
   "entries": [
     {
       "source": "cf",
@@ -524,7 +524,8 @@
             "fallbackReasons": {}
           }
         },
-        "extractSource": "stub-cube-overrides-zip"
+        "extractSource": "stub-cube-overrides-zip",
+        "archive": "patch.zip"
       }
     },
     {
@@ -577,7 +578,8 @@
             },
             "fallbackReasons": {}
           }
-        }
+        },
+        "archive": "patch.zip"
       }
     }
   ]

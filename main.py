@@ -37,6 +37,7 @@ from __future__ import annotations
 import argparse
 import sys
 import time
+import zipfile
 from pathlib import Path, PurePosixPath
 
 sys.path.insert(0, str(Path(__file__).resolve().parent / "src"))
@@ -170,6 +171,27 @@ def _sget(sources: object, key: str, default=None):
 _QUESTS_MARKER = "ftbquests/quests/"
 _QUESTS_PREFIXES = ("config/ftbquests/quests/", "quests/")
 
+PATCH_ZIP_NAME = "patch.zip"
+# 玩家把 patch.zip 解压到整合包根目录即可覆盖:zip 内路径 = config/ftbquests/quests/<产物相对路径>
+_INPACK_PREFIX = "config/ftbquests/quests/"
+_ZIP_MTIME = (1980, 1, 1, 0, 0, 0)  # 固定时间戳,内容不变则 zip 字节不变(避免仓库无谓 diff)
+
+
+def write_patch_zip(out_dir: Path, rel_to_text: "dict[str, str]") -> str:
+    """把产物打成 patch.zip(确定性:固定 mtime + DEFLATED),玩家解压到包根即覆盖。
+
+    rel_to_text: {quests 相对产物路径: 文本}。返回 zip 文件名。
+    """
+    zip_path = out_dir / PATCH_ZIP_NAME
+    with zipfile.ZipFile(zip_path, "w", compression=zipfile.ZIP_DEFLATED) as zf:
+        for out_rel in sorted(rel_to_text):
+            info = zipfile.ZipInfo(f"{_INPACK_PREFIX}{out_rel}", date_time=_ZIP_MTIME)
+            info.compress_type = zipfile.ZIP_DEFLATED
+            info.external_attr = 0o644 << 16
+            zf.writestr(info, rel_to_text[out_rel].encode("utf-8"))
+    return PATCH_ZIP_NAME
+
+
 
 def _quest_relpath(key: object) -> str:
     """把抽取层给的 key 归一化成 quests 目录内的相对路径。
@@ -275,17 +297,22 @@ def _translate(sources: object, source: str, project_id, file_id, name: str, arg
 
     out_dir = index_store.artifact_dir(source, project_id, file_id)
     written: list[str] = []
+    rel_to_text: dict[str, str] = {}
     for relpath, out_rel in plan:
         dst = out_dir / out_rel
         dst.parent.mkdir(parents=True, exist_ok=True)
         dst.write_text(outputs[relpath], encoding="utf-8", newline="\n")
         written.append(out_rel)
+        rel_to_text[out_rel] = outputs[relpath]
+
+    archive = write_patch_zip(out_dir, rel_to_text)
 
     stats = report.as_stats()
     stats.update({
         "mode": mode,
         "fileCount": len(written),
         "fileList": written,
+        "archive": archive,
         "perFile": {out_rel: per_file[relpath] for relpath, out_rel in plan},
     })
     src_tag = _sget(sources, "source")
@@ -298,6 +325,7 @@ def _translate(sources: object, source: str, project_id, file_id, name: str, arg
     _log(f"产出 {len(written)} 个文件 → {entry['path']}/")
     for out_rel in written:
         _log(f"  - {out_rel}")
+    _log(f"  · {archive}(玩家解压到整合包根目录即覆盖)")
     _log(report.summary())
     return EXIT_OK
 

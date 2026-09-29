@@ -50,6 +50,7 @@
 - [ ] **[R3]** 接入 CFPA 术语表:先查词典命中直接用,未命中才喂 Gemini
 - [ ] **[R2]** 完善已汉化探测(包内已带 zh_cn 标 already_localized)
 - [x] **[R1]** 处理 FTBQ 新旧格式差异(独立 lang 文件 vs 硬编码 chapters)✅ qoder2(`extract_quest_sources` 返回 mode lang/hardcoded/none)
+- [x] **[R0]** 统一产物为 `patch.zip`(内含 `config/ftbquests/quests/…`,确定性字节),前端下载按钮改指 patch.zip ✅ Claude(lang/硬编码统一,解压到包根即覆盖)
 - [ ] **[R3]** 断点续翻(避免大包超时白跑)
 
 ## Milestone M5 — 社区与扩展(二期)

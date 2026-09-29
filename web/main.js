@@ -104,13 +104,21 @@
     return isNaN(d.getTime()) ? String(iso) : d.toLocaleString();
   }
 
-  /** done 条目 → zh_cn.snbt 的 raw 链接;示例数据/未配置仓库时返回空串。 */
-  function resolveRawUrl(entry) {
-    if (usedSample) return "";
+  /**
+   * done 条目 → 下载信息 {url, filename}。
+   * 优先 patch.zip(整包补丁,lang/硬编码统一,解压到整合包根即覆盖);
+   * 老条目无 archive 时回退到单文件 zh_cn.snbt。示例数据/未配置仓库返回 null。
+   */
+  function resolveDownload(entry) {
+    if (usedSample) return null;
     const path = String(entry.path || "").replace(/^\/+|\/+$/g, "");
     const base = rawBase();
-    if (!path || !base) return "";
-    return `${base}/${path}/${SNBT_FILE}`;
+    if (!path || !base) return null;
+    const archive = entry.stats && entry.stats.archive ? String(entry.stats.archive) : "";
+    if (archive) {
+      return { url: `${base}/${path}/${archive}`, filename: archive };
+    }
+    return { url: `${base}/${path}/${SNBT_FILE}`, filename: SNBT_FILE };
   }
 
   function row(label, value) {
@@ -153,13 +161,13 @@
     const foot = document.createElement("div");
     foot.className = "card-foot";
     if (entry.status === "done") {
-      const url = resolveRawUrl(entry);
-      if (url) {
+      const dl = resolveDownload(entry);
+      if (dl) {
         const a = document.createElement("a");
         a.className = "btn btn-download";
-        a.href = url;
-        a.setAttribute("download", SNBT_FILE);
-        a.textContent = `下载 ${SNBT_FILE}`;
+        a.href = dl.url;
+        a.setAttribute("download", dl.filename);
+        a.textContent = `下载 ${dl.filename}`;
         foot.appendChild(a);
       } else {
         const s = document.createElement("span");

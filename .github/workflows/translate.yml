@@ -68,22 +68,14 @@ jobs:
           echo "exit_code=$code" >> "$GITHUB_OUTPUT"
           exit $code
 
-      # 诊断:把 main.py 输出尾部(main.py 从不回显 key)写进摘要 + 提交到 debug/,便于拉取排查。
-      - name: Run diagnostics
+      # main.py 输出尾部写进 job summary(main.py 从不回显 key),便于失败时直接在 Actions 页排查。
+      - name: Show run log tail
         if: ${{ always() }}
         run: |
           echo '### main.py 输出尾部' >> "$GITHUB_STEP_SUMMARY"
           echo '```' >> "$GITHUB_STEP_SUMMARY"
           tail -c 6000 /tmp/run.log >> "$GITHUB_STEP_SUMMARY" 2>/dev/null || echo '(无 /tmp/run.log)' >> "$GITHUB_STEP_SUMMARY"
           echo '```' >> "$GITHUB_STEP_SUMMARY"
-          mkdir -p debug
-          { echo "run: ${GITHUB_RUN_ID}  at $(date -u +%FT%TZ)  job_status=${{ job.status }}"; echo "---"; tail -c 6000 /tmp/run.log 2>/dev/null || echo '(无 /tmp/run.log)'; } > debug/last_run.log
-          git config user.name  "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add debug/last_run.log
-          git commit -m "debug: capture main.py output tail (run ${GITHUB_RUN_ID})" || exit 0
-          git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
-          git push
 
       # main.py 失败时也让本步骤执行:把 index.json 里记录的 failed 状态提交上去
       - name: Commit artifacts & index

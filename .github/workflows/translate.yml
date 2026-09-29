@@ -68,20 +68,20 @@ jobs:
           echo "exit_code=$code" >> "$GITHUB_OUTPUT"
           exit $code
 
-      # 失败诊断:把 main.py 输出尾部(main.py 从不回显 key)写进摘要 + 提交到 debug/ 便于拉取排查。
-      - name: Failure diagnostics
-        if: ${{ failure() }}
+      # 诊断:把 main.py 输出尾部(main.py 从不回显 key)写进摘要 + 提交到 debug/,便于拉取排查。
+      - name: Run diagnostics
+        if: ${{ always() }}
         run: |
-          echo '### main.py 输出尾部(失败诊断)' >> "$GITHUB_STEP_SUMMARY"
+          echo '### main.py 输出尾部' >> "$GITHUB_STEP_SUMMARY"
           echo '```' >> "$GITHUB_STEP_SUMMARY"
           tail -c 6000 /tmp/run.log >> "$GITHUB_STEP_SUMMARY" 2>/dev/null || echo '(无 /tmp/run.log)' >> "$GITHUB_STEP_SUMMARY"
           echo '```' >> "$GITHUB_STEP_SUMMARY"
           mkdir -p debug
-          { echo "run: ${GITHUB_RUN_ID}  at $(date -u +%FT%TZ)"; echo "---"; tail -c 6000 /tmp/run.log 2>/dev/null || echo '(无 /tmp/run.log)'; } > debug/last_error.log
+          { echo "run: ${GITHUB_RUN_ID}  at $(date -u +%FT%TZ)  job_status=${{ job.status }}"; echo "---"; tail -c 6000 /tmp/run.log 2>/dev/null || echo '(无 /tmp/run.log)'; } > debug/last_run.log
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add debug/last_error.log
-          git commit -m "debug: capture main.py failure tail (run ${GITHUB_RUN_ID})" || exit 0
+          git add debug/last_run.log
+          git commit -m "debug: capture main.py output tail (run ${GITHUB_RUN_ID})" || exit 0
           git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
           git push
 

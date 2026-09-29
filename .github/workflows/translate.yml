@@ -62,7 +62,28 @@ jobs:
           set -euo pipefail
           args=("$CF_URL")
           if [ "${FORCE:-false}" = "true" ]; then args+=(--force); fi
-          python main.py "${args[@]}"
+          set +e
+          python main.py "${args[@]}" 2>&1 | tee /tmp/run.log
+          code=${PIPESTATUS[0]}
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          exit $code
+
+      # 失败诊断:把 main.py 输出尾部(main.py 从不回显 key)写进摘要 + 提交到 debug/ 便于拉取排查。
+      - name: Failure diagnostics
+        if: ${{ failure() }}
+        run: |
+          echo '### main.py 输出尾部(失败诊断)' >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          tail -c 6000 /tmp/run.log >> "$GITHUB_STEP_SUMMARY" 2>/dev/null || echo '(无 /tmp/run.log)' >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          mkdir -p debug
+          { echo "run: ${GITHUB_RUN_ID}  at $(date -u +%FT%TZ)"; echo "---"; tail -c 6000 /tmp/run.log 2>/dev/null || echo '(无 /tmp/run.log)'; } > debug/last_error.log
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add debug/last_error.log
+          git commit -m "debug: capture main.py failure tail (run ${GITHUB_RUN_ID})" || exit 0
+          git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
+          git push
 
       # main.py 失败时也让本步骤执行:把 index.json 里记录的 failed 状态提交上去
       - name: Commit artifacts & index

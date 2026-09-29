@@ -69,7 +69,7 @@ BATCH_SIZE = 50
 INTER_BATCH_DELAY = 4.5  # 免费档 15 RPM → 每批至少隔 4s,留点余量
 MAX_RETRIES = 6
 RETRY_BASE_DELAY = 8.0  # 退避 8s / 16s / 32s ...,命中 retryDelay 时以服务端为准
-DEFAULT_MODEL = "gemini-2.0-flash"
+DEFAULT_MODEL = "gemini-3.8-flash"
 
 TARGET_LANGUAGES = {
     "zh_cn": "Simplified Chinese (简体中文, zh_CN)",
@@ -190,6 +190,11 @@ FATAL_MARKERS = (
     "permission denied",
     "401",
     "403",
+    # 模型不存在/已下线属于配置错误:必须响亮失败,绝不能静默回退原文当成品发出去
+    "not_found",
+    "not found",
+    "no longer available",
+    "is not supported",
 )
 
 

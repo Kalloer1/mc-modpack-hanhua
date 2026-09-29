@@ -1,0 +1,17 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Secrets — 绝不入库
+.env
+*.key
+
+# 参考项目(第三方仓库,仅本地参考,不分发)
+reference_repos/
+
+# 临时/下载缓存
+*.tmp
+tmp/
+downloads/
+node_modules/

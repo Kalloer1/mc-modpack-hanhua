@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "updatedAt": "2026-09-29T17:40:11Z",
+  "entries": [
+    {
+      "source": "cf",
+      "projectId": "602101",
+      "fileId": "8016358",
+      "name": "The CUBE",
+      "mcVersion": "",
+      "status": "no_ftbq",
+      "path": "packs/cf/602101/8016358",
+      "translatedAt": null,
+      "stats": {
+        "error": "zip 里没有 config/ftbquests/quests/lang/en_us.snbt;包内 ftbquests 相关条目示例: ['overrides/config/ftbquests/quests/chapter_groups.snbt', 'overrides/config/ftbquests/quests/data.snbt', 'overrides/config/ftbquests/quests/chapters/alarm.snbt', 'overrides/config/ftbquests/quests/chapters/apotheosis.snbt', 'overrides/config/ftbquests/quests/chapters/armor.snbt', 'overrides/config/ftbquests/quests/chapters/armor_"
+      }
+    },
+    {
+      "source": "cf",
+      "projectId": "843494",
+      "fileId": "4666106",
+      "name": "Bumblemancy",
+      "mcVersion": "",
+      "status": "no_ftbq",
+      "path": "packs/cf/843494/4666106",
+      "translatedAt": null,
+      "stats": {
+        "error": "zip 里没有 config/ftbquests/quests/lang/en_us.snbt;包内 ftbquests 相关条目示例: ['overrides/config/ftbquests/quests/chapter_groups.snbt', 'overrides/config/ftbquests/quests/data.snbt', 'overrides/config/ftbquests/quests/chapters/bumblemancy.snbt', 'overrides/config/ftbquests/quests/chapters/flower_magic.snbt', 'overrides/config/ftbquests/quests/chapters/productive_bee_breeding.snbt', 'overrides/config/ftbque"
+      }
+    },
+    {
+      "source": "modpacks",
+      "projectId": "125",
+      "fileId": "12629",
+      "name": "FTB Evolution",
+      "mcVersion": "",
+      "status": "done",
+      "path": "packs/modpacks/125/12629",
+      "translatedAt": "2026-09-29T17:32:13Z",
+      "stats": {
+        "fields": 3058,
+        "translated": 2197,
+        "skipped": 861,
+        "fallback": 0,
+        "skipReasons": {
+          "empty": 778,
+          "no_text": 83
+        },
+        "fallbackReasons": {},
+        "extractSource": "modpacks-native"
+      }
+    }
+  ]
+}

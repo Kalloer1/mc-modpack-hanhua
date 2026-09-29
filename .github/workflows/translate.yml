@@ -1,0 +1,99 @@
+# 手动触发:输入一个 CurseForge 整合包链接,跑翻译链路,产物 commit 回仓库。
+# 产物结构约定:packs/cf/{projectID}/{fileID}/zh_cn.snbt + meta.json,
+# 根目录 index.json 由 src/index_store.py 维护。
+name: Translate Modpack
+
+on:
+  workflow_dispatch:
+    inputs:
+      cf_url:
+        description: "CurseForge 整合包链接(整包页或某版本/文件页)"
+        required: true
+        type: string
+  # M3 前端提交表单触发(由 R5 接入):
+  # repository_dispatch:
+  #   types: [translate]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: translate
+  cancel-in-progress: false
+
+jobs:
+  translate:
+    name: Fetch & Translate
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          set -euo pipefail
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then
+            # R0 汇总维护的统一依赖清单
+            python -m pip install -r requirements.txt
+          else
+            # 兜底:requirements.txt 尚未建立时的最小依赖集合
+            python -m pip install ftb-snbt-lib requests google-generativeai
+          fi
+
+      - name: Self-test index store
+        run: python -m src.index_store selftest
+
+      # ── 主步骤:调用 main.py 跑完整链路 ──────────────────────────────────
+      # TODO(R0): main.py 尚未创建。集成完成后取消注释、替换下面的占位逻辑。
+      #
+      # main.py 约定(与 R0/R1/R2/R3 对齐):
+      #   入参:CF 链接(位置参数 1)
+      #   环境变量:CURSEFORGE_API_KEY / GEMINI_API_KEY(来自仓库 Secrets)
+      #   行为:解析链接 -> 检测/抽取 FTBQ -> 翻译 -> 写出
+      #         packs/cf/{projectId}/{fileId}/zh_cn.snbt + meta.json,
+      #         并通过 src.index_store 更新根目录 index.json
+      #         (状态:pending / done / failed / no_ftbq / already_localized)
+      #   退出码:0 = 成功(done / already_localized / no_ftbq);
+      #           非 0 = 失败;失败也要让 index.json 记录 failed 后再提交(见下一步)
+      #
+      # 调用示例:
+      #   python main.py "$CF_URL"
+      - name: Translate modpack
+        env:
+          CF_URL: ${{ inputs.cf_url }}
+        run: |
+          echo "::warning title=main.py 未实现::跳过翻译,仅验证仓库骨架与 index.json 读写链路"
+          echo "待处理链接:$CF_URL"
+
+      - name: Commit artifacts & index
+        env:
+          CF_URL: ${{ inputs.cf_url }}
+        run: |
+          set -euo pipefail
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          mkdir -p packs
+          git add packs
+          # 首次运行时 index.json 可能尚未生成
+          if [ -f index.json ]; then
+            git add index.json
+          fi
+          if git diff --cached --quiet; then
+            echo "无产物变更,跳过提交"
+            exit 0
+          fi
+          git commit -m "chore(packs): translate ${CF_URL}"
+          # 并发或期间有新提交时:rebase 后重推
+          git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
+          git push

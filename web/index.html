@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MC 整合包汉化共享库</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <h1>MC 整合包汉化共享库</h1>
+    <p class="subtitle">社区共享的 FTB Quests 汉化文件(zh_cn.snbt)&nbsp;—&nbsp;命中直接下载,未命中可提交整合包链接</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="panel" id="submit-panel">
+    <h2>提交整合包</h2>
+    <form id="submit-form" novalidate>
+      <input id="cf-url" type="url" name="cfUrl" required autocomplete="off" spellcheck="false"
+             placeholder="https://www.curseforge.com/minecraft/modpacks/整合包名">
+      <button type="submit" class="btn btn-primary">提交</button>
+    </form>
+    <p class="form-hint" id="form-hint" role="status" aria-live="polite"></p>
+
+    <div id="queue-wrap" hidden>
+      <h3>本地待办(仅存在本机浏览器,尚未进入仓库任务队列)</h3>
+      <ul id="queue-list" class="queue-list"></ul>
+    </div>
+  </section>
+
+  <section class="panel" id="list-panel">
+    <div class="list-head">
+      <h2>已收录整合包</h2>
+      <span id="list-meta" class="muted"></span>
+    </div>
+    <p id="demo-banner" class="banner" hidden></p>
+    <div id="grid" class="grid"></div>
+    <p id="empty-state" class="empty" hidden>还没有收录任何整合包,提交第一个吧。</p>
+    <p id="error-state" class="error" hidden></p>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>本地预览:在仓库根目录跑 <code>python -m http.server 8000</code>,访问 <code>http://localhost:8000/web/</code>;
+       加 <code>?demo=1</code> 可强制使用示例数据(web/sample/index.json)。</p>
+    <p class="muted">数据来源:仓库根 <code>index.json</code>(由 src/index_store.py 生成)。</p>
+  </div>
+</footer>
+
+<script src="config.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

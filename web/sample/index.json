@@ -1,0 +1,73 @@
+{
+  "version": 1,
+  "updatedAt": "2026-09-30T03:00:00Z",
+  "_note": "示例数据,仅供前端本地演示;真实索引由仓库根的 index.json 提供(src/index_store.py 生成)。",
+  "entries": [
+    {
+      "source": "cf",
+      "projectId": "205122",
+      "fileId": "4213370",
+      "name": "Create: Above and Beyond",
+      "mcVersion": "1.16.5",
+      "status": "done",
+      "path": "packs/cf/205122/4213370",
+      "translatedAt": "2026-09-29T18:22:11Z",
+      "stats": { "fields": 812, "translated": 806, "skipped": 6, "batches": 17 }
+    },
+    {
+      "source": "cf",
+      "projectId": "769464",
+      "fileId": "5011888",
+      "name": "Vault Hunters 3rd Edition",
+      "mcVersion": "1.18.2",
+      "status": "pending",
+      "path": "packs/cf/769464/5011888",
+      "translatedAt": null,
+      "stats": {}
+    },
+    {
+      "source": "cf",
+      "projectId": "915902",
+      "fileId": "5321773",
+      "name": "Prominence II RPG: Hasturian Era",
+      "mcVersion": "1.20.1",
+      "status": "done",
+      "path": "packs/cf/915902/5321773",
+      "translatedAt": "2026-09-30T01:05:48Z",
+      "stats": { "fields": 1543, "translated": 1498, "skipped": 45, "batches": 31 }
+    },
+    {
+      "source": "cf",
+      "projectId": "720077",
+      "fileId": "4988110",
+      "name": "DawnCraft - Tales of the Void",
+      "mcVersion": "1.18.2",
+      "status": "failed",
+      "path": "packs/cf/720077/4988110",
+      "translatedAt": null,
+      "stats": { "error": "GEMINI 429 quota exceeded after 5 retries" }
+    },
+    {
+      "source": "cf",
+      "projectId": "336522",
+      "fileId": "4400221",
+      "name": "Better Minecraft [FORGE]",
+      "mcVersion": "1.20.1",
+      "status": "no_ftbq",
+      "path": "packs/cf/336522/4400221",
+      "translatedAt": null,
+      "stats": { "note": "包内未检测到 FTB Quests(mod 289412/438496)" }
+    },
+    {
+      "source": "cf",
+      "projectId": "551629",
+      "fileId": "4521990",
+      "name": "Enigmatica 9 Expert",
+      "mcVersion": "1.19.2",
+      "status": "already_localized",
+      "path": "packs/cf/551629/4521990",
+      "translatedAt": null,
+      "stats": { "note": "包内已自带 zh_cn 语言文件,无需翻译" }
+    }
+  ]
+}

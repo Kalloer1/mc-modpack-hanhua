@@ -1,0 +1,22 @@
+{
+  "source": "modpacks",
+  "projectId": "125",
+  "fileId": "12629",
+  "name": "FTB Evolution",
+  "mcVersion": "",
+  "status": "done",
+  "path": "packs/modpacks/125/12629",
+  "translatedAt": "2026-09-29T17:32:13Z",
+  "stats": {
+    "fields": 3058,
+    "translated": 2197,
+    "skipped": 861,
+    "fallback": 0,
+    "skipReasons": {
+      "empty": 778,
+      "no_text": 83
+    },
+    "fallbackReasons": {},
+    "extractSource": "modpacks-native"
+  }
+}

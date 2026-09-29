@@ -1,0 +1,73 @@
+run: 36614537785  at 2026-09-29T18:47:51Z  job_status=success
+---
+d you to use the Interactions API (https://ai.google.dev/gemini-api/docs/get-started).', 'status': 'NOT_FOUND'}}
+批量翻译放弃(50 行回退原文): 404 NOT_FOUND. {'error': {'code': 404, 'message': 'This model models/gemini-2.0-flash is no longer available. Please update your code to use models/gemini-3.8-flash for the latest features and improvements. We recommend you to use the Interactions API (https://ai.google.dev/gemini-api/docs/get-started).', 'status': 'NOT_FOUND'}}
+批量翻译失败且不可重试,本批回退原文: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'This model models/gemini-2.0-flash is no longer available. Please update your code to use models/gemini-3.8-flash for the latest features and improvements. We recommend you to use the Interactions API (https://ai.google.dev/gemini-api/docs/get-started).', 'status': 'NOT_FOUND'}}
+批量翻译放弃(50 行回退原文): 404 NOT_FOUND. {'error': {'code': 404, 'message': 'This model models/gemini-2.0-flash is no longer available. Please update your code to use models/gemini-3.8-flash for the latest features and improvements. We recommend you to use the Interactions API (https://ai.google.dev/gemini-api/docs/get-started).', 'status': 'NOT_FOUND'}}
+批量翻译失败且不可重试,本批回退原文: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'This model models/gemini-2.0-flash is no longer available. Please update your code to use models/gemini-3.8-flash for the latest features and improvements. We recommend you to use the Interactions API (https://ai.google.dev/gemini-api/docs/get-started).', 'status': 'NOT_FOUND'}}
+批量翻译放弃(50 行回退原文): 404 NOT_FOUND. {'error': {'code': 404, 'message': 'This model models/gemini-2.0-flash is no longer available. Please update your code to use models/gemini-3.8-flash for the latest features and improvements. We recommend you to use the Interactions API (https://ai.google.dev/gemini-api/docs/get-started).', 'status': 'NOT_FOUND'}}
+批量翻译失败且不可重试,本批回退原文: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'This model models/gemini-2.0-flash is no longer available. Please update your code to use models/gemini-3.8-flash for the latest features and improvements. We recommend you to use the Interactions API (https://ai.google.dev/gemini-api/docs/get-started).', 'status': 'NOT_FOUND'}}
+批量翻译放弃(50 行回退原文): 404 NOT_FOUND. {'error': {'code': 404, 'message': 'This model models/gemini-2.0-flash is no longer available. Please update your code to use models/gemini-3.8-flash for the latest features and improvements. We recommend you to use the Interactions API (https://ai.google.dev/gemini-api/docs/get-started).', 'status': 'NOT_FOUND'}}
+批量翻译失败且不可重试,本批回退原文: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'This model models/gemini-2.0-flash is no longer available. Please update your code to use models/gemini-3.8-flash for the latest features and improvements. We recommend you to use the Interactions API (https://ai.google.dev/gemini-api/docs/get-started).', 'status': 'NOT_FOUND'}}
+批量翻译放弃(50 行回退原文): 404 NOT_FOUND. {'error': {'code': 404, 'message': 'This model models/gemini-2.0-flash is no longer available. Please update your code to use models/gemini-3.8-flash for the latest features and improvements. We recommend you to use the Interactions API (https://ai.google.dev/gemini-api/docs/get-started).', 'status': 'NOT_FOUND'}}
+批量翻译失败且不可重试,本批回退原文: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'This model models/gemini-2.0-flash is no longer available. Please update your code to use models/gemini-3.8-flash for the latest features and improvements. We recommend you to use the Interactions API (https://ai.google.dev/gemini-api/docs/get-started).', 'status': 'NOT_FOUND'}}
+批量翻译放弃(30 行回退原文): 404 NOT_FOUND. {'error': {'code': 404, 'message': 'This model models/gemini-2.0-flash is no longer available. Please update your code to use models/gemini-3.8-flash for the latest features and improvements. We recommend you to use the Interactions API (https://ai.google.dev/gemini-api/docs/get-started).', 'status': 'NOT_FOUND'}}
+产出 55 个文件 → packs/cf/602101/8016358/
+  - chapter_groups.snbt
+  - chapters/alarm.snbt
+  - chapters/apotheosis.snbt
+  - chapters/armor.snbt
+  - chapters/armor_2.snbt
+  - chapters/backpack.snbt
+  - chapters/bedding.snbt
+  - chapters/card_and_keycard.snbt
+  - chapters/casino.snbt
+  - chapters/catalysme.snbt
+  - chapters/chemical_and_science.snbt
+  - chapters/chest.snbt
+  - chapters/curios.snbt
+  - chapters/dailyquest.snbt
+  - chapters/decoration.snbt
+  - chapters/dimension.snbt
+  - chapters/door.snbt
+  - chapters/electodynamics.snbt
+  - chapters/electronic.snbt
+  - chapters/end.snbt
+  - chapters/flux_networks.snbt
+  - chapters/fruit.snbt
+  - chapters/furnitures.snbt
+  - chapters/garden.snbt
+  - chapters/glass.snbt
+  - chapters/guns.snbt
+  - chapters/ice_and_candy.snbt
+  - chapters/industrial_forgoing.snbt
+  - chapters/iron_spell_book.snbt
+  - chapters/killing_mob.snbt
+  - chapters/light.snbt
+  - chapters/meat.snbt
+  - chapters/mekanism.snbt
+  - chapters/minerais.snbt
+  - chapters/mystical_agriculture.snbt
+  - chapters/nether.snbt
+  - chapters/nuclear_mods.snbt
+  - chapters/potions.snbt
+  - chapters/psi.snbt
+  - chapters/rafined_storage.snbt
+  - chapters/rftool.snbt
+  - chapters/security_craft.snbt
+  - chapters/seed.snbt
+  - chapters/shop.snbt
+  - chapters/tank.snbt
+  - chapters/the_eather.snbt
+  - chapters/tools.snbt
+  - chapters/upgrades.snbt
+  - chapters/valkyrian_sky.snbt
+  - chapters/vegetable.snbt
+  - chapters/welcome.snbt
+  - data.snbt
+  - reward_tables/coins.snbt
+  - reward_tables/helmet.snbt
+  - reward_tables/money.snbt
+  · patch.zip(玩家解压到整合包根目录即覆盖)
+字段 331 个:翻译 330、跳过 1、回退 0 | 跳过明细 {'no_text': 1} | 回退明细 -
+完成,用时 29.4s

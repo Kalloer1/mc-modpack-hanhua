@@ -671,7 +671,7 @@
 				entity: "minecraft:cow"
 				icon: "moa_decor_toys:vaca"
 				id: "5D027C197358A8E4"
-				title: "Cow"
+				title: "牛"
 				type: "kill"
 				value: 100L
 			}]
@@ -685,7 +685,7 @@
 				entity: "minecraft:sheep"
 				icon: "moa_decor_toys:ovejablanca"
 				id: "51FD853335926F6C"
-				title: "Sheep"
+				title: "羊"
 				type: "kill"
 				value: 100L
 			}]
@@ -699,7 +699,7 @@
 				entity: "minecraft:pig"
 				icon: "moa_decor_toys:cerdo"
 				id: "6BFC8658B0160025"
-				title: "Pig"
+				title: "猪"
 				type: "kill"
 				value: 100L
 			}]
@@ -713,7 +713,7 @@
 				entity: "minecraft:chicken"
 				icon: "moa_decor_toys:gallina"
 				id: "72913C9D685D5201"
-				title: "Chicken"
+				title: "鸡"
 				type: "kill"
 				value: 100L
 			}]
@@ -727,7 +727,7 @@
 				entity: "minecraft:rabbit"
 				icon: "moa_decor_toys:conejoblanco"
 				id: "047197295AE5D901"
-				title: "Rabbit"
+				title: "兔子"
 				type: "kill"
 				value: 100L
 			}]
@@ -741,7 +741,7 @@
 				entity: "minecraft:squid"
 				icon: "moa_decor_toys:calamar"
 				id: "170D231335A513CB"
-				title: "Squid"
+				title: "鱿鱼"
 				type: "kill"
 				value: 100L
 			}]
@@ -755,7 +755,7 @@
 				entity: "minecraft:llama"
 				icon: "moa_decor_toys:llamablanca"
 				id: "6AFAC3E795E283EC"
-				title: "Llama"
+				title: "羊驼"
 				type: "kill"
 				value: 100L
 			}]
@@ -769,7 +769,7 @@
 				entity: "minecraft:horse"
 				icon: "moa_decor_toys:caballogris_m"
 				id: "6F117866876BAB51"
-				title: "Horse"
+				title: "马"
 				type: "kill"
 				value: 100L
 			}]
@@ -783,7 +783,7 @@
 				entity: "minecraft:donkey"
 				icon: "moa_decor_toys:burro"
 				id: "5A4F39136C2D4D29"
-				title: "Donkey"
+				title: "驴"
 				type: "kill"
 				value: 100L
 			}]
@@ -797,7 +797,7 @@
 				entity: "minecraft:bee"
 				icon: "moa_decor_toys:abeja"
 				id: "091F61CE1CE5A701"
-				title: "Bee"
+				title: "蜜蜂"
 				type: "kill"
 				value: 100L
 			}]
@@ -811,7 +811,7 @@
 				entity: "minecraft:cat"
 				icon: "moa_decor_toys:gatosiames"
 				id: "4947485CEC9C8327"
-				title: "Cat"
+				title: "猫"
 				type: "kill"
 				value: 100L
 			}]
@@ -825,7 +825,7 @@
 				entity: "minecraft:bat"
 				icon: "moa_decor_toys:murcielago"
 				id: "2CD0496EB60EF0FF"
-				title: "Bat"
+				title: "蝙蝠"
 				type: "kill"
 				value: 100L
 			}]
@@ -841,7 +841,7 @@
 			size: 2.0d
 			tasks: [{
 				id: "3005E1A65132D1B6"
-				title: "Overworld Rarest Mob"
+				title: "主世界最稀有生物"
 				type: "checkmark"
 			}]
 			x: -9.0d
@@ -854,7 +854,7 @@
 				entity: "minecraft:parrot"
 				icon: "moa_decor_toys:lororojo"
 				id: "1BC9DDD284E77E52"
-				title: "Parrot"
+				title: "鹦鹉"
 				type: "kill"
 				value: 100L
 			}]
@@ -868,7 +868,7 @@
 				entity: "minecraft:ravager"
 				icon: "moa_decor_toys:devastador"
 				id: "7D46F5EAD4897160"
-				title: "Ravager"
+				title: "劫掠兽"
 				type: "kill"
 				value: 100L
 			}]
@@ -882,7 +882,7 @@
 				entity: "minecraft:axolotl"
 				icon: "moa_decor_toys:ajolotecian"
 				id: "25B39D6E5E6EC192"
-				title: "Axolotl"
+				title: "美西螈"
 				type: "kill"
 				value: 100L
 			}]
@@ -896,7 +896,7 @@
 				entity: "minecraft:snow_golem"
 				icon: "moa_decor_toys:golemdenieve"
 				id: "4992DA43465C4571"
-				title: "Snow Golem"
+				title: "雪傀儡"
 				type: "kill"
 				value: 100L
 			}]
@@ -910,7 +910,7 @@
 				entity: "minecraft:iron_golem"
 				icon: "moa_decor_toys:golemdehierro"
 				id: "2A71D2AFAAE63A3F"
-				title: "Iron Golem"
+				title: "铁傀儡"
 				type: "kill"
 				value: 100L
 			}]
@@ -924,7 +924,7 @@
 				entity: "minecraft:vex"
 				icon: "moa_decor_toys:vex"
 				id: "6D0FE8DC6E8F6AB3"
-				title: "Vex"
+				title: "恼鬼"
 				type: "kill"
 				value: 100L
 			}]
@@ -938,7 +938,7 @@
 				entity: "minecraft:evoker"
 				icon: "moa_decor_toys:invocador"
 				id: "345F10A58CCD4FCD"
-				title: "Evoker"
+				title: "唤魔者"
 				type: "kill"
 				value: 100L
 			}]
@@ -952,7 +952,7 @@
 				entity: "minecraft:dolphin"
 				icon: "moa_decor_toys:delfin"
 				id: "1D739FC15C00EA99"
-				title: "Dolphin"
+				title: "海豚"
 				type: "kill"
 				value: 100L
 			}]
@@ -966,7 +966,7 @@
 				entity: "minecraft:guardian"
 				icon: "moa_decor_toys:guardian"
 				id: "0DCBD036406AB010"
-				title: "Guardian"
+				title: "守卫者"
 				type: "kill"
 				value: 100L
 			}]
@@ -980,7 +980,7 @@
 				entity: "minecraft:elder_guardian"
 				icon: "moa_decor_toys:guardiananciano"
 				id: "59F8C05686A124C5"
-				title: "Elder Guardian"
+				title: "远古守卫者"
 				type: "kill"
 				value: 100L
 			}]
@@ -994,7 +994,7 @@
 				entity: "minecraft:mooshroom"
 				icon: "moa_decor_toys:champivaca"
 				id: "5B2291E4B69543D2"
-				title: "Mooshroom"
+				title: "哞菇"
 				type: "kill"
 				value: 100L
 			}]
@@ -1008,7 +1008,7 @@
 				entity: "minecraft:glow_squid"
 				icon: "moa_decor_toys:calamarbrillante"
 				id: "3ED6211EE261177D"
-				title: "Glow Squid"
+				title: "发光鱿鱼"
 				type: "kill"
 				value: 100L
 			}]
@@ -1035,5 +1035,5 @@
 			y: 8.0d
 		}
 	]
-	title: "Mob killed"
+	title: "击杀生物"
 }

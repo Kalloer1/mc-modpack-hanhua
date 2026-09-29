@@ -1208,7 +1208,7 @@
 			size: 3.0d
 			tasks: [{
 				id: "3A030B379AB2B299"
-				title: "Mystical Agriculture"
+				title: "神秘农业"
 				type: "checkmark"
 			}]
 			x: -1.5d
@@ -4154,7 +4154,7 @@
 				item: "mysticalagriculture:unattuned_augment"
 				type: "item"
 			}]
-			title: "Unattuned Augment"
+			title: "未赋能升级"
 			x: -32.0d
 			y: 5.5d
 		}
@@ -4490,5 +4490,5 @@
 			y: 13.5d
 		}
 	]
-	title: "Mystical Agriculture"
+	title: "神秘农业"
 }

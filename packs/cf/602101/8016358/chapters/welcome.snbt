@@ -2143,7 +2143,7 @@
 			id: "626F09D7CB2280D6"
 			tasks: [{
 				id: "1C0BE4A73266FBC9"
-				title: "Level 76"
+				title: "等级 76"
 				type: "checkmark"
 			}]
 			x: -7.0d
@@ -2157,7 +2157,7 @@
 			id: "07C5E1FF9EFD3EA7"
 			tasks: [{
 				id: "17BE31982E45AA30"
-				title: "Level 77"
+				title: "等级 77"
 				type: "checkmark"
 			}]
 			x: -8.5d
@@ -2171,7 +2171,7 @@
 			id: "7740B1FE6735D900"
 			tasks: [{
 				id: "614B5C72266D405E"
-				title: "Level 78"
+				title: "等级 78"
 				type: "checkmark"
 			}]
 			x: -10.0d
@@ -2185,7 +2185,7 @@
 			id: "55052C280AEE0A5E"
 			tasks: [{
 				id: "1181472000C5E13D"
-				title: "Level 79"
+				title: "等级 79"
 				type: "checkmark"
 			}]
 			x: -11.5d
@@ -2199,7 +2199,7 @@
 			id: "33DD45331FA2DF0C"
 			tasks: [{
 				id: "6519FC15CC338899"
-				title: "Level 80"
+				title: "等级 80"
 				type: "checkmark"
 			}]
 			x: -13.0d
@@ -2213,7 +2213,7 @@
 			id: "537C591BCD904CEC"
 			tasks: [{
 				id: "430376660748D31F"
-				title: "Level 81"
+				title: "等级 81"
 				type: "checkmark"
 			}]
 			x: -14.5d
@@ -2227,7 +2227,7 @@
 			id: "5D87BDFBC41D402E"
 			tasks: [{
 				id: "2F239A997BA45CD0"
-				title: "Level 82"
+				title: "等级 82"
 				type: "checkmark"
 			}]
 			x: -17.0d
@@ -2241,7 +2241,7 @@
 			id: "7B3247F3C7949BDA"
 			tasks: [{
 				id: "78070691187EBEF8"
-				title: "Level 84"
+				title: "等级 84"
 				type: "checkmark"
 			}]
 			x: -19.5d
@@ -2267,7 +2267,7 @@
 			id: "177BD3AB9A363265"
 			tasks: [{
 				id: "56DF33275A91CA7E"
-				title: "Level 84"
+				title: "等级 84"
 				type: "checkmark"
 			}]
 			x: -20.0d
@@ -2293,7 +2293,7 @@
 			id: "37028041B6B380B2"
 			tasks: [{
 				id: "28CCD49527FCC07B"
-				title: "Level 85"
+				title: "等级 85"
 				type: "checkmark"
 			}]
 			x: -20.0d
@@ -2493,7 +2493,7 @@
 				type: "xp"
 				value: 5000L
 			}]
-			title: "The End"
+			title: "末地"
 			x: -5.0d
 			y: -7.0d
 		}
@@ -2505,7 +2505,7 @@
 			id: "4B52F7F3D899EBD1"
 			tasks: [{
 				id: "1F68A65CF9EBA1E1"
-				title: "Level 86"
+				title: "等级 86"
 				type: "checkmark"
 			}]
 			x: -20.0d
@@ -2519,7 +2519,7 @@
 			id: "0D621F542EB9696F"
 			tasks: [{
 				id: "7B84CE9234B357A9"
-				title: "Level 87"
+				title: "等级 87"
 				type: "checkmark"
 			}]
 			x: -20.0d
@@ -2533,7 +2533,7 @@
 			id: "01DC9CA222224087"
 			tasks: [{
 				id: "337A57E01BE9708C"
-				title: "Level 88"
+				title: "等级 88"
 				type: "checkmark"
 			}]
 			x: -20.0d
@@ -2547,7 +2547,7 @@
 			id: "6841B5E6A1E03894"
 			tasks: [{
 				id: "27C08C0BB4121B09"
-				title: "Level 89"
+				title: "等级 89"
 				type: "checkmark"
 			}]
 			x: -20.0d
@@ -2561,7 +2561,7 @@
 			id: "4E3F5D9CF54FEB23"
 			tasks: [{
 				id: "7DDAC896FB62F611"
-				title: "Level 90"
+				title: "等级 90"
 				type: "checkmark"
 			}]
 			x: -20.0d
@@ -2575,7 +2575,7 @@
 			id: "65F08E13C00D679C"
 			tasks: [{
 				id: "3CA3C64072810B20"
-				title: "Level 91"
+				title: "等级 91"
 				type: "checkmark"
 			}]
 			x: -20.0d
@@ -2589,7 +2589,7 @@
 			id: "177033A17A6F3874"
 			tasks: [{
 				id: "06C4A71C100882D1"
-				title: "Level 92"
+				title: "等级 92"
 				type: "checkmark"
 			}]
 			x: -20.0d
@@ -2603,7 +2603,7 @@
 			id: "1F9BB0EDAE1FD567"
 			tasks: [{
 				id: "60203312EBA7D535"
-				title: "Level 93"
+				title: "等级 93"
 				type: "checkmark"
 			}]
 			x: -20.0d
@@ -2617,7 +2617,7 @@
 			id: "4DA19FE46BEEFA18"
 			tasks: [{
 				id: "4660CF2F4BB1F780"
-				title: "Level 94"
+				title: "等级 94"
 				type: "checkmark"
 			}]
 			x: -20.0d
@@ -2631,7 +2631,7 @@
 			id: "01C2E4AFBC39C1B1"
 			tasks: [{
 				id: "1799D2FC0A719B05"
-				title: "Level 95"
+				title: "等级 95"
 				type: "checkmark"
 			}]
 			x: -19.5d
@@ -2645,7 +2645,7 @@
 			id: "07A5BF98B0A7D3FA"
 			tasks: [{
 				id: "0D36B5D005E7045C"
-				title: "Level 96"
+				title: "等级 96"
 				type: "checkmark"
 			}]
 			x: -17.0d
@@ -2659,7 +2659,7 @@
 			id: "082D5EB4EB335A61"
 			tasks: [{
 				id: "7A822AAFED05C60F"
-				title: "Level 97"
+				title: "等级 97"
 				type: "checkmark"
 			}]
 			x: -13.5d
@@ -2673,7 +2673,7 @@
 			id: "77D0B091C4504633"
 			tasks: [{
 				id: "01C420595FCC7BE6"
-				title: "Level 98"
+				title: "等级 98"
 				type: "checkmark"
 			}]
 			x: -11.5d
@@ -2687,7 +2687,7 @@
 			id: "4CED0BB7D7BE9D23"
 			tasks: [{
 				id: "0F61A64DAABBB57D"
-				title: "Level 99"
+				title: "等级 99"
 				type: "checkmark"
 			}]
 			x: -10.0d
@@ -2701,12 +2701,12 @@
 			id: "4DDF9F0EE50F9C94"
 			tasks: [{
 				id: "25DE35BCF0E8A992"
-				title: "Level 100"
+				title: "等级 100"
 				type: "checkmark"
 			}]
 			x: -8.5d
 			y: -5.0d
 		}
 	]
-	title: "Welcome"
+	title: "欢迎"
 }

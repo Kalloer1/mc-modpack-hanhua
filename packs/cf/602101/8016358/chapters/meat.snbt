@@ -12,11 +12,11 @@
 		tasks: [{
 			icon: "minecraft:cooked_beef"
 			id: "20AFFB79B932CDF7"
-			title: "Meat"
+			title: "肉"
 			type: "custom"
 		}]
 		x: 0.0d
 		y: 0.0d
 	}]
-	title: "Meat"
+	title: "肉"
 }

@@ -17,7 +17,7 @@
 			size: 3.0d
 			tasks: [{
 				id: "6BE039B60090E3B4"
-				title: "Nether"
+				title: "下界"
 				type: "checkmark"
 			}]
 			x: 0.5d
@@ -77,5 +77,5 @@
 			y: 7.5d
 		}
 	]
-	title: "Nether"
+	title: "下界"
 }

@@ -23,7 +23,7 @@
 				item: "minecraft:raw_copper"
 				type: "item"
 			}]
-			title: "Copper"
+			title: "铜"
 			x: -25.5d
 			y: -12.0d
 		}
@@ -40,7 +40,7 @@
 				item: "minecraft:raw_iron"
 				type: "item"
 			}]
-			title: "Iron"
+			title: "铁"
 			x: -18.5d
 			y: -12.0d
 		}
@@ -57,7 +57,7 @@
 				item: "minecraft:raw_gold"
 				type: "item"
 			}]
-			title: "Gold"
+			title: "金"
 			x: -12.5d
 			y: -12.0d
 		}
@@ -74,7 +74,7 @@
 				item: "minecraft:diamond"
 				type: "item"
 			}]
-			title: "Diamond"
+			title: "钻石"
 			x: -5.5d
 			y: -12.0d
 		}
@@ -91,7 +91,7 @@
 				item: "minecraft:redstone"
 				type: "item"
 			}]
-			title: "Redstone"
+			title: "红石"
 			x: -9.0d
 			y: -12.0d
 		}
@@ -151,7 +151,7 @@
 			size: 2.0d
 			tasks: [{
 				id: "56E2C050E9D80DCC"
-				title: "Overworld"
+				title: "主世界"
 				type: "checkmark"
 			}]
 			x: -15.5d
@@ -168,7 +168,7 @@
 				id: "6C41A8A5A84CCBDD"
 				type: "advancement"
 			}]
-			title: "Stone Age"
+			title: "石器时代"
 			x: -15.5d
 			y: -14.0d
 		}
@@ -281,7 +281,7 @@
 					type: "item"
 				}
 			]
-			title: "To Travel"
+			title: "旅行"
 			x: -15.5d
 			y: -21.0d
 		}
@@ -518,7 +518,7 @@
 						"ftbfiltersystem:filter": "ftbfiltersystem:item_tag(forge:ingots/steel)"
 					}
 				}
-				title: "Any #forge:ingots/steel"
+				title: "任意 #forge:ingots/steel"
 				type: "item"
 			}]
 			x: -22.0d
@@ -562,7 +562,7 @@
 			tasks: [
 				{
 					id: "22D214689C0AAA0C"
-					title: "Mekanism"
+					title: "通用机械"
 					type: "checkmark"
 				}
 				{
@@ -939,7 +939,7 @@
 			}]
 			tasks: [{
 				id: "0222E575A044A6DD"
-				title: "Storage Chapter"
+				title: "存储章节"
 				type: "checkmark"
 			}]
 			x: -17.0d
@@ -955,7 +955,7 @@
 			}]
 			tasks: [{
 				id: "44DE97C8D06E334B"
-				title: "Decoration Chapter"
+				title: "装饰章节"
 				type: "checkmark"
 			}]
 			x: -14.0d
@@ -1047,10 +1047,10 @@
 			}]
 			tasks: [{
 				id: "5B821090E3557D4D"
-				title: "Enchant Chapter"
+				title: "附魔章节"
 				type: "checkmark"
 			}]
-			title: "Apotheosis"
+			title: "神化"
 			x: -2.5d
 			y: -17.5d
 		}
@@ -1080,7 +1080,7 @@
 				entity: "minecraft:cow"
 				icon: "moa_decor_toys:vaca"
 				id: "15DA3C7DC2B06FFC"
-				title: "Cow"
+				title: "牛"
 				type: "kill"
 				value: 1L
 			}]
@@ -1095,7 +1095,7 @@
 				entity: "minecraft:sheep"
 				icon: "moa_decor_toys:ovejagrisclara"
 				id: "456728D9FAEED0DF"
-				title: "Sheep"
+				title: "羊"
 				type: "kill"
 				value: 1L
 			}]
@@ -1126,10 +1126,10 @@
 						"ftbfiltersystem:filter": "ftbfiltersystem:item_tag(minecraft:wool)"
 					}
 				}
-				title: "Any #minecraft:wool"
+				title: "任意 #minecraft:wool"
 				type: "item"
 			}]
-			title: "Wool"
+			title: "羊毛"
 			x: -5.5d
 			y: -24.0d
 		}
@@ -1146,10 +1146,10 @@
 						"ftbfiltersystem:filter": "ftbfiltersystem:item_tag(minecraft:beds)"
 					}
 				}
-				title: "Any #minecraft:beds"
+				title: "任意 #minecraft:beds"
 				type: "item"
 			}]
-			title: "Bed"
+			title: "床"
 			x: -10.5d
 			y: -24.0d
 		}
@@ -1160,7 +1160,7 @@
 				advancement: "minecraft:adventure/sleep_in_bed"
 				criterion: ""
 				id: "5ECE412D9E654D56"
-				title: "Sweet Dream"
+				title: "美梦"
 				type: "advancement"
 			}]
 			x: -10.5d
@@ -1259,12 +1259,12 @@
 			size: 1.0d
 			tasks: [{
 				id: "1A4DAD9F767B8E17"
-				title: "Cooking"
+				title: "烹饪"
 				type: "checkmark"
 			}]
 			x: -3.0d
 			y: -21.5d
 		}
 	]
-	title: "Overworld"
+	title: "主世界"
 }

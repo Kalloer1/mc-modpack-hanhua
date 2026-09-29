@@ -19,7 +19,7 @@
 			tasks: [
 				{
 					id: "34F1DFCE4DE9593D"
-					title: "Unlock Trade"
+					title: "解锁交易"
 					type: "checkmark"
 				}
 				{
@@ -52,7 +52,7 @@
 			tasks: [
 				{
 					id: "5A0C9E462EF86B7C"
-					title: "Unlock Shop"
+					title: "解锁商店"
 					type: "checkmark"
 				}
 				{
@@ -77,10 +77,10 @@
 			size: 3.0d
 			tasks: [{
 				id: "0F3A12F2ADDCE3D4"
-				title: "Trade"
+				title: "交易"
 				type: "checkmark"
 			}]
-			title: "Economy System"
+			title: "经济系统"
 			x: 3.0d
 			y: -9.0d
 		}
@@ -131,7 +131,7 @@
 			tasks: [
 				{
 					id: "12A4AA176DB3E471"
-					title: "Stone"
+					title: "石头"
 					type: "checkmark"
 				}
 				{
@@ -166,7 +166,7 @@
 			tasks: [
 				{
 					id: "53277428EBC7DD93"
-					title: "Cobblestone"
+					title: "圆石"
 					type: "checkmark"
 				}
 				{
@@ -178,7 +178,7 @@
 					value: 64L
 				}
 			]
-			title: "Cobbelstone"
+			title: "圆石"
 			x: -3.5d
 			y: -16.5d
 		}
@@ -205,7 +205,7 @@
 				{
 					disable_toast: true
 					id: "76CA20839FDAB2B6"
-					title: "Dirt"
+					title: "泥土"
 					type: "checkmark"
 				}
 				{
@@ -241,7 +241,7 @@
 			tasks: [
 				{
 					id: "7AC64720D427B89B"
-					title: "Sand"
+					title: "沙子"
 					type: "checkmark"
 				}
 				{
@@ -276,7 +276,7 @@
 			tasks: [
 				{
 					id: "477066337E755770"
-					title: "Grass"
+					title: "草方块"
 					type: "checkmark"
 				}
 				{
@@ -313,7 +313,7 @@
 			tasks: [
 				{
 					id: "099FC21EF913C876"
-					title: "Gravel"
+					title: "沙砾"
 					type: "checkmark"
 				}
 				{
@@ -349,7 +349,7 @@
 			tasks: [
 				{
 					id: "703EB06FA5ED3D73"
-					title: "Stone Brick"
+					title: "石砖"
 					type: "checkmark"
 				}
 				{
@@ -359,7 +359,7 @@
 					type: "item"
 				}
 			]
-			title: "Stone Bricks"
+			title: "石砖"
 			x: -3.0d
 			y: -14.0d
 		}
@@ -377,7 +377,7 @@
 			tasks: [
 				{
 					id: "791984586D74FC9E"
-					title: "Copper"
+					title: "铜"
 					type: "checkmark"
 				}
 				{
@@ -407,7 +407,7 @@
 			tasks: [
 				{
 					id: "1DD4187E8A519DA4"
-					title: "Iron"
+					title: "铁"
 					type: "checkmark"
 				}
 				{
@@ -437,7 +437,7 @@
 			tasks: [
 				{
 					id: "6647F2AAF1C20B68"
-					title: "Gold"
+					title: "金"
 					type: "checkmark"
 				}
 				{
@@ -467,7 +467,7 @@
 			tasks: [
 				{
 					id: "7F73DA9B382DD4B5"
-					title: "Diamond"
+					title: "钻石"
 					type: "checkmark"
 				}
 				{
@@ -497,7 +497,7 @@
 			tasks: [
 				{
 					id: "65E95A99D5B2EA38"
-					title: "Netherite"
+					title: "下界合金"
 					type: "checkmark"
 				}
 				{
@@ -527,7 +527,7 @@
 			tasks: [
 				{
 					id: "4357031D3B380905"
-					title: "Emerald"
+					title: "绿宝石"
 					type: "checkmark"
 				}
 				{
@@ -570,7 +570,7 @@
 					type: "item"
 				}
 			]
-			title: "Redstone"
+			title: "红石"
 			x: -12.0d
 			y: -8.0d
 		}
@@ -595,11 +595,11 @@
 					count: 128L
 					id: "4E799570E84DFCA0"
 					item: "croptopia:beef_wellington"
-					title: "Beef"
+					title: "牛肉"
 					type: "item"
 				}
 			]
-			title: "Beef Wellington"
+			title: "威灵顿牛排"
 			x: -6.0d
 			y: -4.0d
 		}
@@ -617,7 +617,7 @@
 			tasks: [
 				{
 					id: "719D9A22DA07417A"
-					title: "Croque Madame"
+					title: "库克夫人三明治"
 					type: "checkmark"
 				}
 				{
@@ -644,7 +644,7 @@
 			tasks: [
 				{
 					id: "7C7CEC69276771D6"
-					title: "Triffle"
+					title: "查芙蛋糕"
 					type: "checkmark"
 				}
 				{
@@ -674,7 +674,7 @@
 			tasks: [
 				{
 					id: "201DEAF560ABA76F"
-					title: "Pumpkin Spice Latte"
+					title: "南瓜香料拿铁"
 					type: "checkmark"
 				}
 				{
@@ -704,7 +704,7 @@
 			tasks: [
 				{
 					id: "60811A99EB12708F"
-					title: "Ajvar"
+					title: "爱瓦酱"
 					type: "checkmark"
 				}
 				{
@@ -734,7 +734,7 @@
 			tasks: [
 				{
 					id: "774F027DF28D59A8"
-					title: "The Big Breakfast"
+					title: "丰盛早餐"
 					type: "checkmark"
 				}
 				{
@@ -764,7 +764,7 @@
 			tasks: [
 				{
 					id: "78A5F4A4F63500F2"
-					title: "Shepherd's Pie"
+					title: "牧羊人派"
 					type: "checkmark"
 				}
 				{
@@ -839,7 +839,7 @@
 				type: "xp"
 				value: 20L
 			}]
-			title: "Decoration Part"
+			title: "装饰部分"
 			x: 11.0d
 			y: -10.0d
 		}
@@ -855,7 +855,7 @@
 				type: "xp"
 				value: 50L
 			}]
-			title: "Vehicul Part"
+			title: "载具部分"
 			x: 17.0d
 			y: -10.0d
 		}
@@ -871,7 +871,7 @@
 				type: "xp"
 				value: 30L
 			}]
-			title: "SCP Part"
+			title: "SCP部分"
 			x: 14.0d
 			y: -8.0d
 		}
@@ -881,7 +881,7 @@
 			id: "3CB12B7C1FE3CF28"
 			tasks: [{
 				id: "67EC380D196EF87C"
-				title: "Electronic"
+				title: "电子设备"
 				type: "checkmark"
 			}]
 			x: 10.0d

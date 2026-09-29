@@ -14,11 +14,11 @@
 		tasks: [{
 			icon: "industrialforegoing:laser_lens10"
 			id: "70635EC430B7D2B6"
-			title: "Light"
+			title: "照明"
 			type: "custom"
 		}]
 		x: 0.0d
 		y: 0.0d
 	}]
-	title: "Light"
+	title: "照明"
 }

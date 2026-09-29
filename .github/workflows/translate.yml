@@ -1,5 +1,6 @@
 # 手动触发:输入一个 CurseForge 整合包链接 → main.py 跑翻译 → 产物 commit 回仓库。
-# 产物结构约定:packs/{source}/{projectID}/{fileID}/zh_cn.snbt + meta.json,
+# 产物结构:packs/{source}/{projectID}/{fileID}/ 下按 quests 相对路径落地
+# (lang→lang/zh_cn.snbt;硬编码→chapters/*.snbt 等)+ patch.zip + meta.json,
 # 根目录 index.json 由 src/index_store.py 维护。
 # 面向玩家的 issue 提交通道见 on-issue.yml。
 name: Translate Modpack
@@ -11,6 +12,11 @@ on:
         description: "CurseForge 整合包链接(整包页或某版本/文件页)"
         required: true
         type: string
+      force:
+        description: "已 done 的包也重新翻译(验证/纠错用)"
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -51,7 +57,12 @@ jobs:
         id: translate
         env:
           CF_URL: ${{ inputs.cf_url }}
-        run: python main.py "$CF_URL"
+          FORCE: ${{ inputs.force }}
+        run: |
+          set -euo pipefail
+          args=("$CF_URL")
+          if [ "${FORCE:-false}" = "true" ]; then args+=(--force); fi
+          python main.py "${args[@]}"
 
       # main.py 失败时也让本步骤执行:把 index.json 里记录的 failed 状态提交上去
       - name: Commit artifacts & index

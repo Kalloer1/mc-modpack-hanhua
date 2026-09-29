@@ -1,0 +1,11 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "guns"
+	group: "0D683098ADD8AB57"
+	id: "5C53DB9D02C5A324"
+	order_index: 2
+	quest_links: [ ]
+	quests: [ ]
+	title: "Guns"
+}

@@ -1,0 +1,95 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "dailyquest"
+	group: ""
+	icon: "ftbquests:book"
+	id: "7F308B5D3C8EB7E4"
+	order_index: 1
+	quest_links: [ ]
+	quests: [
+		{
+			id: "5BB581C02A19CF0E"
+			rewards: [
+				{
+					id: "41278F4CF5F9E3A8"
+					item: "currency:hundred_dollar_bill"
+					type: "item"
+				}
+				{
+					id: "7800E04C3B9B707E"
+					quest: ""
+					time: 604800
+					type: "extraquests:timer"
+				}
+			]
+			tasks: [{
+				block: "minecraft:cobblestone"
+				block_type: 0
+				checkItem: false
+				id: "3BB7AED99A0A6B43"
+				type: "questsadditions:break"
+				value: 20000L
+			}]
+			x: -1.0d
+			y: -0.5d
+		}
+		{
+			id: "1DFCAF7ADBEE30C8"
+			rewards: [{
+				id: "12591110196262C0"
+				item: "currency:dollar_bill"
+				type: "item"
+			}]
+			tasks: [{
+				icon: {
+					Count: 1
+					id: "minecraft:fishing_rod"
+					tag: {
+						Damage: 0
+					}
+				}
+				id: "19BA39AE5E73A55D"
+				stat: "minecraft:fish_caught"
+				title: "Fishing x5"
+				type: "stat"
+				value: 5
+			}]
+			x: 1.0d
+			y: -1.0d
+		}
+		{
+			id: "6AF8B15591F032B3"
+			rewards: [
+				{
+					id: "5B059D0FEDCFD45D"
+					quest: ""
+					time: 604800
+					type: "extraquests:timer"
+				}
+				{
+					id: "645E0B1BD990ED35"
+					item: "currency:hundred_dollar_bill"
+					type: "item"
+				}
+			]
+			tasks: [{
+				icon: {
+					Count: 1
+					id: "minecraft:leather_boots"
+					tag: {
+						Damage: 0
+					}
+				}
+				id: "113C23FD55919ECF"
+				stat: "minecraft:walk_one_cm"
+				title: "Walk 10 000 Blocks"
+				type: "stat"
+				value: 10000
+			}]
+			x: 2.5d
+			y: -0.5d
+		}
+	]
+	title: "DailyQuest"
+}

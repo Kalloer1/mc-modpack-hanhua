@@ -1,0 +1,25 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "decoration"
+	group: "16F354679685E0AD"
+	icon: "industrialforegoing:laser_lens15"
+	id: "0D60636FF2546B3C"
+	order_index: 0
+	quest_links: [ ]
+	quests: [{
+		dependencies: ["322E65F3BFE700DF"]
+		icon: "industrialforegoing:laser_lens15"
+		id: "43168B1D44078F02"
+		shape: "gear"
+		size: 3.0d
+		tasks: [{
+			id: "569932C90E82FBEB"
+			title: "Decoration"
+			type: "custom"
+		}]
+		x: 0.0d
+		y: 0.0d
+	}]
+	title: "Decoration"
+}

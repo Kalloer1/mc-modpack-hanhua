@@ -1,0 +1,26 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "the_eather"
+	group: ""
+	hide_quest_until_deps_complete: true
+	icon: "moa_decor_toys:allay"
+	id: "3248470F733AB98E"
+	order_index: 5
+	quest_links: [ ]
+	quests: [{
+		dependencies: ["6AA471E804A3DCBC"]
+		icon: "aether:aether_portal_frame"
+		id: "51AC5193498351EE"
+		shape: "rsquare"
+		size: 3.0d
+		tasks: [{
+			id: "287C6A6DCD366356"
+			title: "The aether"
+			type: "checkmark"
+		}]
+		x: 0.0d
+		y: -1.5d
+	}]
+	title: "The eather"
+}

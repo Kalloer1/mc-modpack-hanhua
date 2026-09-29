@@ -1,0 +1,24 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "furnitures"
+	group: "209FD28A3118C1AA"
+	id: "0D2F7E3AAF495626"
+	order_index: 1
+	quest_links: [ ]
+	quests: [{
+		dependencies: ["257291BDE2B9CC6D"]
+		id: "54BC5C5EEF200320"
+		shape: "gear"
+		size: 3.0d
+		tasks: [{
+			icon: "industrialforegoing:laser_lens10"
+			id: "6066D1624451D6D5"
+			title: "Furnitures"
+			type: "custom"
+		}]
+		x: 0.0d
+		y: 0.0d
+	}]
+	title: "Furniture"
+}

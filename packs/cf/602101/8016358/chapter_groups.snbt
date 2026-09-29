@@ -1,0 +1,40 @@
+{
+	chapter_groups: [
+		{
+			id: "69F627DDE88E5C5D"
+			title: "Storage"
+		}
+		{
+			id: "0D683098ADD8AB57"
+			title: "Tool and Accessories"
+		}
+		{
+			id: "442D5046BE94A770"
+			title: "Technology"
+		}
+		{
+			id: "7F229E0B3B898FB4"
+			title: "Magic"
+		}
+		{
+			id: "4E7D1F475ACE2E29"
+			title: "Food"
+		}
+		{
+			id: "4D083615809F6499"
+			title: "Economy"
+		}
+		{
+			id: "209FD28A3118C1AA"
+			title: "Decoration Mod"
+		}
+		{
+			id: "16F354679685E0AD"
+			title: "SCP Mod"
+		}
+		{
+			id: "55CA028FF41076E5"
+			title: "Vehicule"
+		}
+	]
+}

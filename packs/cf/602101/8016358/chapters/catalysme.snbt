@@ -1,0 +1,11 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "catalysme"
+	group: "7F229E0B3B898FB4"
+	id: "278FC57AC921330B"
+	order_index: 2
+	quest_links: [ ]
+	quests: [ ]
+	title: "Catalysme"
+}

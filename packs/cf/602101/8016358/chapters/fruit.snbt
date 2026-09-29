@@ -1,0 +1,11 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "fruit"
+	group: "4E7D1F475ACE2E29"
+	id: "64EFB4F601A14E2E"
+	order_index: 1
+	quest_links: [ ]
+	quests: [ ]
+	title: "Fruit"
+}

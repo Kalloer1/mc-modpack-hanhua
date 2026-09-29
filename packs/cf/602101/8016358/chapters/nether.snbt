@@ -1,0 +1,81 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "nether"
+	group: ""
+	hide_quest_until_deps_complete: true
+	icon: "moa_decor_toys:ghast"
+	id: "5AC7E81A687BDB0F"
+	order_index: 4
+	quest_links: [ ]
+	quests: [
+		{
+			dependencies: ["08BD87A2BE84D70C"]
+			icon: "minecraft:netherrack"
+			id: "62BCEF957BBF9849"
+			shape: "rsquare"
+			size: 3.0d
+			tasks: [{
+				id: "6BE039B60090E3B4"
+				title: "Nether"
+				type: "checkmark"
+			}]
+			x: 0.5d
+			y: 0.0d
+		}
+		{
+			id: "06A72BE4CC50EC23"
+			tasks: [{
+				block: "minecraft:ancient_debris"
+				block_type: 0
+				checkItem: false
+				id: "776970FD7BFCD32F"
+				type: "questsadditions:break"
+				value: 1L
+			}]
+			x: 0.5d
+			y: 3.0d
+		}
+		{
+			id: "4A77E0F8C122A12E"
+			tasks: [{
+				id: "145D0FB21F896049"
+				item: "minecraft:smithing_table"
+				type: "item"
+			}]
+			x: 0.5d
+			y: 7.5d
+		}
+		{
+			id: "078B62E848D07857"
+			tasks: [{
+				id: "5997FCA115EC1752"
+				item: "minecraft:netherite_scrap"
+				type: "item"
+			}]
+			x: 0.5d
+			y: 4.5d
+		}
+		{
+			id: "75E8A1D8E612127B"
+			tasks: [{
+				id: "0475EB08EF3ED85B"
+				item: "minecraft:netherite_ingot"
+				type: "item"
+			}]
+			x: 0.5d
+			y: 6.0d
+		}
+		{
+			id: "6123A528F9E60248"
+			tasks: [{
+				id: "2645903F873AB54B"
+				item: "minecraft:netherite_upgrade_smithing_template"
+				type: "item"
+			}]
+			x: 2.0d
+			y: 7.5d
+		}
+	]
+	title: "Nether"
+}

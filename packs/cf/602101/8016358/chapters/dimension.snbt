@@ -1,0 +1,108 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "dimension"
+	group: ""
+	icon: "minecraft:recovery_compass"
+	id: "1D026211382B5A61"
+	order_index: 2
+	quest_links: [ ]
+	quests: [
+		{
+			id: "4963AA2D58C47F4F"
+			rewards: [
+				{
+					auto: "enabled"
+					count: 10
+					id: "06968122EC89E031"
+					item: "minecraft:cooked_beef"
+					type: "item"
+				}
+				{
+					auto: "enabled"
+					id: "118273513598C75F"
+					item: "currency:hundred_dollar_bill"
+					type: "item"
+				}
+				{
+					auto: "enabled"
+					id: "4AB8F92608AD3651"
+					item: {
+						Count: 1
+						ForgeCaps: {
+							Parent: {
+								Items: [ ]
+								Size: 7
+							}
+						}
+						id: "currency:wallet"
+					}
+					type: "item"
+				}
+			]
+			tasks: [{
+				dimension: "minecraft:overworld"
+				id: "124F520E23CD0311"
+				type: "dimension"
+			}]
+			x: -3.0d
+			y: -0.5d
+		}
+		{
+			icon: "aether:aether_portal_frame"
+			id: "6AA471E804A3DCBC"
+			tasks: [{
+				dimension: "aether:the_aether"
+				id: "6003077A04D9CD99"
+				type: "dimension"
+			}]
+			x: -0.5d
+			y: -0.5d
+		}
+		{
+			icon: "minecraft:end_stone"
+			id: "573861DE47DCA195"
+			tasks: [{
+				dimension: "minecraft:the_end"
+				id: "2D46827C12B3D75C"
+				type: "dimension"
+			}]
+			x: 2.0d
+			y: -0.5d
+		}
+		{
+			icon: "minecraft:netherrack"
+			id: "08BD87A2BE84D70C"
+			tasks: [{
+				dimension: "minecraft:the_nether"
+				id: "1A26B3554B125B36"
+				type: "dimension"
+			}]
+			x: 4.5d
+			y: -0.5d
+		}
+		{
+			icon: "moa_decor_garden_:gemadejardin"
+			id: "36AA4298BBD450AC"
+			tasks: [{
+				dimension: "undergarden:undergarden"
+				id: "0483EBD5E0F7816D"
+				type: "dimension"
+			}]
+			x: 7.0d
+			y: -0.5d
+		}
+		{
+			icon: "chemicalscience:symbol_radiation"
+			id: "242A1622A6D315F7"
+			tasks: [{
+				dimension: "nuclearcraft:wasteland"
+				id: "04D32ECD99ECBAB6"
+				type: "dimension"
+			}]
+			x: 9.5d
+			y: -0.5d
+		}
+	]
+	title: "Dimension"
+}

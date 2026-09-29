@@ -1,0 +1,24 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "light"
+	group: "209FD28A3118C1AA"
+	id: "6B0FE4505E000844"
+	order_index: 2
+	quest_links: [ ]
+	quests: [{
+		dependencies: ["56E07A03CCFD42E7"]
+		id: "2F1E736D8B1053F9"
+		shape: "gear"
+		size: 3.0d
+		tasks: [{
+			icon: "industrialforegoing:laser_lens10"
+			id: "70635EC430B7D2B6"
+			title: "Light"
+			type: "custom"
+		}]
+		x: 0.0d
+		y: 0.0d
+	}]
+	title: "Light"
+}

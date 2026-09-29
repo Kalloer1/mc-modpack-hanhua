@@ -1,0 +1,11 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "seed"
+	group: "4E7D1F475ACE2E29"
+	id: "11E4110C77EC9A5A"
+	order_index: 0
+	quest_links: [ ]
+	quests: [ ]
+	title: "Seed"
+}

@@ -1,0 +1,127 @@
+{
+	id: "4A207017206A9BDC"
+	loot_size: 1
+	order_index: 1
+	rewards: [
+		{
+			item: {
+				Count: 1
+				id: "mysticalagriculture:inferium_helmet"
+				tag: {
+					Damage: 0
+				}
+			}
+			weight: 55.0f
+		}
+		{
+			item: {
+				Count: 1
+				id: "mysticalagriculture:prudentium_helmet"
+				tag: {
+					Damage: 0
+				}
+			}
+			weight: 40.0f
+		}
+		{
+			item: {
+				Count: 1
+				id: "mysticalagriculture:tertium_helmet"
+				tag: {
+					Damage: 0
+				}
+			}
+			weight: 20.0f
+		}
+		{
+			item: {
+				Count: 1
+				id: "mysticalagriculture:imperium_helmet"
+				tag: {
+					Damage: 0
+				}
+			}
+			weight: 19.0f
+		}
+		{
+			item: {
+				Count: 1
+				id: "mysticalagriculture:supremium_helmet"
+				tag: {
+					Damage: 0
+				}
+			}
+			weight: 6.0f
+		}
+		{
+			item: {
+				Count: 1
+				id: "mysticalagriculture:awakened_supremium_helmet"
+				tag: {
+					Damage: 0
+				}
+			}
+			weight: 3.0f
+		}
+		{
+			item: {
+				Count: 1
+				id: "mysticaladaptations:insanium_helmet"
+				tag: {
+					Damage: 0
+				}
+			}
+			weight: 2.0f
+		}
+		{
+			item: {
+				Count: 1
+				id: "mystical_extended_tier:ornium_helmet"
+				tag: {
+					Damage: 0
+				}
+			}
+			weight: 1.5f
+		}
+		{
+			item: {
+				Count: 1
+				id: "mystical_extended_tier:lightium_helmet"
+				tag: {
+					Damage: 0
+				}
+			}
+		}
+		{
+			item: {
+				Count: 1
+				id: "mystical_extended_tier:tornium_helmet"
+				tag: {
+					Damage: 0
+				}
+			}
+			weight: 0.75f
+		}
+		{
+			item: {
+				Count: 1
+				id: "mystical_extended_tier:ouranium_helmet"
+				tag: {
+					Damage: 0
+				}
+			}
+			weight: 0.25f
+		}
+		{
+			item: {
+				Count: 1
+				id: "minecraft:diamond_helmet"
+				tag: {
+					Damage: 0
+				}
+			}
+			weight: 120.0f
+		}
+	]
+	title: "Helmet"
+}

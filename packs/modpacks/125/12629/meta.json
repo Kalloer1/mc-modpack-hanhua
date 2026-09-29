@@ -17,6 +17,24 @@
       "no_text": 83
     },
     "fallbackReasons": {},
-    "extractSource": "modpacks-native"
+    "extractSource": "modpacks-native",
+    "mode": "lang",
+    "fileCount": 1,
+    "fileList": [
+      "lang/zh_cn.snbt"
+    ],
+    "perFile": {
+      "lang/zh_cn.snbt": {
+        "fields": 3058,
+        "translated": 2197,
+        "skipped": 861,
+        "fallback": 0,
+        "skipReasons": {
+          "empty": 778,
+          "no_text": 83
+        },
+        "fallbackReasons": {}
+      }
+    }
   }
 }

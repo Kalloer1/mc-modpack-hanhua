@@ -9,8 +9,11 @@
 
 用法::
 
-    from translate import translate_snbt_file
-    report = translate_snbt_file("en_us.snbt", "zh_cn.snbt")
+    from translate import translate_snbt_file, translate_sources
+    report = translate_snbt_file("en_us.snbt", "zh_cn.snbt")      # 单文件(lang 模式)
+    outputs, report, per_file = translate_sources(                 # 多文件(硬编码格式)
+        {"chapters/a.snbt": "...", "chapters/b.snbt": "..."}
+    )
     print(report.summary())
 """
 
@@ -22,7 +25,7 @@ import re
 import sys
 import time
 from pathlib import Path
-from typing import Callable, Iterable, Iterator, Sequence
+from typing import Callable, Iterable, Iterator, Mapping, Sequence
 
 import ftb_snbt_lib as slib
 
@@ -53,6 +56,7 @@ __all__ = [
     "translate_batch",
     "translate_lines",
     "translate_snbt_file",
+    "translate_sources",
 ]
 
 log = logging.getLogger(__name__)
@@ -370,6 +374,85 @@ def translate_snbt_file(
     return report
 
 
+def translate_sources(
+    files: Mapping[str, str],
+    target: str = "zh_cn",
+    *,
+    call: CallFn | None = None,
+    batch_size: int | None = None,
+    inter_batch_delay: float | None = None,
+    on_warning: Callable[[str], None] | None = None,
+) -> tuple[dict[str, str], TranslationReport, dict[str, dict[str, object]]]:
+    """一批 relpath -> SNBT 文本进,一批 relpath -> 译文文本出(硬编码多文件/语言文件通用)。
+
+    与 translate_snbt_file 的差别:所有文件的待翻译字段合并成一次分批翻译,
+    避免每个文件各起一批、把批间限速放大成文件数倍。字段级保护/校验与单文件一致
+    (占位符丢失或结构被改坏的字段单独回退原文)。
+    解析失败的文件原样透传并告警——宁可不翻,也不能把整包弄丢。
+
+    返回 (输出文本 {relpath: text}, 汇总统计, 每文件统计 {relpath: 字段统计或 {"error": …}})。
+    """
+    warn = on_warning or (lambda msg: log.warning("%s", msg))
+    report = TranslationReport()
+    per_file: dict[str, TranslationReport] = {}
+    errors: dict[str, str] = {}
+    parsed: dict[str, object] = {}
+    pending: list[tuple[str, snbt.FieldRef, str, dict[str, str]]] = []
+    masked_lines: list[str] = []
+
+    def record(relpath: str, status: str) -> None:
+        report.record(status)
+        per_file[relpath].record(status)
+
+    for relpath in sorted(files):  # 固定文件顺序,保证分批边界可复现
+        text = files[relpath]
+        try:
+            tag = slib.loads(text)
+        except Exception as exc:  # noqa: BLE001 - 单文件坏掉不该拖垮整包
+            message = f"{type(exc).__name__}: {exc}"
+            warn(f"{relpath}: SNBT 解析失败,原样保留({message})")
+            errors[relpath] = message
+            continue
+        parsed[relpath] = tag
+        per_file[relpath] = TranslationReport()
+        for ref in snbt.iter_translatable_fields(tag):
+            masked, mapping, skip_reason = snbt.prepare_field(ref.text)
+            if skip_reason:
+                record(relpath, skip_reason)
+                continue
+            pending.append((relpath, ref, ref.text, mapping))
+            masked_lines.append(masked)
+
+    translations = (
+        translate_lines(
+            masked_lines,
+            target,
+            call=call,
+            batch_size=batch_size,
+            inter_batch_delay=inter_batch_delay,
+        )
+        if masked_lines
+        else []
+    )
+
+    for (relpath, ref, raw, mapping), translated in zip(pending, translations):
+        text, status = snbt.apply_translation(raw, mapping, translated)
+        if status == "translated":
+            ref.set_text(text)
+        record(relpath, status)
+
+    outputs: dict[str, str] = {}
+    for relpath in files:
+        tag = parsed.get(relpath)
+        outputs[relpath] = slib.dumps(tag) if tag is not None else files[relpath]
+
+    per_file_stats: dict[str, dict[str, object]] = {
+        relpath: (per_file[relpath].as_stats() if relpath in per_file else {"error": errors[relpath]})
+        for relpath in files
+    }
+    return outputs, report, per_file_stats
+
+
 # ── 自测 ──────────────────────────────────────────────────────────────────────
 SAMPLE_SNBT = r'''{
 	chapter.0A1B2C.title: "&6Getting Started"
@@ -579,6 +662,62 @@ def _self_test() -> None:
     assert stats["fields"] == report.total and stats["translated"] == report.translated
     print("   ", stats)
     print("    as_stats() 字段: OK")
+
+    # 10. 多文件(硬编码章节格式):合并成一次分批,坏文件透传,统计汇总
+    print("\n[10] 一批 relpath->text(硬编码章节格式):")
+    chapter_a = (
+        '{\n\tid: "AAAA"\n\ttitle: "&6Getting Started"\n\tquests: [\n\t\t{\n\t\t\tid: "Q1"\n'
+        '\t\t\ttitle: "Craft a Stone Pickaxe"\n\t\t\tdescription: [\n'
+        '\t\t\t\t"Kill a minecraft:zombie with &c{0}&r damage."\n\t\t\t\t""\n\t\t\t]\n'
+        '\t\t\ttasks: [\n\t\t\t\t{\n\t\t\t\t\tcount: 1L\n\t\t\t\t\tid: "T1"\n'
+        '\t\t\t\t\titem: "minecraft:stone_pickaxe"\n\t\t\t\t\ttitle: "Pickaxe"\n'
+        '\t\t\t\t\ttype: "item"\n\t\t\t\t}\n\t\t\t]\n\t\t\tx: -17.5d\n\t\t}\n\t]\n}\n'
+    )
+    chapter_b = '{\n\tid: "BBBB"\n\tquests: []\n\ttitle: "Alarm"\n}\n'
+    data_snbt = '{\n\tdefault_autoclaim_rewards: "disabled"\n}\n'
+    broken = "this is { not snbt"
+    files = {
+        "chapters/a.snbt": chapter_a,
+        "chapters/b.snbt": chapter_b,
+        "data.snbt": data_snbt,
+        "broken.snbt": broken,
+    }
+    counting = _CountingCall()
+    outs, report_multi, per_file = translate_sources(files, "zh_cn", call=counting, inter_batch_delay=0)
+    print("   ", report_multi.summary())
+    print("    每文件:", {k: v.get("fields", v) for k, v in per_file.items()})
+
+    assert set(outs) == set(files), "输出键必须与输入一致"
+    assert len(counting.sizes) == 1, f"所有文件应合并成一次分批,实际 {counting.sizes}"
+    assert report_multi.translated == 5 and report_multi.skipped == 1, report_multi.as_stats()
+    assert sum(int(v["fields"]) for v in per_file.values() if "fields" in v) == report_multi.total, \
+        "每文件统计之和应等于汇总"
+
+    assert outs["broken.snbt"] == broken, "解析失败的文件必须原样透传"
+    assert "error" in per_file["broken.snbt"], per_file["broken.snbt"]
+    assert outs["data.snbt"] == data_snbt, "无可翻字段的文件应原样输出"
+    assert per_file["data.snbt"]["fields"] == 0, per_file["data.snbt"]
+
+    tag_a = slib.loads(outs["chapters/a.snbt"])
+    src_a = slib.loads(chapter_a)
+    assert tag_a["id"] == "AAAA" and "译" in tag_a["title"], tag_a["title"]
+    assert tag_a["quests"][0]["tasks"][0]["title"].startswith("译"), tag_a["quests"][0]["tasks"][0]["title"]
+    assert tag_a["quests"][0]["tasks"][0]["count"] == src_a["quests"][0]["tasks"][0]["count"]
+    assert tag_a["quests"][0]["x"] == src_a["quests"][0]["x"]
+    assert "minecraft:zombie" in tag_a["quests"][0]["description"][0]
+    assert "&c{0}&r" in tag_a["quests"][0]["description"][0], tag_a["quests"][0]["description"][0]
+    assert tag_a["quests"][0]["description"][1] == ""
+    assert slib.loads(outs["chapters/b.snbt"])["title"].startswith("译")
+    print("    合并单批、坏文件透传、数值/占位符/空行保持、每文件统计: OK")
+
+    # 11. mock 模式多文件:内容等价原文,不炸
+    print("\n[11] 无 Key mock 多文件:")
+    mock_outs, mock_report, _ = translate_sources(files, "zh_cn")
+    print("   ", mock_report.summary())
+    assert slib.loads(mock_outs["chapters/a.snbt"]) == src_a, "mock 下内容应等价原文"
+    assert mock_outs["broken.snbt"] == broken
+    assert mock_report.fallback == 0
+    print("    mock 等价原文、坏文件透传、无回退: OK")
 
     print("\n" + "=" * 72)
     print("全部自测通过")

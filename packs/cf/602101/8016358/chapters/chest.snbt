@@ -1,0 +1,40 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "chest"
+	group: "69F627DDE88E5C5D"
+	id: "48098555CFA576C5"
+	order_index: 0
+	quest_links: [ ]
+	quests: [
+		{
+			dependencies: ["5B714F30B52D237D"]
+			id: "4F39208A1DA6A68F"
+			tasks: [{
+				id: "43A3098E411545AB"
+				item: "minecraft:redstone_torch"
+				type: "item"
+			}]
+			x: 0.0d
+			y: 0.0d
+		}
+		{
+			id: "6F3279BA0AE0154C"
+			tasks: [{
+				id: "0383954EDFE0B8A8"
+				item: {
+					Count: 1
+					id: "ftbfiltersystem:smart_filter"
+					tag: {
+						"ftbfiltersystem:filter": "ftbfiltersystem:item_tag(sophisticatedstorage:base_tier_wooden_storage)"
+					}
+				}
+				title: "Any #sophisticatedstorage:base_tier_wooden_storage"
+				type: "item"
+			}]
+			x: 0.0d
+			y: 2.0d
+		}
+	]
+	title: "Chest and Barrel"
+}

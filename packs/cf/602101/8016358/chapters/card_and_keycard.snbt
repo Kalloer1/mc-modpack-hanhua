@@ -1,0 +1,24 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "card_and_keycard"
+	group: "16F354679685E0AD"
+	id: "4D1D15E927A64E60"
+	order_index: 4
+	quest_links: [ ]
+	quests: [{
+		dependencies: ["65638D32B3F8EEFC"]
+		id: "3A340D684FD54CC5"
+		shape: "gear"
+		size: 3.0d
+		tasks: [{
+			icon: "industrialforegoing:laser_lens15"
+			id: "3F167F97BAA8AAED"
+			title: "Keys And Keycards"
+			type: "custom"
+		}]
+		x: 0.0d
+		y: 0.0d
+	}]
+	title: "Card and Keycard"
+}

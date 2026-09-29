@@ -1,0 +1,24 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "glass"
+	group: "209FD28A3118C1AA"
+	id: "5A5546CEA39B51ED"
+	order_index: 4
+	quest_links: [ ]
+	quests: [{
+		dependencies: ["5A8EFEBF4CB4967F"]
+		id: "243CB7736B546CCF"
+		shape: "gear"
+		size: 3.0d
+		tasks: [{
+			icon: "industrialforegoing:laser_lens10"
+			id: "08DD8975247D71BE"
+			title: "Glass"
+			type: "custom"
+		}]
+		x: 0.0d
+		y: 0.0d
+	}]
+	title: "Glass"
+}

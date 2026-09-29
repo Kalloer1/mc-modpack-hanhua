@@ -1,0 +1,1057 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	disable_toast: true
+	filename: "shop"
+	group: "4D083615809F6499"
+	icon: "currency:hundred_dollar_bill"
+	id: "1B0A9736AA0DF2C6"
+	order_index: 1
+	quest_links: [ ]
+	quests: [
+		{
+			dependencies: ["3237D1BFBB1A21A4"]
+			hide_until_deps_complete: true
+			icon: "moa_decor_toys:vendedorambulante"
+			id: "0C1B180D3C764595"
+			shape: "gear"
+			size: 3.0d
+			tasks: [
+				{
+					id: "34F1DFCE4DE9593D"
+					title: "Unlock Trade"
+					type: "checkmark"
+				}
+				{
+					consume_items: true
+					count: 10L
+					id: "00BC4828E5C0A2E9"
+					item: {
+						Count: 10
+						id: "currency:hundred_dollar_bill"
+					}
+					type: "item"
+				}
+				{
+					id: "2C9E61FAAE6D3E4A"
+					points: false
+					type: "xp"
+					value: 50L
+				}
+			]
+			x: 7.5d
+			y: -9.0d
+		}
+		{
+			dependencies: ["3237D1BFBB1A21A4"]
+			hide_until_deps_complete: true
+			icon: "currency:dollar_bill"
+			id: "6060B3739D686CE7"
+			shape: "gear"
+			size: 3.0d
+			tasks: [
+				{
+					id: "5A0C9E462EF86B7C"
+					title: "Unlock Shop"
+					type: "checkmark"
+				}
+				{
+					id: "5AF9453B11A1F349"
+					points: false
+					type: "xp"
+					value: 10L
+				}
+			]
+			x: -4.5d
+			y: -9.0d
+		}
+		{
+			icon: "currency:hundred_dollar_bill"
+			id: "3237D1BFBB1A21A4"
+			rewards: [{
+				id: "2B010EEADE079121"
+				item: "scpfr:coin"
+				type: "item"
+			}]
+			shape: "rsquare"
+			size: 3.0d
+			tasks: [{
+				id: "0F3A12F2ADDCE3D4"
+				title: "Trade"
+				type: "checkmark"
+			}]
+			title: "Economy System"
+			x: 3.0d
+			y: -9.0d
+		}
+		{
+			can_repeat: true
+			dependencies: ["3237D1BFBB1A21A4"]
+			disable_toast: true
+			hide_until_deps_complete: true
+			id: "42199D335D5DB562"
+			rewards: [{
+				exclude_from_claim_all: true
+				id: "6EEF3BCE760DB6EA"
+				item: "currency:dollar_bill"
+				type: "item"
+			}]
+			shape: "pentagon"
+			size: 2.0d
+			tasks: [{
+				consume_items: true
+				count: 64L
+				id: "18A4390770A167C9"
+				item: "scpfr:coin"
+				type: "item"
+			}]
+			x: 3.0d
+			y: -12.0d
+		}
+		{
+			can_repeat: true
+			dependencies: ["1F468CC3D7767C5A"]
+			disable_toast: true
+			icon: "minecraft:stone"
+			id: "550FADAE8584CC3A"
+			rewards: [
+				{
+					count: 2
+					id: "109B960C447EC810"
+					item: "scpfr:coin"
+					type: "item"
+				}
+				{
+					id: "7F7770D8F70618D6"
+					quest: ""
+					time: 8040
+					type: "extraquests:timer"
+				}
+			]
+			tasks: [
+				{
+					id: "12A4AA176DB3E471"
+					title: "Stone"
+					type: "checkmark"
+				}
+				{
+					count: 64L
+					id: "4154A8958931E4C7"
+					item: "minecraft:stone"
+					type: "item"
+				}
+			]
+			x: -3.0d
+			y: -15.5d
+		}
+		{
+			can_repeat: true
+			dependencies: ["1F468CC3D7767C5A"]
+			disable_toast: true
+			icon: "minecraft:cobblestone"
+			id: "719420E191EC2C09"
+			rewards: [
+				{
+					id: "760DFB9A294847C4"
+					item: "scpfr:coin"
+					type: "item"
+				}
+				{
+					id: "2B8AE73AB4539306"
+					quest: ""
+					time: 8040
+					type: "extraquests:timer"
+				}
+			]
+			tasks: [
+				{
+					id: "53277428EBC7DD93"
+					title: "Cobblestone"
+					type: "checkmark"
+				}
+				{
+					block: "minecraft:cobblestone"
+					block_type: 0
+					checkItem: false
+					id: "498764ED0B96FCB5"
+					type: "questsadditions:break"
+					value: 64L
+				}
+			]
+			title: "Cobbelstone"
+			x: -3.5d
+			y: -16.5d
+		}
+		{
+			can_repeat: true
+			dependencies: ["1F468CC3D7767C5A"]
+			disable_toast: true
+			icon: "minecraft:dirt"
+			id: "607917CD3BD94512"
+			rewards: [
+				{
+					id: "13FA6C351A4CC84E"
+					item: "scpfr:coin"
+					type: "item"
+				}
+				{
+					id: "438925A64B85F727"
+					quest: ""
+					time: 8040
+					type: "extraquests:timer"
+				}
+			]
+			tasks: [
+				{
+					disable_toast: true
+					id: "76CA20839FDAB2B6"
+					title: "Dirt"
+					type: "checkmark"
+				}
+				{
+					count: 64L
+					disable_toast: true
+					id: "7CCB6B5AFA6B040C"
+					item: "minecraft:dirt"
+					type: "item"
+				}
+			]
+			x: -6.0d
+			y: -15.5d
+		}
+		{
+			can_repeat: true
+			dependencies: ["1F468CC3D7767C5A"]
+			disable_toast: true
+			icon: "minecraft:sand"
+			id: "116624735A5B7DC8"
+			rewards: [
+				{
+					id: "6810DE9112FD3E2D"
+					item: "scpfr:coin"
+					type: "item"
+				}
+				{
+					id: "542AFE6E5F030455"
+					quest: ""
+					time: 8040
+					type: "extraquests:timer"
+				}
+			]
+			tasks: [
+				{
+					id: "7AC64720D427B89B"
+					title: "Sand"
+					type: "checkmark"
+				}
+				{
+					count: 64L
+					id: "60813E1B8980C87D"
+					item: "minecraft:sand"
+					type: "item"
+				}
+			]
+			x: -5.5d
+			y: -16.5d
+		}
+		{
+			can_repeat: true
+			dependencies: ["1F468CC3D7767C5A"]
+			disable_toast: true
+			icon: "minecraft:grass_block"
+			id: "1351AC16F68FF58F"
+			rewards: [
+				{
+					id: "1B3CA63EA1A08053"
+					item: "scpfr:coin"
+					type: "item"
+				}
+				{
+					id: "6DC01981DD014C78"
+					quest: ""
+					time: 8040
+					type: "extraquests:timer"
+				}
+			]
+			tasks: [
+				{
+					id: "477066337E755770"
+					title: "Grass"
+					type: "checkmark"
+				}
+				{
+					consume_items: true
+					count: 20L
+					id: "0FAEF50C138E2560"
+					item: "minecraft:grass_block"
+					type: "item"
+				}
+			]
+			x: -6.0d
+			y: -14.0d
+		}
+		{
+			can_repeat: true
+			dependencies: ["1F468CC3D7767C5A"]
+			disable_toast: true
+			icon: "minecraft:gravel"
+			id: "376AAC12987AB82B"
+			rewards: [
+				{
+					count: 2
+					id: "5330C23C2D5845B5"
+					item: "scpfr:coin"
+					type: "item"
+				}
+				{
+					id: "35F2267511FC4737"
+					quest: ""
+					time: 8040
+					type: "extraquests:timer"
+				}
+			]
+			tasks: [
+				{
+					id: "099FC21EF913C876"
+					title: "Gravel"
+					type: "checkmark"
+				}
+				{
+					count: 64L
+					id: "181F5F74E765FB03"
+					item: "minecraft:gravel"
+					type: "item"
+				}
+			]
+			x: -4.5d
+			y: -17.5d
+		}
+		{
+			can_repeat: true
+			dependencies: ["1F468CC3D7767C5A"]
+			disable_toast: true
+			icon: "minecraft:stone_bricks"
+			id: "4A4FFA2B4B089C9D"
+			rewards: [
+				{
+					count: 3
+					id: "6483B128631CE8F3"
+					item: "scpfr:coin"
+					type: "item"
+				}
+				{
+					id: "0C575B2D70073CC8"
+					quest: ""
+					time: 8040
+					type: "extraquests:timer"
+				}
+			]
+			tasks: [
+				{
+					id: "703EB06FA5ED3D73"
+					title: "Stone Brick"
+					type: "checkmark"
+				}
+				{
+					count: 16L
+					id: "157A07365CF2165F"
+					item: "minecraft:stone_bricks"
+					type: "item"
+				}
+			]
+			title: "Stone Bricks"
+			x: -3.0d
+			y: -14.0d
+		}
+		{
+			can_repeat: true
+			dependencies: ["4B5A5C4C204F40DF"]
+			disable_toast: true
+			icon: "minecraft:copper_ingot"
+			id: "24CA6B855C73E90C"
+			rewards: [{
+				id: "163335471E4F24CF"
+				item: "scpfr:coin"
+				type: "item"
+			}]
+			tasks: [
+				{
+					id: "791984586D74FC9E"
+					title: "Copper"
+					type: "checkmark"
+				}
+				{
+					count: 1000L
+					id: "2B03799399B115AD"
+					item: {
+						Count: 1000
+						id: "minecraft:copper_ingot"
+					}
+					type: "item"
+				}
+			]
+			x: -9.0d
+			y: -10.5d
+		}
+		{
+			can_repeat: true
+			dependencies: ["4B5A5C4C204F40DF"]
+			disable_toast: true
+			icon: "minecraft:iron_ingot"
+			id: "4A50F891ECEBD7B1"
+			rewards: [{
+				id: "7C775E5F0135BEBC"
+				item: "scpfr:coin"
+				type: "item"
+			}]
+			tasks: [
+				{
+					id: "1DD4187E8A519DA4"
+					title: "Iron"
+					type: "checkmark"
+				}
+				{
+					count: 1000L
+					id: "2EB7058F763E9D57"
+					item: {
+						Count: 1000
+						id: "minecraft:iron_ingot"
+					}
+					type: "item"
+				}
+			]
+			x: -9.0d
+			y: -7.5d
+		}
+		{
+			can_repeat: true
+			dependencies: ["4B5A5C4C204F40DF"]
+			disable_toast: true
+			icon: "minecraft:gold_ingot"
+			id: "4B7032D44954A348"
+			rewards: [{
+				id: "2B3BD7B3F8A10482"
+				item: "scpfr:coin"
+				type: "item"
+			}]
+			tasks: [
+				{
+					id: "6647F2AAF1C20B68"
+					title: "Gold"
+					type: "checkmark"
+				}
+				{
+					count: 1000L
+					id: "7115B726E4355A0F"
+					item: {
+						Count: 1000
+						id: "minecraft:gold_ingot"
+					}
+					type: "item"
+				}
+			]
+			x: -11.0d
+			y: -10.5d
+		}
+		{
+			can_repeat: true
+			dependencies: ["4B5A5C4C204F40DF"]
+			disable_toast: true
+			icon: "minecraft:diamond"
+			id: "158912126A40E056"
+			rewards: [{
+				id: "4B149CCA5DA6B111"
+				item: "scpfr:coin"
+				type: "item"
+			}]
+			tasks: [
+				{
+					id: "7F73DA9B382DD4B5"
+					title: "Diamond"
+					type: "checkmark"
+				}
+				{
+					count: 1000L
+					id: "45CCBA54FC315EA0"
+					item: {
+						Count: 1000
+						id: "minecraft:diamond"
+					}
+					type: "item"
+				}
+			]
+			x: -11.0d
+			y: -7.5d
+		}
+		{
+			can_repeat: true
+			dependencies: ["4B5A5C4C204F40DF"]
+			disable_toast: true
+			icon: "minecraft:netherite_ingot"
+			id: "437B40EC4D87953A"
+			rewards: [{
+				id: "529B881FE491F8D6"
+				item: "scpfr:coin"
+				type: "item"
+			}]
+			tasks: [
+				{
+					id: "65E95A99D5B2EA38"
+					title: "Netherite"
+					type: "checkmark"
+				}
+				{
+					count: 1000L
+					id: "3BFBC31E9186D6A7"
+					item: {
+						Count: 1000
+						id: "minecraft:netherite_ingot"
+					}
+					type: "item"
+				}
+			]
+			x: -13.0d
+			y: -9.0d
+		}
+		{
+			can_repeat: true
+			dependencies: ["4B5A5C4C204F40DF"]
+			disable_toast: true
+			icon: "minecraft:emerald"
+			id: "170B8D9AE63CEA00"
+			rewards: [{
+				id: "2CBBCE51DBC0E9F7"
+				item: "scpfr:coin"
+				type: "item"
+			}]
+			tasks: [
+				{
+					id: "4357031D3B380905"
+					title: "Emerald"
+					type: "checkmark"
+				}
+				{
+					count: 1000L
+					id: "268CF4FF9747CF25"
+					item: {
+						Count: 1000
+						id: "minecraft:emerald"
+					}
+					type: "item"
+				}
+			]
+			x: -12.0d
+			y: -10.0d
+		}
+		{
+			can_repeat: true
+			dependencies: ["4B5A5C4C204F40DF"]
+			disable_toast: true
+			icon: "minecraft:redstone"
+			id: "031D108203C82201"
+			rewards: [{
+				id: "7CD99A0C6D5D994A"
+				item: "scpfr:coin"
+				type: "item"
+			}]
+			tasks: [
+				{
+					id: "3B5D06A24702CEC8"
+					title: "tet"
+					type: "checkmark"
+				}
+				{
+					count: 1000L
+					id: "726CCE16C527053F"
+					item: {
+						Count: 1000
+						id: "minecraft:redstone"
+					}
+					type: "item"
+				}
+			]
+			title: "Redstone"
+			x: -12.0d
+			y: -8.0d
+		}
+		{
+			can_repeat: true
+			dependencies: ["4702D8599CF5EAAA"]
+			disable_toast: true
+			icon: "croptopia:beef_wellington"
+			id: "6C63E5CC45DE21C6"
+			rewards: [{
+				id: "3427D0F48DB6FF4A"
+				item: "scpfr:coin"
+				type: "item"
+			}]
+			tasks: [
+				{
+					id: "756A19398F1EBC75"
+					title: "et"
+					type: "checkmark"
+				}
+				{
+					count: 128L
+					id: "4E799570E84DFCA0"
+					item: "croptopia:beef_wellington"
+					title: "Beef"
+					type: "item"
+				}
+			]
+			title: "Beef Wellington"
+			x: -6.0d
+			y: -4.0d
+		}
+		{
+			can_repeat: true
+			dependencies: ["4702D8599CF5EAAA"]
+			disable_toast: true
+			icon: "croptopia:croque_madame"
+			id: "6EBA12DD4CF4D2BF"
+			rewards: [{
+				id: "0632BD09C06E83AF"
+				item: "scpfr:coin"
+				type: "item"
+			}]
+			tasks: [
+				{
+					id: "719D9A22DA07417A"
+					title: "Croque Madame"
+					type: "checkmark"
+				}
+				{
+					count: 128L
+					id: "7C94B518B269A019"
+					item: "croptopia:croque_madame"
+					type: "item"
+				}
+			]
+			x: -3.0d
+			y: -4.0d
+		}
+		{
+			can_repeat: true
+			dependencies: ["4702D8599CF5EAAA"]
+			disable_toast: true
+			icon: "croptopia:trifle"
+			id: "5D0AE6EE9F6EC4E6"
+			rewards: [{
+				id: "7D565938A6C1CCD3"
+				item: "scpfr:coin"
+				type: "item"
+			}]
+			tasks: [
+				{
+					id: "7C7CEC69276771D6"
+					title: "Triffle"
+					type: "checkmark"
+				}
+				{
+					count: 128L
+					id: "35658E47DE61BC1D"
+					item: {
+						Count: 128
+						id: "croptopia:trifle"
+					}
+					type: "item"
+				}
+			]
+			x: -6.0d
+			y: -2.5d
+		}
+		{
+			can_repeat: true
+			dependencies: ["4702D8599CF5EAAA"]
+			disable_toast: true
+			icon: "croptopia:pumpkin_spice_latte"
+			id: "65778AA61E469CDF"
+			rewards: [{
+				id: "1A3D8238513BC1DC"
+				item: "scpfr:coin"
+				type: "item"
+			}]
+			tasks: [
+				{
+					id: "201DEAF560ABA76F"
+					title: "Pumpkin Spice Latte"
+					type: "checkmark"
+				}
+				{
+					count: 128L
+					id: "3AD36A51A89D904E"
+					item: {
+						Count: 128
+						id: "croptopia:pumpkin_spice_latte"
+					}
+					type: "item"
+				}
+			]
+			x: -3.0d
+			y: -2.5d
+		}
+		{
+			can_repeat: true
+			dependencies: ["4702D8599CF5EAAA"]
+			disable_toast: true
+			icon: "croptopia:ajvar"
+			id: "0801AED82D78B15D"
+			rewards: [{
+				id: "2B7E585C11DB52FE"
+				item: "scpfr:coin"
+				type: "item"
+			}]
+			tasks: [
+				{
+					id: "60811A99EB12708F"
+					title: "Ajvar"
+					type: "checkmark"
+				}
+				{
+					count: 128L
+					id: "2777B745306AB9CF"
+					item: {
+						Count: 128
+						id: "croptopia:ajvar"
+					}
+					type: "item"
+				}
+			]
+			x: -5.5d
+			y: -1.5d
+		}
+		{
+			can_repeat: true
+			dependencies: ["4702D8599CF5EAAA"]
+			disable_toast: true
+			icon: "croptopia:the_big_breakfast"
+			id: "5D3CA55C657EC6B3"
+			rewards: [{
+				id: "03533B822063F5EC"
+				item: "scpfr:coin"
+				type: "item"
+			}]
+			tasks: [
+				{
+					id: "774F027DF28D59A8"
+					title: "The Big Breakfast"
+					type: "checkmark"
+				}
+				{
+					count: 128L
+					id: "794785397DFAFC1E"
+					item: {
+						Count: 128
+						id: "croptopia:the_big_breakfast"
+					}
+					type: "item"
+				}
+			]
+			x: -3.5d
+			y: -1.5d
+		}
+		{
+			can_repeat: true
+			dependencies: ["4702D8599CF5EAAA"]
+			disable_toast: true
+			icon: "croptopia:shepherds_pie"
+			id: "3DC98619B502F2B7"
+			rewards: [{
+				id: "0251E7A9F4ADA4F4"
+				item: "scpfr:coin"
+				type: "item"
+			}]
+			tasks: [
+				{
+					id: "78A5F4A4F63500F2"
+					title: "Shepherd's Pie"
+					type: "checkmark"
+				}
+				{
+					count: 128L
+					id: "4A35C7CCDE6983B5"
+					item: {
+						Count: 128
+						id: "croptopia:shepherds_pie"
+					}
+					type: "item"
+				}
+			]
+			x: -4.5d
+			y: -0.5d
+		}
+		{
+			dependencies: ["6060B3739D686CE7"]
+			disable_toast: true
+			icon: "minecraft:cooked_beef"
+			id: "4702D8599CF5EAAA"
+			shape: "hexagon"
+			size: 2.0d
+			tasks: [{
+				disable_toast: true
+				id: "25C0250891F244BA"
+				points: false
+				type: "xp"
+				value: 60L
+			}]
+			x: -4.5d
+			y: -5.5d
+		}
+		{
+			dependencies: ["6060B3739D686CE7"]
+			icon: "minecraft:iron_ore"
+			id: "4B5A5C4C204F40DF"
+			shape: "hexagon"
+			size: 2.0d
+			tasks: [{
+				id: "747E4C6ECB7C0816"
+				points: false
+				type: "xp"
+				value: 40L
+			}]
+			x: -8.0d
+			y: -9.0d
+		}
+		{
+			dependencies: ["6060B3739D686CE7"]
+			icon: "minecraft:grass_block"
+			id: "1F468CC3D7767C5A"
+			shape: "hexagon"
+			size: 2.0d
+			tasks: [{
+				id: "1025C2578BEEC9DF"
+				points: false
+				type: "xp"
+				value: 20L
+			}]
+			x: -4.5d
+			y: -12.5d
+		}
+		{
+			dependencies: ["0C1B180D3C764595"]
+			icon: "quark:paper_lantern_sakura"
+			id: "5364BD19F7055966"
+			shape: "hexagon"
+			size: 2.0d
+			tasks: [{
+				id: "590502FA4BDA3B05"
+				points: false
+				type: "xp"
+				value: 20L
+			}]
+			title: "Decoration Part"
+			x: 11.0d
+			y: -10.0d
+		}
+		{
+			dependencies: ["5BBB00BBEF3C3748"]
+			icon: "mts:qmp_s.btr80_8"
+			id: "3BD34DE9BC4CCAA3"
+			shape: "hexagon"
+			size: 2.0d
+			tasks: [{
+				id: "67AF409F41FE5D1A"
+				points: false
+				type: "xp"
+				value: 50L
+			}]
+			title: "Vehicul Part"
+			x: 17.0d
+			y: -10.0d
+		}
+		{
+			dependencies: ["5364BD19F7055966"]
+			icon: "scpfr:scp_label_2"
+			id: "5BBB00BBEF3C3748"
+			shape: "hexagon"
+			size: 2.0d
+			tasks: [{
+				id: "7DF53A1EE0C694EA"
+				points: false
+				type: "xp"
+				value: 30L
+			}]
+			title: "SCP Part"
+			x: 14.0d
+			y: -8.0d
+		}
+		{
+			dependencies: ["5364BD19F7055966"]
+			icon: "refurbished_furniture:light_electricity_generator"
+			id: "3CB12B7C1FE3CF28"
+			tasks: [{
+				id: "67EC380D196EF87C"
+				title: "Electronic"
+				type: "checkmark"
+			}]
+			x: 10.0d
+			y: -12.0d
+		}
+		{
+			dependencies: ["5364BD19F7055966"]
+			icon: "modernxl_ii:tissed_lamp_double_brown"
+			id: "56E07A03CCFD42E7"
+			tasks: [{
+				id: "7445CA24ED79ABB6"
+				title: "Furnitures"
+				type: "checkmark"
+			}]
+			title: "Light"
+			x: 12.0d
+			y: -12.0d
+		}
+		{
+			dependencies: ["5364BD19F7055966"]
+			icon: "modernxl_ii:bed_simple_black_wood"
+			id: "3CEB2DE264C50A2D"
+			tasks: [{
+				id: "3DEADBEF918FA3F0"
+				title: "Light"
+				type: "checkmark"
+			}]
+			title: "Bedding"
+			x: 10.0d
+			y: -14.0d
+		}
+		{
+			dependencies: ["5364BD19F7055966"]
+			icon: "modernxl_ii:bamboo_pot_book"
+			id: "257291BDE2B9CC6D"
+			tasks: [{
+				id: "02B10A3B6D7F6205"
+				title: "Furnitures"
+				type: "checkmark"
+			}]
+			x: 12.0d
+			y: -14.0d
+		}
+		{
+			dependencies: ["5364BD19F7055966"]
+			icon: "chisel:noborder/glass"
+			id: "5A8EFEBF4CB4967F"
+			tasks: [{
+				id: "1085E2919D9D4C87"
+				title: "Glass"
+				type: "checkmark"
+			}]
+			x: 10.0d
+			y: -16.0d
+		}
+		{
+			dependencies: ["5364BD19F7055966"]
+			icon: "moa_decor_garden_:gnomodejardin"
+			id: "4C6E4FD936D2D822"
+			tasks: [{
+				id: "577CB253E2A02599"
+				title: "Garden"
+				type: "checkmark"
+			}]
+			x: 12.0d
+			y: -16.0d
+		}
+		{
+			dependencies: ["5BBB00BBEF3C3748"]
+			icon: "scpfr:level_6keycard"
+			id: "65638D32B3F8EEFC"
+			tasks: [{
+				id: "5134ECCD4420BF08"
+				title: "Cards And Keycards"
+				type: "checkmark"
+			}]
+			x: 13.0d
+			y: -6.0d
+		}
+		{
+			dependencies: ["5BBB00BBEF3C3748"]
+			icon: "scpfr:scp_294"
+			id: "322E65F3BFE700DF"
+			tasks: [{
+				id: "194E5242AD2A7049"
+				title: "Decoration"
+				type: "checkmark"
+			}]
+			x: 15.0d
+			y: -6.0d
+		}
+		{
+			dependencies: ["5BBB00BBEF3C3748"]
+			icon: "securitycraft:alarm"
+			id: "3327CF07A40ADF6C"
+			tasks: [{
+				id: "7ECD86AEA7A487A0"
+				title: "Alarm"
+				type: "checkmark"
+			}]
+			x: 13.0d
+			y: -4.0d
+		}
+		{
+			dependencies: ["5BBB00BBEF3C3748"]
+			icon: "scpfr:hcz_door"
+			id: "7D8F9B09F8D7E210"
+			tasks: [{
+				id: "5A00FBA219E8210F"
+				title: "Door"
+				type: "checkmark"
+			}]
+			x: 15.0d
+			y: -4.0d
+		}
+		{
+			dependencies: ["5BBB00BBEF3C3748"]
+			icon: {
+				Count: 1
+				id: "scpfr:light_armor_chestplate"
+				tag: {
+					Damage: 0
+				}
+			}
+			id: "6E0E2A842D3F6536"
+			tasks: [{
+				id: "076E52BB932EE483"
+				title: "Armor"
+				type: "checkmark"
+			}]
+			x: 14.0d
+			y: -2.0d
+		}
+		{
+			dependencies: ["3237D1BFBB1A21A4"]
+			hide_until_deps_complete: true
+			id: "58AF2E8B25156124"
+			shape: "rsquare"
+			size: 2.0d
+			tasks: [{
+				consume_items: true
+				id: "03D09C6B000D9661"
+				item: "scpfr:playing_card"
+				type: "item"
+			}]
+			title: "Casino Acces"
+			x: 3.0d
+			y: -5.5d
+		}
+		{
+			can_repeat: true
+			disable_toast: true
+			id: "2AAC472A20A709C0"
+			rewards: [{
+				count: 10
+				id: "5AEF6F93502B9EAF"
+				item: "currency:hundred_dollar_bill"
+				team_reward: false
+				type: "item"
+			}]
+			shape: "rsquare"
+			size: 3.0d
+			tasks: [{
+				id: "40188B80FE17616A"
+				item: "scpfr:master_card"
+				type: "item"
+			}]
+			x: 3.0d
+			y: -16.5d
+		}
+	]
+	title: "Central Shop"
+}

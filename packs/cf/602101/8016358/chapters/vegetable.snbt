@@ -1,0 +1,11 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "vegetable"
+	group: "4E7D1F475ACE2E29"
+	id: "7F84145751EF7069"
+	order_index: 2
+	quest_links: [ ]
+	quests: [ ]
+	title: "Vegetable"
+}

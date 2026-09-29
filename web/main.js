@@ -1,13 +1,16 @@
 /*
- * MC 整合包汉化共享库 —— 前端逻辑(纯静态,无框架)。
+ * MC 整合包汉化共享库 —— 前端逻辑(纯静态,无框架、无 Token)。
  *
- * 数据源:仓库根 index.json,结构由 src/index_store.py 定稿:
+ * 数据源:index.json,结构由 src/index_store.py 定稿:
  *   { version, updatedAt, entries: [ { source, projectId, fileId, name,
  *     mcVersion, status, path, translatedAt, stats } ] }
  *   status ∈ pending | done | failed | no_ftbq | already_localized
  *   成品文件 = {path}/zh_cn.snbt
+ *   生产环境读仓库根的 raw index.json;本地(localhost/file://)优先本地文件,
+ *   读不到退到 sample/index.json;?demo=1 强制示例数据。
  *
- * 所有可配置项在 config.js;本文件不硬编码任何真实仓库地址。
+ * 提交:打开预填好的 GitHub Issue 页(.github/workflows/on-issue.yml 在服务端处理),
+ * 浏览器不需要任何 Token。可配置项都在 config.js。
  */
 (() => {
   "use strict";
@@ -22,7 +25,7 @@
     already_localized: { label: "自带汉化", cls: "s-localized" },
   };
 
-  const QUEUE_KEY = "mc_web.pending_submissions.v1";
+  const HISTORY_KEY = "mc_web.pending_submissions.v1";
   const SNBT_FILE = "zh_cn.snbt";
   const CF_URL_RE =
     /^https?:\/\/(?:www\.)?curseforge\.com\/minecraft\/modpacks\/([A-Za-z0-9._-]+)(?:\/files\/(\d+))?\/?(?:[?#].*)?$/i;
@@ -36,18 +39,34 @@
   const form = $("submit-form");
   const input = $("cf-url");
   const hint = $("form-hint");
-  const queueWrap = $("queue-wrap");
-  const queueList = $("queue-list");
+  const historyWrap = $("history-wrap");
+  const historyList = $("history-list");
 
   const params = new URLSearchParams(location.search);
   const forceDemo = params.get("demo") === "1";
   let usedSample = false;
 
   // ── index.json 加载 ────────────────────────────────────────────────────────
-  // 依次尝试:配置地址 → 同目录 → 示例数据;?demo=1 时直接用示例。
+  function isLocalPage() {
+    return (
+      location.protocol === "file:" ||
+      ["localhost", "127.0.0.1", "::1", ""].includes(location.hostname)
+    );
+  }
+
+  function rawBase() {
+    if (cfg.RAW_BASE) return String(cfg.RAW_BASE).replace(/\/+$/, "");
+    if (cfg.GITHUB_REPO) {
+      return `https://raw.githubusercontent.com/${cfg.GITHUB_REPO}/${cfg.BRANCH || "main"}`;
+    }
+    return "";
+  }
+
   const candidates = (forceDemo
     ? ["sample/index.json"]
-    : [cfg.INDEX_URL || "../index.json", "index.json", "sample/index.json"]
+    : isLocalPage()
+      ? ["../index.json", "index.json", "sample/index.json"]
+      : [`${rawBase()}/index.json`, "../index.json", "index.json", "sample/index.json"]
   ).filter(Boolean);
 
   async function loadIndex() {
@@ -85,17 +104,13 @@
     return isNaN(d.getTime()) ? String(iso) : d.toLocaleString();
   }
 
-  /** done 条目 → zh_cn.snbt 的 raw 链接;示例数据返回空串(按钮置灰)。 */
+  /** done 条目 → zh_cn.snbt 的 raw 链接;示例数据/未配置仓库时返回空串。 */
   function resolveRawUrl(entry) {
+    if (usedSample) return "";
     const path = String(entry.path || "").replace(/^\/+|\/+$/g, "");
-    if (!path || usedSample) return "";
-    const file = `${path}/${SNBT_FILE}`;
-    if (cfg.RAW_BASE) return `${String(cfg.RAW_BASE).replace(/\/+$/, "")}/${file}`;
-    if (cfg.GITHUB_REPO) {
-      return `https://raw.githubusercontent.com/${cfg.GITHUB_REPO}/${cfg.BRANCH || "main"}/${file}`;
-    }
-    // 未配置仓库:用站点相对路径(Pages 以仓库根为站点根、页面在 /web/ 时成立)
-    return `../${file}`;
+    const base = rawBase();
+    if (!path || !base) return "";
+    return `${base}/${path}/${SNBT_FILE}`;
   }
 
   function row(label, value) {
@@ -187,7 +202,7 @@
     if (usedSample) {
       demoBanner.hidden = false;
       demoBanner.textContent =
-        "当前展示的是示例数据(web/sample/index.json):仓库根还没有 index.json,或页面被 ?demo=1 强制指定。";
+        "当前展示的是示例数据(web/sample/index.json):未读到真实 index.json,或页面被 ?demo=1 强制指定。";
     }
   }
 
@@ -199,10 +214,10 @@
       "请在仓库根目录运行 python -m http.server 8000 后访问 http://localhost:8000/web/。";
   }
 
-  // ── 本地待办队列(localStorage)────────────────────────────────────────────
-  function readQueue() {
+  // ── 本机提交记录(localStorage,只做回查,不参与提交)──────────────────────
+  function readHistory() {
     try {
-      const raw = localStorage.getItem(QUEUE_KEY);
+      const raw = localStorage.getItem(HISTORY_KEY);
       const list = raw ? JSON.parse(raw) : [];
       return Array.isArray(list) ? list : [];
     } catch {
@@ -210,31 +225,31 @@
     }
   }
 
-  function writeQueue(list) {
+  function writeHistory(list) {
     try {
-      localStorage.setItem(QUEUE_KEY, JSON.stringify(list));
+      localStorage.setItem(HISTORY_KEY, JSON.stringify(list));
     } catch {
-      /* 隐私模式等场景下写不进去,忽略 */
+      /* 隐私模式等场景写不进去,忽略 */
     }
   }
 
-  function queueAdd(url) {
-    const list = readQueue();
+  function historyAdd(url) {
+    const list = readHistory();
     if (list.some((it) => it.url === url)) return false;
     list.unshift({ url, at: new Date().toISOString() });
-    writeQueue(list);
+    writeHistory(list);
     return true;
   }
 
-  function queueRemove(url) {
-    writeQueue(readQueue().filter((it) => it.url !== url));
-    renderQueue();
+  function historyRemove(url) {
+    writeHistory(readHistory().filter((it) => it.url !== url));
+    renderHistory();
   }
 
-  function renderQueue() {
-    const list = readQueue();
-    queueWrap.hidden = list.length === 0;
-    queueList.textContent = "";
+  function renderHistory() {
+    const list = readHistory();
+    historyWrap.hidden = list.length === 0;
+    historyList.textContent = "";
     for (const item of list) {
       const li = document.createElement("li");
       const a = document.createElement("a");
@@ -249,64 +264,13 @@
       del.type = "button";
       del.className = "btn-remove";
       del.textContent = "移除";
-      del.addEventListener("click", () => queueRemove(item.url));
+      del.addEventListener("click", () => historyRemove(item.url));
       li.append(a, time, del);
-      queueList.appendChild(li);
+      historyList.appendChild(li);
     }
   }
 
-  // ── 提交触发(接线点)──────────────────────────────────────────────────────
-  function effectiveMode() {
-    const mode = cfg.DISPATCH_MODE || "queue";
-    if (mode === "issue" && cfg.GITHUB_REPO) return "issue";
-    if (mode === "repository_dispatch" && cfg.DISPATCH_PROXY && cfg.GITHUB_REPO) {
-      return "repository_dispatch";
-    }
-    return "queue";
-  }
-
-  /**
-   * 触发一次翻译任务。返回 { ok, queue, note };
-   * ok = 提交动作是否成功,queue = 是否要同时写入本地待办。
-   *
-   * 接线点(仓库建好后):
-   *   - issue 模式:填 config.GITHUB_REPO 即可,无需其它改动
-   *   - repository_dispatch 模式:部署代理(转发到
-   *       POST https://api.github.com/repos/{repo}/dispatches
-   *       {"event_type":"translate","client_payload":{"cf_url":url}}),
-   *     然后把地址填进 config.DISPATCH_PROXY
-   */
-  async function triggerSubmit(url) {
-    const mode = effectiveMode();
-
-    if (mode === "issue") {
-      const title = encodeURIComponent(`[translate] ${url}`);
-      const body = encodeURIComponent(`整合包链接:\n${url}\n\n(由静态页提交表单生成)`);
-      window.open(
-        `https://github.com/${cfg.GITHUB_REPO}/issues/new?title=${title}&body=${body}`,
-        "_blank",
-        "noopener",
-      );
-      return { ok: true, queue: true, note: "已打开 GitHub 提交页,请在那里确认;同时记入本地待办。" };
-    }
-
-    if (mode === "repository_dispatch") {
-      try {
-        const resp = await fetch(cfg.DISPATCH_PROXY, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ repo: cfg.GITHUB_REPO, cf_url: url }),
-        });
-        if (resp.ok) return { ok: true, queue: false, note: "已提交,稍后回列表查看。" };
-        return { ok: false, queue: true, note: `代理返回 HTTP ${resp.status},已记入本地待办。` };
-      } catch (err) {
-        return { ok: false, queue: true, note: `提交失败(${err.message}),已记入本地待办。` };
-      }
-    }
-
-    return { ok: true, queue: true, note: "已记录,稍后回列表查看。" };
-  }
-
+  // ── 提交:打开预填好的 GitHub Issue 页 ────────────────────────────────────
   function parseCfUrl(raw) {
     const m = String(raw).trim().match(CF_URL_RE);
     if (!m) return null;
@@ -319,35 +283,54 @@
     };
   }
 
-  async function onSubmit(event) {
+  function buildIssueUrl(cfUrl) {
+    const title = `[translate] ${cfUrl}`;
+    const body = [
+      "整合包链接:",
+      cfUrl,
+      "",
+      "---",
+      "由静态页提交表单生成,CI 会在本 issue 下回复翻译结果(成功给下载路径,失败给原因)。",
+      "链接有误可直接编辑本 issue 标题/正文后重新加 submit 标签重试。",
+    ].join("\n");
+    const qs = new URLSearchParams({
+      title,
+      labels: cfg.SUBMIT_LABEL || "submit",
+      body,
+    });
+    return `https://github.com/${cfg.GITHUB_REPO}/issues/new?${qs.toString()}`;
+  }
+
+  function onSubmit(event) {
     event.preventDefault();
+    if (!cfg.GITHUB_REPO) {
+      setHint("前端未配置仓库地址(web/config.js 的 GITHUB_REPO),暂时无法提交。", "err");
+      return;
+    }
     const parsed = parseCfUrl(input.value);
     if (!parsed) {
       setHint("只接受 CurseForge 整合包链接,例如 https://www.curseforge.com/minecraft/modpacks/包名", "err");
       return;
     }
-    if (readQueue().some((it) => it.url === parsed.url)) {
-      setHint("这个链接已经在本地待办里了。", "err");
+    if (readHistory().some((it) => it.url === parsed.url)) {
+      setHint("这个链接已经提交过了,可在下方记录里回查;重复提交请直接去 issue 页面。", "err");
       return;
     }
 
-    setHint("提交中…");
-    const result = await triggerSubmit(parsed.url);
-    if (result.queue) queueAdd(parsed.url);
-    setHint(result.note, result.ok ? "ok" : "err");
-    renderQueue();
+    // 同步 window.open,避免被浏览器当弹窗拦截
+    window.open(buildIssueUrl(parsed.url), "_blank", "noopener");
+    historyAdd(parsed.url);
+    renderHistory();
+    setHint("已打开 GitHub 提交页:点『Submit new issue』即排队;CI 处理后会回到该 issue 回复结果。", "ok");
     input.value = "";
     input.focus();
   }
 
   // ── 启动 ──────────────────────────────────────────────────────────────────
   form.addEventListener("submit", onSubmit);
-  renderQueue();
+  renderHistory();
 
   loadIndex()
     .then(renderList)
-    .catch((err) => {
-      renderError(err);
-      // index.json 读不到时仍允许用表单把链接记进本地待办
-    });
+    .catch(renderError);
 })();

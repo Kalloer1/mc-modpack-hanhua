@@ -28,7 +28,7 @@
 - [x] **[R3]** 写 `src/translate.py`:Gemini 免费档接入,50 行/批 + 429/503 指数退避 ✅ qoder1(含 mock 降级)
 - [x] **[R3]** 跳过已中文行、item ID、图片、`{@pagebreak}` 等 ✅ qoder1(snbt.py 内处理)
   - ⚠️ 备注:配错 key/未装 SDK 会抛 `TranslateConfigError`(不再静默产出"没翻的成品");无 key 自动走 mock。`requirements.txt` 用 `google-genai`(非旧版 `google-generativeai`)。
-- [ ] **[R0]** 集成为 `main.py`:链接 → zh_cn.snbt,拿一个真实冷门包端到端跑通 ⏳ 派给 qoder1
+- [x] **[R0]** 集成为 `main.py`:链接 → zh_cn.snbt,拿一个真实冷门包端到端跑通 ✅ qoder1(The CUBE 硬编码 55 文件 + FTB Evolution lang 双模式端到端通)
 
 ## Milestone M2 — GitHub Actions worker
 
@@ -36,20 +36,20 @@
 - [x] **[R4]** 写 `index.json` 读写模块(状态:pending/done/failed/no_ftbq/already_localized)✅ qoder3(`src/index_store.py`,30/30 自测)
 - [x] **[R4]** 写 `.github/workflows/translate.yml`,`workflow_dispatch` 手动触发跑 M1 脚本 ✅ qoder3(main.py 调用暂占位)
 - [x] **[R4]** 产物 commit 回仓库 + 更新 index.json;密钥用 GitHub Secrets ✅ qoder3(env 注入防注入 + concurrency 防并发)
-- [ ] **[R0]** 手动触发验证一次完整 CI 产出(需先有 main.py + GitHub 仓库)
+- [ ] **[R0]** 手动触发验证一次完整 CI 产出 ⏳ **需用户在 Actions 页点 Run workflow**(本机 api.github.com HTTPS 超时,无法脚本触发)
 
 ## Milestone M3 — 静态前端
 
-- [ ] **[R5]** 搭 GitHub Pages 静态站,读取 index.json 渲染整合包列表
-- [ ] **[R5]** 提交表单(只收 CF 链接)→ 触发 Action(repository_dispatch / issue)
-- [ ] **[R5]** 命中已翻译直接给 raw 下载链接;未命中显示 pending
+- [x] **[R5]** 搭 GitHub Pages 静态站,读取 index.json 渲染整合包列表 ✅ qoder3(headless Edge 三态验证)
+- [x] **[R5]** 提交表单(只收 CF 链接)→ 触发 Action(预填 GitHub Issue,无浏览器 token)✅ qoder3(on-issue.yml 24/24)
+- [x] **[R5]** 命中已翻译直接给 raw 下载链接;未命中显示 pending ✅ qoder3(公开仓库 raw 200)
 - [ ] **[R5]** 加简单去重 + 提交频率限制(防刷爆额度)
 
 ## Milestone M4 — 质量强化
 
 - [ ] **[R3]** 接入 CFPA 术语表:先查词典命中直接用,未命中才喂 Gemini
 - [ ] **[R2]** 完善已汉化探测(包内已带 zh_cn 标 already_localized)
-- [ ] **[R1]** 处理 FTBQ 新旧格式差异(独立 lang 文件 vs 1.12.2 硬编码)
+- [x] **[R1]** 处理 FTBQ 新旧格式差异(独立 lang 文件 vs 硬编码 chapters)✅ qoder2(`extract_quest_sources` 返回 mode lang/hardcoded/none)
 - [ ] **[R3]** 断点续翻(避免大包超时白跑)
 
 ## Milestone M5 — 社区与扩展(二期)

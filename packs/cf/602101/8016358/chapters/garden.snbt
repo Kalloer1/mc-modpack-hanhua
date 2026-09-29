@@ -1,0 +1,24 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "garden"
+	group: "209FD28A3118C1AA"
+	id: "077AD59B91C87B59"
+	order_index: 5
+	quest_links: [ ]
+	quests: [{
+		dependencies: ["4C6E4FD936D2D822"]
+		id: "236B7A3176E7473A"
+		shape: "gear"
+		size: 3.0d
+		tasks: [{
+			icon: "industrialforegoing:laser_lens10"
+			id: "1A9DE5BACAAAC623"
+			title: "Garden"
+			type: "custom"
+		}]
+		x: 0.0d
+		y: 0.0d
+	}]
+	title: "Garden"
+}

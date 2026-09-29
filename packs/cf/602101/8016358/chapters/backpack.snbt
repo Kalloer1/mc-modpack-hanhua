@@ -1,0 +1,72 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "backpack"
+	group: "69F627DDE88E5C5D"
+	id: "6BA26F73669398E7"
+	order_index: 1
+	quest_links: [ ]
+	quests: [
+		{
+			id: "4C2D3D59E3C75659"
+			tasks: [{
+				id: "6519A0120673D18D"
+				item: "sophisticatedbackpacks:backpack"
+				type: "item"
+			}]
+			x: -3.0d
+			y: -1.5d
+		}
+		{
+			id: "4EA8E59211DCB320"
+			tasks: [{
+				id: "20665C9319B11CEF"
+				item: "sophisticatedbackpacks:copper_backpack"
+				type: "item"
+			}]
+			x: -1.0d
+			y: -1.5d
+		}
+		{
+			id: "7C765F28D16F975A"
+			tasks: [{
+				id: "11499F9014217ECD"
+				item: "sophisticatedbackpacks:iron_backpack"
+				type: "item"
+			}]
+			x: 1.0d
+			y: -1.5d
+		}
+		{
+			id: "17D9943B794EFD23"
+			tasks: [{
+				id: "01366615B88E31F6"
+				item: "sophisticatedbackpacks:gold_backpack"
+				type: "item"
+			}]
+			x: 3.0d
+			y: -1.5d
+		}
+		{
+			id: "6B8B7E93B5FF439D"
+			tasks: [{
+				id: "1ECCD2B3A89C59D3"
+				item: "sophisticatedbackpacks:diamond_backpack"
+				type: "item"
+			}]
+			x: 5.0d
+			y: -1.5d
+		}
+		{
+			id: "72AB2B964135ECBC"
+			tasks: [{
+				id: "157A52565396B473"
+				item: "sophisticatedbackpacks:netherite_backpack"
+				type: "item"
+			}]
+			x: 7.0d
+			y: -1.5d
+		}
+	]
+	title: "Backpack"
+}

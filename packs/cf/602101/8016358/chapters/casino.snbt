@@ -1,0 +1,74 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	disable_toast: true
+	filename: "casino"
+	group: "4D083615809F6499"
+	icon: "moa_decor_holidays:leprechaunolladeoro"
+	id: "401043EAC9AEF905"
+	order_index: 2
+	quest_links: [ ]
+	quests: [
+		{
+			can_repeat: true
+			disable_toast: true
+			icon: {
+				Count: 1
+				id: "mysticalagriculture:inferium_helmet"
+				tag: {
+					Damage: 0
+				}
+			}
+			id: "76CDECBEBCA501BA"
+			rewards: [{
+				auto: "enabled"
+				id: "75427423867ECCE1"
+				table_id: 5341392402691824604L
+				type: "random"
+			}]
+			tasks: [{
+				consume_items: true
+				count: 2L
+				disable_toast: true
+				id: "2A6C40ED2DEB16FC"
+				item: "currency:hundred_dollar_bill"
+				type: "item"
+			}]
+			title: "Helmet Mystical Agriculture"
+			x: 2.5d
+			y: -3.5d
+		}
+		{
+			dependencies: ["58AF2E8B25156124"]
+			hide_until_deps_complete: true
+			id: "38D120ECA6EDAEAC"
+			shape: "diamond"
+			size: 2.0d
+			tasks: [{
+				icon: "chisel:coin_heads/gold_block"
+				id: "070593D64F3F7ED8"
+				title: "Casino"
+				type: "custom"
+			}]
+			x: 4.0d
+			y: -5.0d
+		}
+		{
+			id: "3EE2D86B6E1BC63C"
+			rewards: [{
+				exclude_from_claim_all: true
+				id: "1191A648C57889D0"
+				table_id: 9173260399622483391L
+				type: "random"
+			}]
+			tasks: [{
+				id: "1C6D3F7D21B30B44"
+				item: "currency:dollar_bill"
+				type: "item"
+			}]
+			x: 5.5d
+			y: -3.5d
+		}
+	]
+	title: "Casino"
+}

@@ -1,0 +1,24 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "door"
+	group: "16F354679685E0AD"
+	id: "3DF85BF5C8AC58A1"
+	order_index: 2
+	quest_links: [ ]
+	quests: [{
+		dependencies: ["7D8F9B09F8D7E210"]
+		id: "5BBAACC2D0962463"
+		shape: "gear"
+		size: 3.0d
+		tasks: [{
+			icon: "industrialforegoing:laser_lens15"
+			id: "7EB52DD0917C2993"
+			title: "Door"
+			type: "custom"
+		}]
+		x: 0.0d
+		y: 0.0d
+	}]
+	title: "Door"
+}

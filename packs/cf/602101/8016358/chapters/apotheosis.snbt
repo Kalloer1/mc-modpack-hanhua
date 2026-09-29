@@ -1,0 +1,27 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "apotheosis"
+	group: "7F229E0B3B898FB4"
+	id: "48449C033D045F47"
+	order_index: 0
+	quest_links: [ ]
+	quests: [{
+		dependencies: ["094D5F7CB80B994A"]
+		id: "2CB177414583CA96"
+		tasks: [{
+			id: "74C6508EC39FF6BA"
+			item: {
+				Count: 1
+				id: "patchouli:guide_book"
+				tag: {
+					"patchouli:book": "apotheosis:apoth_chronicle"
+				}
+			}
+			type: "item"
+		}]
+		x: 0.0d
+		y: 0.0d
+	}]
+	title: "Apotheosis"
+}

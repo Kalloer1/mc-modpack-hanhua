@@ -1,0 +1,11 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "valkyrian_sky"
+	group: "442D5046BE94A770"
+	id: "31659EC7D5482106"
+	order_index: 4
+	quest_links: [ ]
+	quests: [ ]
+	title: "Valkyrien Sky"
+}

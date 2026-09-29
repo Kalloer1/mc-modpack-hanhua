@@ -1,0 +1,25 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "electronic"
+	group: "209FD28A3118C1AA"
+	id: "77A266A5C469D6EA"
+	order_index: 0
+	quest_links: [ ]
+	quests: [{
+		dependencies: ["3CB12B7C1FE3CF28"]
+		icon: "industrialforegoing:laser_lens10"
+		id: "1C429805B2016E0E"
+		shape: "gear"
+		size: 3.0d
+		tasks: [{
+			id: "79BF2CAFD4DDC82C"
+			title: "Electronics"
+			type: "custom"
+		}]
+		title: "Electronic"
+		x: -1.5d
+		y: -3.0d
+	}]
+	title: "Electronic"
+}

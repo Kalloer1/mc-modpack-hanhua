@@ -349,7 +349,13 @@ def translate_tag(tag: object, translate_fn: TranslateFn = mock_translate) -> Tr
 def translate_snbt_text(
     content: str, translate_fn: TranslateFn = mock_translate
 ) -> tuple[str, TranslationReport]:
-    """SNBT 文本进、SNBT 文本出。"""
+    """SNBT 文本进、SNBT 文本出(不经过临时文件)。
+
+    语言文件(flat "quest.<id>.xxx")与硬编码章节文件(chapters/*.snbt,嵌套
+    quests/tasks/reward_tables)走同一套遍历:解析 → 提取 title/subtitle/
+    description/text → 打码 → 翻译 → 还原 + 校验 → 回填 → dump。
+    返回 (译文文本, 统计);统计供上层汇总(例如写进 meta.json)。
+    """
     tag = slib.loads(content)
     report = translate_tag(tag, translate_fn)
     return slib.dumps(tag), report

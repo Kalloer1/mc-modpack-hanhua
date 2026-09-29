@@ -1,0 +1,11 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "upgrades"
+	group: "69F627DDE88E5C5D"
+	id: "24E6CFD0B4AE6649"
+	order_index: 2
+	quest_links: [ ]
+	quests: [ ]
+	title: "Upgrades"
+}

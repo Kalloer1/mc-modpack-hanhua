@@ -1,0 +1,24 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "bedding"
+	group: "209FD28A3118C1AA"
+	id: "2147B72E6ECB5A1F"
+	order_index: 3
+	quest_links: [ ]
+	quests: [{
+		dependencies: ["3CEB2DE264C50A2D"]
+		id: "11CD56A853CEEC3C"
+		shape: "gear"
+		size: 3.0d
+		tasks: [{
+			icon: "industrialforegoing:laser_lens10"
+			id: "07C4D35F9DAEBA37"
+			title: "Bedding"
+			type: "custom"
+		}]
+		x: 0.0d
+		y: 0.0d
+	}]
+	title: "Bedding"
+}

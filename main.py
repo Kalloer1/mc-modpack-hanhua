@@ -1,15 +1,19 @@
 #!/usr/bin/env python
-"""M1 集成入口:CF 链接 → en_us.snbt → zh_cn.snbt → index.json。
+"""M1/M4 集成入口:CF 链接 → quests 源文件(lang 单文件 / 硬编码多文件)→ zh_cn 产物 → index.json。
 
-把三个模块串起来(fetch → index_store → translate)::
+把三个模块串起来(fetch → translate → index_store)::
 
     main.py <CF链接>:
       1. fetch.parse_cf_link / resolve_cf_link  解析链接 → (source, projectId, fileId)
       2. index_store.find_entry                 已 done → 打印「该整合包已提供汉化」并退出
-      3. fetch.detect_ftbq                      无 FTB Quests → 记 no_ftbq 退出
-      4. fetch.extract_quests_snbt              抽取 en_us.snbt(落临时文件)
-      5. translate.translate_snbt_file          mask → 批量翻译 → unmask → 校验回退
-      6. index_store.update_status/save_index   记 done/failed + stats;done 时补 meta.json
+      3. fetch.extract_quest_sources            抽取 quests 源:mode + {相对路径: SNBT 文本}
+         · mode=lang      单文件(lang/en_us.snbt)
+         · mode=hardcoded 多文件(chapters/*.snbt、data.snbt、reward_tables/*.snbt …)
+         · mode=none      记 no_ftbq 退出
+      4. translate.translate_sources            所有文件合并分批翻译(mask → 翻译 → 校验回退)
+      5. 产出到 packs/{source}/{projectId}/{fileId}/ 下保持相对路径
+         (lang → lang/zh_cn.snbt;hardcoded → chapters/*.snbt 原路径,玩家整个 quests 目录覆盖回去)
+      6. index_store.update_status/save_index   记 done/failed + stats(汇总所有文件);done 时补 meta.json
 
 用法::
 
@@ -23,17 +27,17 @@
     --target zh_cn     目标语言(默认 zh_cn)
     --timeout 600      单次网络操作超时秒数
 
-退出码:0=成功(done 或已 done);2=无 FTB Quests(no_ftbq);1=失败(failed);
-        3=环境/参数未就绪(未配置 key 且未加 --allow-mock、链接无法解析等,未写任何产物)。
+退出码:0=成功(done 或已 done);2=无 FTB Quests/无可翻内容(no_ftbq);1=失败(failed);
+        3=环境/参数未就绪(未配置 key 且未加 --allow-mock、链接无法解析、
+          fetch.extract_quest_sources 未落地等,未写任何产物)。
 """
 
 from __future__ import annotations
 
 import argparse
 import sys
-import tempfile
 import time
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 
 sys.path.insert(0, str(Path(__file__).resolve().parent / "src"))
 
@@ -83,7 +87,7 @@ def _warn(msg: str) -> None:
 
 
 def _parse_args(argv=None) -> argparse.Namespace:
-    parser = _Parser(prog="main.py", description="抽取 FTB Quests 语言文件 → 翻译 → 更新 index.json")
+    parser = _Parser(prog="main.py", description="抽取 FTB Quests 源文件 → 翻译 → 更新 index.json")
     parser.add_argument("url", nargs="?", help="CurseForge 整合包链接(与 --pack-id/--version-id 二选一)")
     parser.add_argument("--pack-id", type=int, default=None, help="modpacks.ch 原生包 ID")
     parser.add_argument("--version-id", type=int, default=None, help="modpacks.ch 原生包版本 ID")
@@ -120,10 +124,15 @@ def _record(index: dict, source: str, project_id, file_id, status: str, *,
     return entry
 
 
-def _native_pack_name(pack_id: int) -> str:
-    """native 路径下 QuestsSNBT.pack_name 是版本名(如 "1.3.0"),换成真正的包名。"""
+def _pack_name(source: str, project_id, file_id) -> str:
+    """索引里的包名,取不到就算了:cf 走 curseforge 索引(文件名式名称,如 "The CUBE-2.0.3"),
+    modpacks 走原生索引(清单里给的只是版本名,得问包里)。"""
     try:
-        return str(fetch.modpacks_pack(pack_id, timeout=30).get("name") or "")
+        if source == "cf":
+            manifest = fetch.modpacks_version(project_id, file_id, curseforge=True, timeout=30)
+        else:
+            manifest = fetch.modpacks_pack(project_id, timeout=30)
+        return str(manifest.get("name") or "")
     except fetch.FetchError:
         return ""
 
@@ -151,9 +160,47 @@ def _resolve_cf_target(url: str, timeout: float) -> tuple[tuple[int, int] | None
     return (int(ref.project_id), int(ref.file_id)), EXIT_OK
 
 
-def _extract(source: str, project_id, file_id, args) -> tuple[fetch.QuestsSNBT | None, str, int]:
-    """按 检测 → 抽取 的流程拿 en_us.snbt。返回 (quests, name, exit_code);
-    quests 为 None 时 exit_code 即最终退出码(no_ftbq/failed)。"""
+def _sget(sources: object, key: str, default=None):
+    """取抽取结果里的字段:约定是 dict,但兼容带同名属性的数据类。"""
+    if isinstance(sources, dict):
+        return sources.get(key, default)
+    return getattr(sources, key, default)
+
+
+_QUESTS_MARKER = "ftbquests/quests/"
+_QUESTS_PREFIXES = ("config/ftbquests/quests/", "quests/")
+
+
+def _quest_relpath(key: object) -> str:
+    """把抽取层给的 key 归一化成 quests 目录内的相对路径。
+
+    兼容三种给法:quests 相对(chapters/x.snbt)、包根相对(config/ftbquests/quests/…)、
+    zip 根相对(overrides/config/ftbquests/quests/…)。
+    """
+    rel = str(key).replace("\\", "/").lstrip("/")
+    idx = rel.find(_QUESTS_MARKER)
+    if idx >= 0:
+        return rel[idx + len(_QUESTS_MARKER):]
+    for prefix in _QUESTS_PREFIXES:
+        if rel.startswith(prefix):
+            return rel[len(prefix):]
+    return rel
+
+
+def _output_relpath(key: object, target: str) -> PurePosixPath:
+    """产出相对路径:保持相对路径,lang 的 en_us.snbt 改名为 <target>.snbt;越界即报错。"""
+    rel = _quest_relpath(key)
+    out = PurePosixPath(rel)
+    if not rel or out.is_absolute() or ".." in out.parts or ":" in out.parts[0]:
+        raise ValueError(f"无法安全落盘的相对路径:{key!r} → {rel!r}")
+    if out.name == "en_us.snbt":
+        out = out.with_name(f"{target}.snbt")
+    return out
+
+
+def _extract(source: str, project_id, file_id, args) -> tuple[object | None, str, int]:
+    """调 fetch.extract_quest_sources 拿 quests 源。返回 (sources, name, exit_code);
+    sources 为 None 时 exit_code 即最终退出码(no_ftbq/failed/not_ready)。"""
     index = index_store.load_index()
 
     existing = index_store.find_entry(index, source, project_id, file_id)
@@ -161,30 +208,24 @@ def _extract(source: str, project_id, file_id, args) -> tuple[fetch.QuestsSNBT |
         _log(f"该整合包已提供汉化:{existing.get('name') or '(未命名)'}({existing['path']})")
         return None, "", EXIT_OK
 
+    extract = getattr(fetch, "extract_quest_sources", None)
+    if extract is None:
+        _err("fetch.extract_quest_sources 还没实现(M4/R1 待落地),无法抽取 quests 源文件。")
+        return None, "", EXIT_NOT_READY
+
     name = ""
     try:
         if source == "modpacks":
-            # 原生包没有整包 zip 可做 Range 预检,直接抽;没有会抛 definitive QuestsNotFound
-            quests = fetch.extract_quests_snbt(
-                pack_id=project_id, version_id=file_id, pack_type="native",
+            sources = extract(
+                f"native:{int(project_id)}/{int(file_id)}",
                 timeout=args.timeout, progress_cb=_progress, on_warning=_warn,
             )
-            name = _native_pack_name(project_id) or quests.pack_name or ""
         else:
-            report = fetch.detect_ftbq(project_id, file_id, timeout=args.timeout, on_warning=_warn)
-            name = report.pack_name or ""
-            _log(f"FTB Quests 预检:{report.has_ftb_quests}(source={report.source}, 包名={report.pack_name or '?'})")
-            if report.has_ftb_quests is False:
-                _record(index, source, project_id, file_id, "no_ftbq", name=name,
-                        stats={"reason": report.note or report.source})
-                _log(f"该整合包不依赖 FTB Quests(source={report.source})→ 已记 no_ftbq")
-                return None, name, EXIT_NO_FTBQ
-            if report.has_ftb_quests is None:
-                _warn(f"FTB Quests 预检无结论({report.note or '前 512KB 里没有 manifest'}),继续尝试抽取")
-            quests = fetch.extract_quests_snbt(
-                project_id=project_id, file_id=file_id, pack_type="auto",
+            sources = extract(
+                args.url, projectId=int(project_id), fileId=int(file_id),
                 timeout=args.timeout, progress_cb=_progress, on_warning=_warn,
             )
+        name = _pack_name(source, project_id, file_id)
     except fetch.QuestsNotFound as e:
         status = "no_ftbq" if e.definitive else "failed"
         _record(index, source, project_id, file_id, status, name=name, stats={"error": str(e)[:400]})
@@ -195,26 +236,68 @@ def _extract(source: str, project_id, file_id, args) -> tuple[fetch.QuestsSNBT |
         _err(f"下载/解析失败:{e}")
         return None, name, EXIT_FAILED
 
-    return quests, name or quests.pack_name or "", EXIT_OK
+    mode = str(_sget(sources, "mode") or "none")
+    files = _sget(sources, "files") or {}
+    if mode == "none" or not files:
+        _record(index, source, project_id, file_id, "no_ftbq", name=name,
+                stats={"mode": mode,
+                       "reason": str(_sget(sources, "note") or _sget(sources, "source")
+                                     or "没有 lang/en_us.snbt,quests/ 下也没有硬编码 SNBT")[:400]})
+        _log(f"该整合包没有可翻译的 FTB Quests 内容(mode={mode})→ 已记 no_ftbq")
+        return None, name, EXIT_NO_FTBQ
+
+    _log(f"抽取到 {len(files)} 个 quests 源文件(mode={mode})")
+    return sources, name, EXIT_OK
 
 
-def _translate(quests: fetch.QuestsSNBT, source: str, project_id, file_id, name: str, args) -> int:
+def _translate(sources: object, source: str, project_id, file_id, name: str, args) -> int:
     index = index_store.load_index()
-    out_path = index_store.artifact_path(source, project_id, file_id)
+    mode = str(_sget(sources, "mode") or "")
+    files = {str(k): str(v) for k, v in dict(_sget(sources, "files") or {}).items()}
+
+    # 先校验所有落盘路径,坏 key 要在花掉翻译额度之前就失败
     try:
-        with tempfile.TemporaryDirectory(prefix="mcweb_m1_") as tmp:
-            in_path = Path(tmp) / "en_us.snbt"
-            in_path.write_text(quests.content, encoding="utf-8", newline="\n")
-            report = translate.translate_snbt_file(in_path, out_path, target=args.target)
+        plan = [(relpath, str(_output_relpath(relpath, args.target))) for relpath in sorted(files)]
+    except ValueError as e:
+        _record(index, source, project_id, file_id, "failed", name=name, stats={"error": str(e)[:400]})
+        _err(f"抽取结果里有无法安全落盘的路径:{e}")
+        return EXIT_FAILED
+
+    warnings: list[str] = []
+    try:
+        outputs, report, per_file = translate.translate_sources(
+            files, target=args.target, on_warning=warnings.append
+        )
     except translate.TranslateConfigError as e:
         _record(index, source, project_id, file_id, "failed", name=name, stats={"error": str(e)[:400]})
         _err(f"翻译配置错误:{e}")
         return EXIT_FAILED
 
+    out_dir = index_store.artifact_dir(source, project_id, file_id)
+    written: list[str] = []
+    for relpath, out_rel in plan:
+        dst = out_dir / out_rel
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        dst.write_text(outputs[relpath], encoding="utf-8", newline="\n")
+        written.append(out_rel)
+
     stats = report.as_stats()
-    stats["extractSource"] = quests.source
+    stats.update({
+        "mode": mode,
+        "fileCount": len(written),
+        "fileList": written,
+        "perFile": {out_rel: per_file[relpath] for relpath, out_rel in plan},
+    })
+    src_tag = _sget(sources, "source")
+    if src_tag:
+        stats["extractSource"] = str(src_tag)
+    if warnings:
+        stats["warnings"] = warnings[:20]
+
     entry = _record(index, source, project_id, file_id, "done", name=name, stats=stats)
-    _log(f"产出:{entry['path']}/zh_cn.snbt(条目名 {quests.entry_name},抽取方式 {quests.source})")
+    _log(f"产出 {len(written)} 个文件 → {entry['path']}/")
+    for out_rel in written:
+        _log(f"  - {out_rel}")
     _log(report.summary())
     return EXIT_OK
 
@@ -232,7 +315,7 @@ def main(argv=None) -> int:
     else:
         _log(f"翻译模型:{translate.model_name()} → {args.target}")
     if args.target != "zh_cn":
-        _warn(f"--target {args.target}:产物文件名仍由 index_store 约定为 zh_cn.snbt")
+        _warn(f"--target {args.target}:lang 模式产物会命名成 {args.target}.snbt,与站点默认的 zh_cn 约定不一致")
 
     if args.pack_id and args.version_id:
         source, project_id, file_id = "modpacks", int(args.pack_id), int(args.version_id)
@@ -245,12 +328,11 @@ def main(argv=None) -> int:
         project_id, file_id = target
         _log(f"目标:CurseForge {project_id} / {file_id}")
 
-    quests, name, code = _extract(source, project_id, file_id, args)
-    if quests is None:
+    sources, name, code = _extract(source, project_id, file_id, args)
+    if sources is None:
         return code
 
-    _log(f"抽取成功:{quests.entry_name}({len(quests.content)} 字符)")
-    code = _translate(quests, source, project_id, file_id, name, args)
+    code = _translate(sources, source, project_id, file_id, name, args)
     if code == EXIT_OK:
         _log(f"完成,用时 {time.monotonic() - start:.1f}s")
     return code

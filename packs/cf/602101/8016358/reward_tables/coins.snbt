@@ -1,0 +1,32 @@
+{
+	id: "74317835EA0DA70B"
+	loot_size: 1
+	order_index: 0
+	rewards: [
+		{
+			item: "scpfr:coin"
+			weight: 50.0f
+		}
+		{
+			count: 2
+			item: "scpfr:coin"
+			weight: 25.0f
+		}
+		{
+			item: "currency:dollar_bill"
+			weight: 4.0f
+		}
+		{
+			item: "currency:five_dollar_bill"
+			weight: 3.0f
+		}
+		{
+			item: "currency:ten_dollar_bill"
+			weight: 2.0f
+		}
+		{
+			item: "currency:twenty_dollar_bill"
+		}
+	]
+	title: "coins"
+}

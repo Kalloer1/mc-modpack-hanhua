@@ -1,0 +1,37 @@
+{
+	id: "7F4DF7BB3FA7EDBF"
+	loot_size: 1
+	order_index: 2
+	rewards: [
+		{
+			item: "minecraft:dirt"
+			weight: 50.0f
+		}
+		{
+			count: 32
+			item: "scpfr:coin"
+			weight: 40.0f
+		}
+		{
+			item: "currency:dollar_bill"
+			weight: 30.0f
+		}
+		{
+			count: 2
+			item: "currency:dollar_bill"
+			weight: 20.0f
+		}
+		{
+			item: "currency:five_dollar_bill"
+			weight: 10.0f
+		}
+		{
+			item: "currency:ten_dollar_bill"
+			weight: 5.0f
+		}
+		{
+			item: "currency:fifty_dollar_bill"
+		}
+	]
+	title: "Money"
+}

@@ -23,10 +23,12 @@
       <button type="submit" class="btn btn-primary">提交</button>
     </form>
     <p class="form-hint" id="form-hint" role="status" aria-live="polite"></p>
+    <p class="muted small">提交会打开预填好的 GitHub Issue 页面,点『Submit new issue』即排队(需要 GitHub 账号);
+       CI 翻译完成后会回到该 issue 下回复下载路径,失败也会给出原因。</p>
 
-    <div id="queue-wrap" hidden>
-      <h3>本地待办(仅存在本机浏览器,尚未进入仓库任务队列)</h3>
-      <ul id="queue-list" class="queue-list"></ul>
+    <div id="history-wrap" hidden>
+      <h3>本机提交记录(仅存在本浏览器,便于回查)</h3>
+      <ul id="history-list" class="queue-list"></ul>
     </div>
   </section>
 
@@ -46,7 +48,8 @@
   <div class="wrap">
     <p>本地预览:在仓库根目录跑 <code>python -m http.server 8000</code>,访问 <code>http://localhost:8000/web/</code>;
        加 <code>?demo=1</code> 可强制使用示例数据(web/sample/index.json)。</p>
-    <p class="muted">数据来源:仓库根 <code>index.json</code>(由 src/index_store.py 生成)。</p>
+    <p class="muted">数据来源:仓库根 <code>index.json</code>(由 src/index_store.py 生成);部署后读 raw 链接。
+       提交经 GitHub Issue 流转,前端不持有任何 Token。</p>
   </div>
 </footer>
 

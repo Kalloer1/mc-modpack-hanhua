@@ -1,0 +1,26 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "end"
+	group: ""
+	hide_quest_until_deps_complete: true
+	icon: "moa_decor_toys:enderman"
+	id: "2A9125D930D823C0"
+	order_index: 6
+	quest_links: [ ]
+	quests: [{
+		dependencies: ["573861DE47DCA195"]
+		icon: "minecraft:end_stone"
+		id: "17CBAAE79BC5C6C3"
+		shape: "rsquare"
+		size: 3.0d
+		tasks: [{
+			id: "071404297675127A"
+			title: "End"
+			type: "checkmark"
+		}]
+		x: 0.5d
+		y: 0.0d
+	}]
+	title: "End"
+}

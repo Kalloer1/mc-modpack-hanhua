@@ -1,0 +1,525 @@
+{
+  "source": "cf",
+  "projectId": "602101",
+  "fileId": "8016358",
+  "name": "The CUBE-2.0.3",
+  "mcVersion": "",
+  "status": "done",
+  "path": "packs/cf/602101/8016358",
+  "translatedAt": "2026-09-29T18:05:08Z",
+  "stats": {
+    "error": "zip 里没有 config/ftbquests/quests/lang/en_us.snbt;包内 ftbquests 相关条目示例: ['overrides/config/ftbquests/quests/chapter_groups.snbt', 'overrides/config/ftbquests/quests/data.snbt', 'overrides/config/ftbquests/quests/chapters/alarm.snbt', 'overrides/config/ftbquests/quests/chapters/apotheosis.snbt', 'overrides/config/ftbquests/quests/chapters/armor.snbt', 'overrides/config/ftbquests/quests/chapters/armor_",
+    "fields": 331,
+    "translated": 330,
+    "skipped": 1,
+    "fallback": 0,
+    "skipReasons": {
+      "no_text": 1
+    },
+    "fallbackReasons": {},
+    "mode": "hardcoded",
+    "fileCount": 55,
+    "fileList": [
+      "chapter_groups.snbt",
+      "chapters/alarm.snbt",
+      "chapters/apotheosis.snbt",
+      "chapters/armor.snbt",
+      "chapters/armor_2.snbt",
+      "chapters/backpack.snbt",
+      "chapters/bedding.snbt",
+      "chapters/card_and_keycard.snbt",
+      "chapters/casino.snbt",
+      "chapters/catalysme.snbt",
+      "chapters/chemical_and_science.snbt",
+      "chapters/chest.snbt",
+      "chapters/curios.snbt",
+      "chapters/dailyquest.snbt",
+      "chapters/decoration.snbt",
+      "chapters/dimension.snbt",
+      "chapters/door.snbt",
+      "chapters/electodynamics.snbt",
+      "chapters/electronic.snbt",
+      "chapters/end.snbt",
+      "chapters/flux_networks.snbt",
+      "chapters/fruit.snbt",
+      "chapters/furnitures.snbt",
+      "chapters/garden.snbt",
+      "chapters/glass.snbt",
+      "chapters/guns.snbt",
+      "chapters/ice_and_candy.snbt",
+      "chapters/industrial_forgoing.snbt",
+      "chapters/iron_spell_book.snbt",
+      "chapters/killing_mob.snbt",
+      "chapters/light.snbt",
+      "chapters/meat.snbt",
+      "chapters/mekanism.snbt",
+      "chapters/minerais.snbt",
+      "chapters/mystical_agriculture.snbt",
+      "chapters/nether.snbt",
+      "chapters/nuclear_mods.snbt",
+      "chapters/potions.snbt",
+      "chapters/psi.snbt",
+      "chapters/rafined_storage.snbt",
+      "chapters/rftool.snbt",
+      "chapters/security_craft.snbt",
+      "chapters/seed.snbt",
+      "chapters/shop.snbt",
+      "chapters/tank.snbt",
+      "chapters/the_eather.snbt",
+      "chapters/tools.snbt",
+      "chapters/upgrades.snbt",
+      "chapters/valkyrian_sky.snbt",
+      "chapters/vegetable.snbt",
+      "chapters/welcome.snbt",
+      "data.snbt",
+      "reward_tables/coins.snbt",
+      "reward_tables/helmet.snbt",
+      "reward_tables/money.snbt"
+    ],
+    "perFile": {
+      "chapter_groups.snbt": {
+        "fields": 9,
+        "translated": 9,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/alarm.snbt": {
+        "fields": 2,
+        "translated": 2,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/apotheosis.snbt": {
+        "fields": 1,
+        "translated": 1,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/armor.snbt": {
+        "fields": 2,
+        "translated": 2,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/armor_2.snbt": {
+        "fields": 1,
+        "translated": 1,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/backpack.snbt": {
+        "fields": 1,
+        "translated": 1,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/bedding.snbt": {
+        "fields": 2,
+        "translated": 2,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/card_and_keycard.snbt": {
+        "fields": 2,
+        "translated": 2,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/casino.snbt": {
+        "fields": 3,
+        "translated": 3,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/catalysme.snbt": {
+        "fields": 1,
+        "translated": 1,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/chemical_and_science.snbt": {
+        "fields": 1,
+        "translated": 1,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/chest.snbt": {
+        "fields": 2,
+        "translated": 2,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/curios.snbt": {
+        "fields": 1,
+        "translated": 1,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/dailyquest.snbt": {
+        "fields": 3,
+        "translated": 3,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/decoration.snbt": {
+        "fields": 2,
+        "translated": 2,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/dimension.snbt": {
+        "fields": 1,
+        "translated": 1,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/door.snbt": {
+        "fields": 2,
+        "translated": 2,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/electodynamics.snbt": {
+        "fields": 1,
+        "translated": 1,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/electronic.snbt": {
+        "fields": 3,
+        "translated": 3,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/end.snbt": {
+        "fields": 2,
+        "translated": 2,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/flux_networks.snbt": {
+        "fields": 1,
+        "translated": 1,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/fruit.snbt": {
+        "fields": 1,
+        "translated": 1,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/furnitures.snbt": {
+        "fields": 2,
+        "translated": 2,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/garden.snbt": {
+        "fields": 2,
+        "translated": 2,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/glass.snbt": {
+        "fields": 2,
+        "translated": 2,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/guns.snbt": {
+        "fields": 1,
+        "translated": 1,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/ice_and_candy.snbt": {
+        "fields": 1,
+        "translated": 1,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/industrial_forgoing.snbt": {
+        "fields": 1,
+        "translated": 1,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/iron_spell_book.snbt": {
+        "fields": 1,
+        "translated": 1,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/killing_mob.snbt": {
+        "fields": 72,
+        "translated": 72,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/light.snbt": {
+        "fields": 2,
+        "translated": 2,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/meat.snbt": {
+        "fields": 2,
+        "translated": 2,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/mekanism.snbt": {
+        "fields": 1,
+        "translated": 1,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/minerais.snbt": {
+        "fields": 24,
+        "translated": 23,
+        "skipped": 1,
+        "fallback": 0,
+        "skipReasons": {
+          "no_text": 1
+        },
+        "fallbackReasons": {}
+      },
+      "chapters/mystical_agriculture.snbt": {
+        "fields": 3,
+        "translated": 3,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/nether.snbt": {
+        "fields": 2,
+        "translated": 2,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/nuclear_mods.snbt": {
+        "fields": 1,
+        "translated": 1,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/potions.snbt": {
+        "fields": 1,
+        "translated": 1,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/psi.snbt": {
+        "fields": 1,
+        "translated": 1,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/rafined_storage.snbt": {
+        "fields": 1,
+        "translated": 1,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/rftool.snbt": {
+        "fields": 1,
+        "translated": 1,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/security_craft.snbt": {
+        "fields": 1,
+        "translated": 1,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/seed.snbt": {
+        "fields": 1,
+        "translated": 1,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/shop.snbt": {
+        "fields": 48,
+        "translated": 48,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/tank.snbt": {
+        "fields": 2,
+        "translated": 2,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/the_eather.snbt": {
+        "fields": 2,
+        "translated": 2,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/tools.snbt": {
+        "fields": 1,
+        "translated": 1,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/upgrades.snbt": {
+        "fields": 1,
+        "translated": 1,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/valkyrian_sky.snbt": {
+        "fields": 1,
+        "translated": 1,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/vegetable.snbt": {
+        "fields": 1,
+        "translated": 1,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "chapters/welcome.snbt": {
+        "fields": 105,
+        "translated": 105,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "data.snbt": {
+        "fields": 0,
+        "translated": 0,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "reward_tables/coins.snbt": {
+        "fields": 1,
+        "translated": 1,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "reward_tables/helmet.snbt": {
+        "fields": 1,
+        "translated": 1,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      },
+      "reward_tables/money.snbt": {
+        "fields": 1,
+        "translated": 1,
+        "skipped": 0,
+        "fallback": 0,
+        "skipReasons": {},
+        "fallbackReasons": {}
+      }
+    },
+    "extractSource": "stub-cube-overrides-zip"
+  }
+}

@@ -7,6 +7,10 @@
   3. extract_quests_snbt(...)        取 config/ftbquests/quests/lang/en_us.snbt
        · downloadUrl 为 null 时按 edge/mediafilez.forgecdn.net/files/{id//1000}/{id%1000}/{name} 重建
        · 或走 api.modpacks.ch(native / curseforge)列文件、stream overrides zip
+  4. extract_quest_sources(source, projectId, fileId)   统一入口(M4,main.py 依赖):
+        · 有 config/ftbquests/quests/lang/en_us.snbt → {'mode': 'lang', 'files': {'lang/en_us.snbt': …}}
+        · 无 lang 但 quests/ 下有 *.snbt(硬编码章节)→ {'mode': 'hardcoded', 'files': {相对路径: …}}
+        · 都没有 → {'mode': 'none', 'files': {}}
 
 依赖:仅标准库。CURSEFORGE_API_KEY 存在时用官方 API 取文件信息;
 不存在时自动降级到免密钥的 api.modpacks.ch 路径(FTB 自家索引,会给出真实的 CF 直链)。
@@ -15,6 +19,7 @@
     python src/fetch.py --selftest            # 离线:链接解析 / ZIP 字节走查 / 本地 HTTP 端到端
     python src/fetch.py --selftest --online   # 追加真实网络:modpacks.ch 列表 + 真实包 Range 检测
     python src/fetch.py --selftest --online --full   # 再追加真实整包下载抽取(约 170MB)
+    python src/fetch.py --sources <CF链接|native:125/12629> [--out DIR]   # 统一入口,导 quests 源文件
 """
 
 from __future__ import annotations
@@ -58,6 +63,9 @@ __all__ = [
     "resolve_download_urls",
     "detect_ftbq",
     "extract_quests_snbt",
+    "extract_quest_sources",
+    "quests_relative_path",
+    "classify_quest_paths",
     "extract_file_name_from_url",
     "pick_quest_lang_entry",
     "iter_zip_local_entries",
@@ -1217,6 +1225,272 @@ def extract_quests_snbt(
 
 
 # ══════════════════════════════════════════════════════════════════════════════
+# 统一入口:lang / hardcoded(M4)
+# ══════════════════════════════════════════════════════════════════════════════
+_QUESTS_MARK = "config/ftbquests/quests/"
+_LANG_REL = f"lang/{QUEST_LANG_NAME}"
+_NATIVE_SRC_RE = re.compile(r"^(?:native:)?\s*(\d+)\s*/\s*(\d+)\s*$", re.I)
+_NATIVE_URL_RE = re.compile(
+    r"^https?://api\.modpacks\.ch/public/(modpack|curseforge)/(\d+)/(\d+)/?$", re.I
+)
+
+
+def quests_relative_path(name: str) -> Optional[str]:
+    """zip 条目名 / modpacks.ch 文件路径 → 相对 config/ftbquests/quests/ 的路径。
+
+    不在 quests/ 目录下(或就是目录本身)返回 None。大小写不敏感定位,返回原文路径。
+    含 ".." 段的条目一律丢弃(防 zip-slip:调用方会拿这个相对路径去写文件)。
+    """
+    norm = (name or "").replace("\\", "/").lstrip("./")
+    idx = norm.lower().find(_QUESTS_MARK)
+    if idx < 0:
+        return None
+    rel = norm[idx + len(_QUESTS_MARK) :].strip("/")
+    if not rel or ".." in rel.split("/"):
+        return None
+    return rel
+
+
+def classify_quest_paths(rels: Iterable[str]) -> tuple[str, list[str]]:
+    """把 quests/ 下的相对路径分流成 (mode, 要收集的路径)。
+
+    lang(en_us.snbt 优先)→ hardcoded(其余 *.snbt,lang/ 目录除外)→ none。
+    """
+    rels = [r for r in rels if r]
+    if any(r.lower() == _LANG_REL for r in rels):
+        return "lang", [_LANG_REL]
+    hard = sorted(
+        {r for r in rels if r.lower().endswith(".snbt") and not r.lower().startswith("lang/")}
+    )
+    if hard:
+        return "hardcoded", hard
+    return "none", []
+
+
+def _sources_from_native_manifest(
+    files: Optional[Iterable[dict]], *, timeout: float, progress_cb: Optional[ProgressCB]
+) -> dict:
+    """native 清单里逐个下 quests 文件:有 lang 就只下 lang,否则把硬编码章节全收。"""
+    by_rel: dict[str, dict] = {}
+    for entry in files or []:
+        if not entry.get("url"):
+            continue
+        rel = quests_relative_path(_modpacks_full_name(entry))
+        if rel:
+            by_rel.setdefault(rel, entry)
+
+    mode, wanted = classify_quest_paths(by_rel)
+    if mode == "none":
+        return {"mode": "none", "files": {}}
+
+    out: dict[str, str] = {}
+    for i, rel in enumerate(wanted, 1):
+        _emit(progress_cb, 5 + 90 * i // max(1, len(wanted)), f"下载 quests 文件 {i}/{len(wanted)}: {rel}")
+        text = _get_bytes(by_rel[rel]["url"], timeout=timeout).decode("utf-8", errors="replace")
+        out[_LANG_REL if mode == "lang" else rel] = text
+    return {"mode": mode, "files": out}
+
+
+def _sources_from_zip_file(zip_path: Path) -> dict:
+    """从下载好的整包 zip 里收 quests 源文件(一次扫描,按需只读几个条目)。"""
+    try:
+        with zipfile.ZipFile(zip_path) as zf:
+            by_rel: dict[str, str] = {}
+            for info in zf.infolist():
+                if info.is_dir():
+                    continue
+                rel = quests_relative_path(info.filename)
+                if rel:
+                    by_rel.setdefault(rel, info.filename)
+
+            mode, wanted = classify_quest_paths(by_rel)
+            if mode == "none":
+                return {"mode": "none", "files": {}}
+
+            out: dict[str, str] = {}
+            for rel in wanted:
+                try:
+                    text = zf.read(by_rel[rel]).decode("utf-8", errors="replace")
+                except (zipfile.BadZipFile, zlib.error, OSError) as e:
+                    raise FetchError(f"zip 条目 {rel} 解压失败: {e}") from e
+                out[_LANG_REL if mode == "lang" else rel] = text
+    except zipfile.BadZipFile as e:
+        raise FetchError(f"不是合法 zip: {zip_path.name}") from e
+    return {"mode": mode, "files": out}
+
+
+def _sources_from_pack_zip_url(
+    url: str, *, timeout: float, progress_cb: Optional[ProgressCB], on_warning: Optional[WarnCB]
+) -> dict:
+    """下载整包 zip 后收集;同一文件在两家 CDN 上都有,逐候选重试。"""
+    last: Optional[Exception] = None
+    for candidate in _host_variants(url):
+        tmp_path: Optional[Path] = None
+        try:
+            _emit(progress_cb, 1, "下载整合包 zip(收集 quests 源文件)…")
+            tmp_path, _names = _download_zip_and_pick(
+                candidate, timeout=timeout, progress_cb=_scale_progress(progress_cb, 2, 90)
+            )
+            result = _sources_from_zip_file(tmp_path)
+            _emit(progress_cb, 100, f"完成:{result['mode']},{len(result['files'])} 个文件")
+            return result
+        except FetchError as e:
+            last = e
+            _warn(on_warning, f"{candidate} 不可用: {e}")
+            continue
+        finally:
+            if tmp_path is not None:
+                tmp_path.unlink(missing_ok=True)
+    raise FetchError(f"整合包 zip 下载失败: {last or '无可用直链'}")
+
+
+def _sources_curseforge(
+    *,
+    project_id: Optional[int],
+    file_id: Optional[int],
+    download_url: Optional[str],
+    file_name: Optional[str],
+    timeout: float,
+    progress_cb: Optional[ProgressCB],
+    on_warning: Optional[WarnCB],
+) -> dict:
+    """CF 包:先查免密钥的 modpacks.ch 索引(单文件 lang / cf-extract 整包),再退到直链候选。"""
+    if project_id and file_id:
+        try:
+            manifest = modpacks_version(project_id, file_id, curseforge=True, timeout=min(timeout, 120))
+            files = manifest.get("files") or []
+            lang_hits = modpacks_find_quest_lang_files(files)
+            if lang_hits:
+                entry = lang_hits[0]
+                _emit(progress_cb, 10, f"下载 {_modpacks_full_name(entry)} …")
+                text = _get_bytes(entry["url"], timeout=timeout).decode("utf-8", errors="replace")
+                _emit(progress_cb, 100, "完成:lang,1 个文件")
+                return {"mode": "lang", "files": {_LANG_REL: text}}
+            override = modpacks_find_override_zip(files)
+            if override and override.get("url"):
+                return _sources_from_pack_zip_url(
+                    override["url"], timeout=timeout, progress_cb=progress_cb, on_warning=on_warning
+                )
+            _warn(on_warning, "modpacks.ch 索引里没有 overrides zip,改用直链候选")
+        except FetchError as e:
+            _warn(on_warning, f"modpacks.ch 索引查询失败,改用直链候选: {e}")
+
+    urls = resolve_download_urls(
+        project_id=project_id,
+        file_id=file_id,
+        file_name=file_name,
+        download_url=download_url,
+        timeout=min(timeout, 120),
+        on_warning=on_warning,
+    )
+    if not urls:
+        raise FetchError("解析不出整合包 zip 直链(需要 fileId+文件名,或直接给直链)")
+
+    last: Optional[Exception] = None
+    for url, _name in urls:
+        try:
+            return _sources_from_pack_zip_url(
+                url, timeout=timeout, progress_cb=progress_cb, on_warning=on_warning
+            )
+        except FetchError as e:
+            last = e
+            _warn(on_warning, f"{url} 不可用: {e}")
+    raise FetchError(f"整合包 zip 下载失败: {last or '无可用直链'}")
+
+
+def extract_quest_sources(
+    source: Optional[str] = None,
+    projectId: Optional[int] = None,
+    fileId: Optional[int] = None,
+    *,
+    timeout: float = 600,
+    progress_cb: Optional[ProgressCB] = None,
+    on_warning: Optional[WarnCB] = None,
+) -> dict:
+    """统一入口(M4):判断 quests 文本在哪,并把它收集出来。
+
+    返回 {'mode': 'lang' | 'hardcoded' | 'none',
+          'files': {相对 config/ftbquests/quests/ 的路径: 文本}}
+      · lang      — 有 lang/en_us.snbt,files = {'lang/en_us.snbt': 内容}
+      · hardcoded — 没有 lang/en_us.snbt,文本硬编码在 quests/ 下的 *.snbt 里
+                    (chapters/*.snbt、data.snbt、chapter_groups.snbt 等全收,
+                     键为相对 quests/ 的路径;lang/ 目录下的其它语言文件不算源文本)
+      · none      — 两种都没有
+
+    source 支持:
+      · CF 链接 / forgecdn 直链(projectId/fileId 可同时给出,显式参数优先)
+      · "native:<packId>/<versionId>" 或 https://api.modpacks.ch/public/modpack/<packId>/<versionId>
+      · 其它 http(s) 直链(当成整包 zip)
+
+    取不到数据(网络/解析失败)抛 FetchError;只有确定"这个包没有 quests"才返回 'none'。
+    注:参数名按 main.py 的约定固定为 source/projectId/fileId,不改成 snake_case。
+    """
+    src = (source or "").strip()
+    pack_id: Optional[int] = None
+    version_id: Optional[int] = None
+    download_url: Optional[str] = None
+    file_name: Optional[str] = None
+
+    if src:
+        m = _NATIVE_URL_RE.match(src)
+        if m:
+            kind, pid, vid = m.group(1).lower(), int(m.group(2)), int(m.group(3))
+            if kind == "modpack":
+                pack_id, version_id = pid, vid
+            else:
+                projectId = int(projectId) if projectId else pid
+                fileId = int(fileId) if fileId else vid
+        else:
+            m = _NATIVE_SRC_RE.match(src)
+            if m:
+                pack_id, version_id = int(m.group(1)), int(m.group(2))
+            else:
+                try:
+                    ref = parse_cf_link(src)
+                except CFLinkError:
+                    if "://" not in src:
+                        raise
+                    download_url = src  # 不是 CF 链接,当直链用
+                else:
+                    projectId = int(projectId) if projectId else ref.project_id
+                    fileId = int(fileId) if fileId else ref.file_id
+                    file_name = ref.file_name
+                    if ref.kind == "cdn":
+                        download_url = ref.url
+                    if projectId is None and ref.slug:
+                        try:
+                            projectId = resolve_project_id(ref, timeout=min(timeout, 60))
+                        except (MissingCurseForgeKey, CFLinkError) as e:
+                            _warn(on_warning, f"slug 反查 projectID 失败(不影响直链路径): {e}")
+
+    projectId = int(projectId) if projectId else None
+    fileId = int(fileId) if fileId else None
+
+    if pack_id and version_id:
+        _emit(progress_cb, 2, f"查询 api.modpacks.ch native 清单 {pack_id}/{version_id} …")
+        manifest = modpacks_version(pack_id, version_id, curseforge=False, timeout=min(timeout, 120))
+        return _sources_from_native_manifest(
+            manifest.get("files") or [], timeout=timeout, progress_cb=progress_cb
+        )
+
+    if not (projectId or fileId or download_url):
+        raise FetchError("参数不足:source / (projectId+fileId) / 直链 至少给一个")
+    if not fileId and not download_url:
+        raise FetchError("缺少 fileId:链接里没有 /files/<fileID>,也没有显式传入")
+
+    _emit(progress_cb, 1, "解析整合包 zip 直链 …")
+    return _sources_curseforge(
+        project_id=projectId,
+        file_id=fileId,
+        download_url=download_url,
+        file_name=file_name,
+        timeout=timeout,
+        progress_cb=progress_cb,
+        on_warning=on_warning,
+    )
+
+
+# ══════════════════════════════════════════════════════════════════════════════
 # 自测
 # ══════════════════════════════════════════════════════════════════════════════
 _SAMPLE_SNBT = """{
@@ -1252,6 +1526,12 @@ _MANIFEST_NO_FTBQ = {
 }
 
 _SAMPLE_PACK_NAME = "overrides/config/ftbquests/quests/lang/en_us.snbt"
+
+_SAMPLE_CHAPTER_SNBT = """{
+\tid: "01F1B1CC0E5A1234"
+\ttitle: "First Chapter"
+\tdescription: ["Chapter body text"]
+}"""
 
 
 class _Checks:
@@ -1303,6 +1583,28 @@ def _make_pack_zip(
             zf.writestr(_SAMPLE_PACK_NAME, _SAMPLE_SNBT)
         if pad_after:
             zf.writestr("overrides/config/zzz_pad.bin", rng.randbytes(pad_after))
+    return buf.getvalue()
+
+
+def _make_hardcoded_pack_zip(*, with_lang: bool = False) -> bytes:
+    """模拟硬编码包:文本在 quests/ 下的 *.snbt 里,没有 lang/en_us.snbt。"""
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
+        zf.writestr("manifest.json", json.dumps(_MANIFEST_FTBQ))
+        zf.writestr("overrides/mods/ftb-quests-forge-2001.3.1.jar", b"MZ" + b"\x00" * 128)
+        zf.writestr("overrides/config/ftbquests/quests/data.snbt", "{\n\tversion: 2\n}")
+        zf.writestr("overrides/config/ftbquests/quests/chapter_groups.snbt", '[\n\t"Start"\n]')
+        zf.writestr(
+            "overrides/config/ftbquests/quests/chapters/first_chapter.snbt", _SAMPLE_CHAPTER_SNBT
+        )
+        zf.writestr(
+            "overrides/config/ftbquests/quests/chapters/second_chapter.snbt",
+            _SAMPLE_CHAPTER_SNBT.replace("First", "Second"),
+        )
+        # zip-slip 探针:带 .. 的条目必须被丢弃,不能出现在结果里
+        zf.writestr("overrides/config/ftbquests/quests/../../evil.snbt", "{}")
+        if with_lang:
+            zf.writestr(_SAMPLE_PACK_NAME, _SAMPLE_SNBT)
     return buf.getvalue()
 
 
@@ -1511,6 +1813,8 @@ def _selftest_offline(checks: _Checks) -> None:
         "/nolang.zip": no_lang_zip,
         "/descriptor.zip": descriptor_zip,
         "/farmanifest.zip": far_manifest_zip,
+        "/hardcoded.zip": _make_hardcoded_pack_zip(),
+        "/both.zip": _make_hardcoded_pack_zip(with_lang=True),
     }
     server = http.server.ThreadingHTTPServer(("127.0.0.1", 0), handler)
     thread = threading.Thread(target=server.serve_forever, daemon=True)
@@ -1557,6 +1861,47 @@ def _selftest_offline(checks: _Checks) -> None:
             checks.check(False, "没有 lang 文件时应抛 QuestsNotFound")
         except QuestsNotFound as e:
             checks.check(e.definitive, f"no-lang 结论标记为确定: {str(e)[:60]}")
+
+        print("\n  -- 统一入口 extract_quest_sources --")
+        result = extract_quest_sources(f"{base}/hardcoded.zip")
+        checks.eq(result["mode"], "hardcoded", "无 lang、有 chapters/*.snbt → hardcoded")
+        checks.eq(
+            sorted(result["files"]),
+            [
+                "chapter_groups.snbt",
+                "chapters/first_chapter.snbt",
+                "chapters/second_chapter.snbt",
+                "data.snbt",
+            ],
+            "收集全部 .snbt,键是相对 quests/ 的路径",
+        )
+        checks.eq(
+            result["files"]["chapters/second_chapter.snbt"],
+            _SAMPLE_CHAPTER_SNBT.replace("First", "Second"),
+            "章节内容解压正确",
+        )
+        checks.check(
+            all(".." not in rel for rel in result["files"]), "含 .. 的 zip 条目被丢弃(防 zip-slip)"
+        )
+
+        result = extract_quest_sources(f"{base}/pack.zip")
+        checks.eq(result["mode"], "lang", "有 lang/en_us.snbt → lang")
+        checks.eq(list(result["files"]), ["lang/en_us.snbt"], "lang 模式只给 lang/en_us.snbt")
+        checks.eq(result["files"]["lang/en_us.snbt"], _SAMPLE_SNBT, "lang 内容一致")
+
+        result = extract_quest_sources(f"{base}/both.zip")
+        checks.eq(result["mode"], "lang", "lang 与 chapters 并存时优先 lang")
+        checks.eq(list(result["files"]), ["lang/en_us.snbt"], "优先 lang 时只给 lang 文件")
+
+        result = extract_quest_sources(f"{base}/nolang.zip")
+        checks.eq(result["mode"], "none", "两种都没有 → none")
+        checks.eq(result["files"], {}, "none 时 files 为空")
+
+        try:
+            extract_quest_sources(None, None, None)
+            checks.check(False, "无任何参数时应报错")
+        except FetchError:
+            checks.check(True, "无任何参数时明确报错")
 
         # 读阶段故障(503 / 半包 IncompleteRead)应被 _get_bytes 重试后成功
         try:
@@ -1652,6 +1997,38 @@ def _selftest_online(checks: _Checks, full: bool) -> None:
     except FetchError as e:
         checks.check(False, f"modpacks.ch curseforge 查询失败: {e}")
 
+    print("\n== 联网:统一入口 extract_quest_sources(The CUBE / FTB Evolution)==")
+    try:
+        res = extract_quest_sources(
+            "https://www.curseforge.com/minecraft/modpacks/602101/files/8016358",
+            602101,
+            8016358,
+            timeout=300,
+        )
+        checks.eq(res["mode"], "hardcoded", "The CUBE 判为 hardcoded")
+        checks.check(len(res["files"]) > 0, f"The CUBE files 非空({len(res['files'])} 个)")
+        checks.check(
+            any(k.startswith("chapters/") for k in res["files"]),
+            f"含 chapters/*.snbt: {sorted(res['files'])[:3]}",
+        )
+        checks.check(all(k.lower().endswith(".snbt") for k in res["files"]), "收集到的都是 .snbt")
+        print(f"  · The CUBE 文件数 {len(res['files'])},示例 {sorted(res['files'])[:3]}")
+    except FetchError as e:
+        checks.check(False, f"The CUBE 抽取失败: {e}")
+
+    try:
+        res = extract_quest_sources("native:125/12629", timeout=300)
+        checks.check(
+            res["mode"] in ("lang", "hardcoded"),
+            f"FTB Evolution 判定 {res['mode']}(实际有什么算什么,非 none 即可)",
+        )
+        checks.check(len(res["files"]) > 0, f"FTB Evolution files 非空({len(res['files'])} 个)")
+        first = res["files"][sorted(res["files"])[0]]
+        checks.check("title" in first or "chapter" in first, "首个文件内容像 FTB Quests SNBT")
+        print(f"  · FTB Evolution mode={res['mode']},文件数 {len(res['files'])}")
+    except FetchError as e:
+        checks.check(False, f"FTB Evolution 抽取失败: {e}")
+
     if full:
         print("\n== 联网:真实整包下载抽取(约 170MB,仅 --full 时执行)==")
         try:
@@ -1680,10 +2057,15 @@ def main(argv: Optional[list[str]] = None) -> int:
     parser.add_argument("--detect", nargs=2, metavar=("PROJECT_ID", "FILE_ID"), help="检测某整合包是否含 FTB Quests")
     parser.add_argument("--file-name", help="配合 --detect:zip 文件名(downloadUrl 为空时用于重建直链)")
     parser.add_argument("--extract", nargs=2, metavar=("PROJECT_ID", "FILE_ID"), help="抽取 quests en_us.snbt")
+    parser.add_argument(
+        "--sources",
+        metavar="SOURCE",
+        help="统一入口:CF 链接 / native:<packId>/<versionId> / 直链 → lang|hardcoded|none",
+    )
     parser.add_argument("--pack-type", default="zip", help="配合 --extract:native/curseforge/zip/auto")
     parser.add_argument("--pack-id", type=int, help="配合 --extract:FTB native 包 id")
     parser.add_argument("--version-id", type=int, help="配合 --extract:FTB native 版本 id")
-    parser.add_argument("--out", help="配合 --extract:输出文件路径")
+    parser.add_argument("--out", help="配合 --extract:输出文件路径;配合 --sources:输出目录")
     args = parser.parse_args(argv)
     try:
         return _run(args, parser)
@@ -1728,7 +2110,32 @@ def _run(args: argparse.Namespace, parser: argparse.ArgumentParser) -> int:
             print(result.content)
         return 0
 
-    if args.selftest or not any([args.link, args.detect, args.extract]):
+    if args.sources:
+        progress = lambda pct, msg: print(f"  {pct:3d}% {msg}", file=sys.stderr)
+        result = extract_quest_sources(args.sources, progress_cb=progress)
+        files = result["files"]
+        if args.out:
+            out_dir = Path(args.out)
+            for rel, text in files.items():
+                dest = out_dir / rel
+                dest.parent.mkdir(parents=True, exist_ok=True)
+                dest.write_text(text, encoding="utf-8")
+            print(f"mode={result['mode']},已写入 {len(files)} 个文件到 {out_dir}")
+        else:
+            print(
+                json.dumps(
+                    {
+                        "mode": result["mode"],
+                        "fileCount": len(files),
+                        "files": {rel: len(text) for rel, text in sorted(files.items())},
+                    },
+                    ensure_ascii=False,
+                    indent=2,
+                )
+            )
+        return 0 if result["mode"] != "none" else 1
+
+    if args.selftest or not any([args.link, args.detect, args.extract, args.sources]):
         checks = _Checks("离线")
         _selftest_offline(checks)
         ok = checks.summary()

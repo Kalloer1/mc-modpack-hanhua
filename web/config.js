@@ -1,42 +1,25 @@
 /**
- * 前端可配置项 —— 全部是占位值,接线时只改本文件,不用动 main.js。
- *
- * 注意:纯静态页无法安全持有 GitHub Token,"repository_dispatch" 模式
- * 必须经由自建代理(Cloudflare Worker / Serverless)转发,见 DISPATCH_PROXY。
+ * 前端可配置项 —— 只改本文件,不用动 main.js。
+ * 安全约定:这里不放任何 Token;提交通道 = 打开预填好的 GitHub Issue 页,
+ * 真正的翻译由 .github/workflows/on-issue.yml 在服务端跑。
  */
 window.MC_WEB_CONFIG = {
-  /** "owner/repo" —— 仓库建好后填入(例如 "yourname/mc-web")。留空 = 提交只记本地待办 */
-  GITHUB_REPO: "",
+  /** 仓库 "owner/repo"(提交 issue、拼 raw 下载链接都靠它) */
+  GITHUB_REPO: "Kalloer1/mc-modpack-hanhua",
 
-  /** raw 链接使用的分支 */
-  BRANCH: "main",
+  /** 默认分支(raw 链接用) */
+  BRANCH: "master",
 
-  /**
-   * index.json 地址(相对本页)。
-   * GitHub Pages 以仓库根为站点根、页面在 /web/ 时,保持 "../index.json";
-   * 若把 web/ 内容整体发布,改成 "index.json" 或填绝对 URL。
-   */
-  INDEX_URL: "../index.json",
+  /** 提交 issue 时自动带上的标签 */
+  SUBMIT_LABEL: "submit",
 
   /**
-   * 可选:自定义 raw 文件基址(如 jsDelivr CDN)。
-   * 留空时:填了 GITHUB_REPO 用 raw.githubusercontent.com,否则用站点相对路径。
+   * index.json 地址。
+   * 留空 = 自动用 raw 根 index.json(生产环境);
+   * 本地(localhost / file://)会自动改读本地 ../index.json,读不到再退到 sample/index.json。
    */
+  INDEX_URL: "",
+
+  /** 可选:自定义 raw 文件基址(如 jsDelivr CDN);留空 = raw.githubusercontent.com */
   RAW_BASE: "",
-
-  /**
-   * 提交触发方式(三选一):
-   *   "queue"                默认。只写入本页的"本地待办",不动网络(仓库未配置时的行为)
-   *   "issue"                打开预填好的 GitHub Issue 页面(纯静态可用,无需 Token)
-   *   "repository_dispatch"  走 DISPATCH_PROXY 转发到 GitHub API(需自建代理,见 main.js)
-   */
-  DISPATCH_MODE: "queue",
-
-  /**
-   * 自建代理地址(DISPATCH_MODE = "repository_dispatch" 时必填)。
-   * 约定:前端 POST { repo, cf_url },由代理携带 Token 调
-   *       POST https://api.github.com/repos/{repo}/dispatches
-   *       body: {"event_type": "translate", "client_payload": {"cf_url": "..."}}
-   */
-  DISPATCH_PROXY: "",
 };

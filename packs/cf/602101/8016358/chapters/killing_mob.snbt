@@ -1,0 +1,1039 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "killing_mob"
+	group: "4D083615809F6499"
+	icon: "moa_decor_toys:dragondelender"
+	id: "16FE6EC8BC32AC79"
+	order_index: 0
+	quest_links: [ ]
+	quests: [
+		{
+			can_repeat: true
+			dependencies: ["566887F55B280022"]
+			id: "4BFD0B229D84E297"
+			rewards: [
+				{
+					id: "5C636D44FCF58FB7"
+					item: "currency:dollar_bill"
+					type: "item"
+				}
+				{
+					id: "0601DE67E8D51DF4"
+					quest: ""
+					time: 8040
+					type: "extraquests:timer"
+				}
+			]
+			tasks: [{
+				entity: "minecraft:zombie"
+				icon: "moa_decor_toys:zombie"
+				id: "090528FD082D01EA"
+				type: "kill"
+				value: 100L
+			}]
+			x: -2.5d
+			y: 5.5d
+		}
+		{
+			id: "63BE260A29A1CF14"
+			size: 3.0d
+			tasks: [{
+				advancement: "minecraft:adventure/kill_a_mob"
+				criterion: ""
+				icon: {
+					Count: 1
+					id: "minecraft:netherite_sword"
+					tag: {
+						Damage: 0
+					}
+				}
+				id: "74E33E5ABF4D5E83"
+				title: "Monster Hunter"
+				type: "advancement"
+			}]
+			x: -2.5d
+			y: -3.0d
+		}
+		{
+			dependencies: ["566887F55B280022"]
+			id: "143CDC946AF7F81E"
+			tasks: [{
+				entity: "minecraft:skeleton"
+				icon: "moa_decor_toys:esqueleto"
+				id: "2DE22B576E6FC135"
+				title: "Skeleton"
+				type: "kill"
+				value: 100L
+			}]
+			x: -0.5d
+			y: 4.0d
+		}
+		{
+			dependencies: ["566887F55B280022"]
+			id: "1CFF342B2CE9681A"
+			tasks: [{
+				entity: "minecraft:creeper"
+				icon: "moa_decor_toys:creeper"
+				id: "5C342D72106B5B07"
+				title: "Creeper"
+				type: "kill"
+				value: 100L
+			}]
+			x: -4.5d
+			y: 4.0d
+		}
+		{
+			dependencies: ["566887F55B280022"]
+			id: "45BC6409C42D3FA0"
+			tasks: [{
+				entity: "minecraft:enderman"
+				icon: "moa_decor_toys:enderman"
+				id: "1397215CB98D90BA"
+				title: "Enderman"
+				type: "kill"
+				value: 100L
+			}]
+			x: -4.5d
+			y: 2.0d
+		}
+		{
+			dependencies: ["566887F55B280022"]
+			id: "2FF990E1A4D404A3"
+			tasks: [{
+				entity: "minecraft:spider"
+				icon: "moa_decor_toys:arana"
+				id: "5740EAE51B666266"
+				title: "Spider"
+				type: "kill"
+				value: 100L
+			}]
+			x: -0.5d
+			y: 2.0d
+		}
+		{
+			dependencies: ["566887F55B280022"]
+			id: "46A2A9DA17340F4D"
+			tasks: [{
+				entity: "minecraft:slime"
+				icon: "moa_decor_toys:slime"
+				id: "15DCB947EE3C4C78"
+				title: "Slime"
+				type: "kill"
+				value: 100L
+			}]
+			x: -2.5d
+			y: 0.5d
+		}
+		{
+			dependencies: ["63BE260A29A1CF14"]
+			hide_until_deps_complete: true
+			icon: "minecraft:grass_block"
+			id: "566887F55B280022"
+			shape: "octagon"
+			size: 2.0d
+			tasks: [{
+				id: "62992DABB43A5BE0"
+				title: "Overworld"
+				type: "checkmark"
+			}]
+			title: "Overworld Hostile Mob"
+			x: -2.5d
+			y: 3.0d
+		}
+		{
+			dependencies: ["566887F55B280022"]
+			id: "4B70B7A4AE97CC2C"
+			tasks: [{
+				entity: "minecraft:witch"
+				icon: "moa_decor_toys:bruja"
+				id: "305063A222642300"
+				title: "Witch"
+				type: "kill"
+				value: 100L
+			}]
+			x: -1.5d
+			y: 5.0d
+		}
+		{
+			dependencies: ["566887F55B280022"]
+			id: "7A589ECE54936E5D"
+			tasks: [{
+				entity: "minecraft:cave_spider"
+				icon: "moa_decor_toys:aranadelascuevas"
+				id: "41070FEE6BCF9F1B"
+				title: "Spider Cave"
+				type: "kill"
+				value: 100L
+			}]
+			x: 0.0d
+			y: 3.0d
+		}
+		{
+			dependencies: ["566887F55B280022"]
+			id: "29DE08FF40E188F2"
+			tasks: [{
+				entity: "minecraft:zombie_villager"
+				icon: "moa_decor_toys:aleanozombie"
+				id: "31F584E1203020BC"
+				title: "Zombie villager"
+				type: "kill"
+				value: 50L
+			}]
+			x: -3.5d
+			y: 5.0d
+		}
+		{
+			dependencies: ["566887F55B280022"]
+			id: "1189C43FBF8A3A41"
+			tasks: [{
+				entity: "minecraft:silverfish"
+				icon: "moa_decor_toys:lepisma"
+				id: "2D9214B8DE667B60"
+				title: "Silverfish"
+				type: "kill"
+				value: 100L
+			}]
+			x: -5.0d
+			y: 3.0d
+		}
+		{
+			dependencies: ["566887F55B280022"]
+			id: "2FFADDEE1C53EE94"
+			tasks: [{
+				entity: "minecraft:drowned"
+				icon: "moa_decor_toys:zombieahogado"
+				id: "7DAB213421DE2A7F"
+				title: "Drowned Zombie"
+				type: "kill"
+				value: 100L
+			}]
+			x: -3.5d
+			y: 1.0d
+		}
+		{
+			dependencies: ["566887F55B280022"]
+			id: "2220EE03B28662AB"
+			tasks: [{
+				entity: "minecraft:pillager"
+				icon: "moa_decor_toys:saqueador"
+				id: "5B48293A9338EEFD"
+				title: "Pillager"
+				type: "kill"
+				value: 100L
+			}]
+			x: -1.5d
+			y: 1.0d
+		}
+		{
+			dependencies: ["63BE260A29A1CF14"]
+			hide_until_deps_complete: true
+			icon: "minecraft:netherrack"
+			id: "44CF0B636284BBE4"
+			shape: "octagon"
+			size: 2.0d
+			tasks: [{
+				id: "3D8B65CE4A9A7A98"
+				title: "Nether"
+				type: "checkmark"
+			}]
+			x: 3.5d
+			y: -3.0d
+		}
+		{
+			dependencies: ["44CF0B636284BBE4"]
+			id: "4AAAF3FC0E67711B"
+			tasks: [{
+				entity: "minecraft:piglin"
+				icon: "moa_decor_toys:piglin"
+				id: "091DF3AC5EEEFD0C"
+				title: "Piglin"
+				type: "kill"
+				value: 100L
+			}]
+			x: 4.5d
+			y: -1.0d
+		}
+		{
+			dependencies: ["44CF0B636284BBE4"]
+			id: "16231D3EC783EDDE"
+			tasks: [{
+				entity: "minecraft:piglin_brute"
+				icon: "moa_decor_toys:piglinbruto"
+				id: "1AB9B7958E79BAF8"
+				title: "Piglin Brute"
+				type: "kill"
+				value: 100L
+			}]
+			x: 2.5d
+			y: -5.0d
+		}
+		{
+			dependencies: ["44CF0B636284BBE4"]
+			id: "585D173090503880"
+			tasks: [{
+				entity: "minecraft:zombified_piglin"
+				icon: "moa_decor_toys:piglinzombie"
+				id: "5A41ECB87856AE3F"
+				title: "Zombified Piglin"
+				type: "kill"
+				value: 100L
+			}]
+			x: 1.0d
+			y: -3.0d
+		}
+		{
+			dependencies: ["44CF0B636284BBE4"]
+			id: "2D3ED2A89FA76E14"
+			tasks: [{
+				entity: "minecraft:ghast"
+				icon: "moa_decor_toys:ghast"
+				id: "4ED98A58D46E2A4B"
+				title: "Ghast"
+				type: "kill"
+				value: 100L
+			}]
+			x: 3.5d
+			y: -5.5d
+		}
+		{
+			dependencies: ["44CF0B636284BBE4"]
+			id: "7D3EC0512D718588"
+			tasks: [{
+				entity: "minecraft:wither_skeleton"
+				icon: "moa_decor_toys:esqueletowither"
+				id: "585D3A3633682E73"
+				title: "Wither Skeleton"
+				type: "kill"
+				value: 100L
+			}]
+			x: 3.5d
+			y: -0.5d
+		}
+		{
+			dependencies: ["44CF0B636284BBE4"]
+			id: "4DAD6BE0C9E5FCDE"
+			tasks: [{
+				entity: "minecraft:blaze"
+				icon: "moa_decor_toys:blaze"
+				id: "51E77431ADD3AA75"
+				title: "Blaze"
+				type: "kill"
+				value: 100L
+			}]
+			x: 6.0d
+			y: -3.0d
+		}
+		{
+			dependencies: ["44CF0B636284BBE4"]
+			id: "3E35B083B5CB7F9B"
+			tasks: [{
+				entity: "minecraft:hoglin"
+				icon: "moa_decor_toys:hoglin"
+				id: "68163E8D9E665B61"
+				title: "Hoglin"
+				type: "kill"
+				value: 100L
+			}]
+			x: 4.5d
+			y: -5.0d
+		}
+		{
+			dependencies: ["44CF0B636284BBE4"]
+			id: "757927FCE7D626F3"
+			tasks: [{
+				entity: "minecraft:magma_cube"
+				icon: "moa_decor_toys:cubodemagma"
+				id: "21992AF1704BA9AA"
+				title: "Magma Cube"
+				type: "kill"
+				value: 100L
+			}]
+			x: 2.5d
+			y: -1.0d
+		}
+		{
+			dependencies: ["63BE260A29A1CF14"]
+			hide_until_deps_complete: true
+			icon: "apotheosis:boss_summoner"
+			id: "77A234EBC91365A2"
+			shape: "octagon"
+			size: 2.0d
+			tasks: [{
+				id: "18B8DB23A8DA5FD8"
+				title: "Boss"
+				type: "checkmark"
+			}]
+			title: "Boss"
+			x: -2.5d
+			y: -6.5d
+		}
+		{
+			dependencies: ["77A234EBC91365A2"]
+			id: "40ABEA2FAC6EFB72"
+			tasks: [{
+				entity: "minecraft:ender_dragon"
+				icon: "moa_decor_toys:dragondelender"
+				id: "648B4E20A2420599"
+				title: "Enderdragon"
+				type: "kill"
+				value: 1L
+			}]
+			x: -5.0d
+			y: -6.5d
+		}
+		{
+			dependencies: ["77A234EBC91365A2"]
+			id: "46D346D837D71632"
+			tasks: [{
+				entity: "minecraft:wither"
+				icon: "moa_decor_toys:wither"
+				id: "676B055F5A9E33B2"
+				title: "Wither"
+				type: "kill"
+				value: 1L
+			}]
+			x: 0.0d
+			y: -6.5d
+		}
+		{
+			dependencies: ["77A234EBC91365A2"]
+			id: "231F954701EC38EE"
+			tasks: [{
+				entity: "minecraft:warden"
+				icon: "moa_decor_toys:warden"
+				id: "69FA17ED74E5B2FA"
+				title: "Warden"
+				type: "kill"
+				value: 100L
+			}]
+			x: -2.5d
+			y: -8.5d
+		}
+		{
+			dependencies: ["63BE260A29A1CF14"]
+			hide_until_deps_complete: true
+			icon: "aether:aether_portal_frame"
+			id: "60D086AA010E354D"
+			shape: "octagon"
+			size: 2.0d
+			tasks: [{
+				id: "125F7F2D83D3B045"
+				title: "The Aether"
+				type: "checkmark"
+			}]
+			x: -8.5d
+			y: -3.0d
+		}
+		{
+			dependencies: ["60D086AA010E354D"]
+			id: "375AF45CE1480094"
+			tasks: [{
+				entity: "aether:fire_minion"
+				icon: "aether:fire_minion_spawn_egg"
+				id: "23C0CA90D15DC731"
+				title: "Fire Minion"
+				type: "kill"
+				value: 100L
+			}]
+			x: -11.0d
+			y: -3.0d
+		}
+		{
+			dependencies: ["60D086AA010E354D"]
+			id: "390B43A110F0CE07"
+			tasks: [{
+				entity: "aether:zephyr"
+				icon: "aether:zephyr_spawn_egg"
+				id: "76A74D80BFAAFB4C"
+				title: "Zephyr"
+				type: "kill"
+				value: 100L
+			}]
+			x: -10.5d
+			y: -4.0d
+		}
+		{
+			dependencies: ["60D086AA010E354D"]
+			id: "3C81CA995A42233D"
+			tasks: [{
+				entity: "aether:cockatrice"
+				icon: "aether:cockatrice_spawn_egg"
+				id: "15091D58C9B4849E"
+				title: "Cockatrice"
+				type: "kill"
+				value: 100L
+			}]
+			x: -7.5d
+			y: -5.0d
+		}
+		{
+			dependencies: ["60D086AA010E354D"]
+			id: "0B771F78F0382A6E"
+			tasks: [{
+				entity: "aether:aerbunny"
+				icon: "aether:aerbunny_spawn_egg"
+				id: "218EC5541CEEE242"
+				title: "Aerbunny"
+				type: "kill"
+				value: 100L
+			}]
+			x: -6.0d
+			y: -3.0d
+		}
+		{
+			dependencies: ["60D086AA010E354D"]
+			id: "6C32E363FC49BBE5"
+			tasks: [{
+				entity: "aether:moa"
+				icon: "aether:moa_spawn_egg"
+				id: "15502F4C7E2C3DE1"
+				title: "Moa"
+				type: "kill"
+				value: 100L
+			}]
+			x: -9.5d
+			y: -1.0d
+		}
+		{
+			dependencies: ["60D086AA010E354D"]
+			id: "32D04DEABF029EB1"
+			tasks: [{
+				entity: "aether:sentry"
+				icon: "aether:sentry_spawn_egg"
+				id: "20A6DD8B5D287E19"
+				title: "Sentry"
+				type: "kill"
+				value: 100L
+			}]
+			x: -10.5d
+			y: -2.0d
+		}
+		{
+			dependencies: ["60D086AA010E354D"]
+			id: "29AE01A111F9F57F"
+			tasks: [{
+				entity: "aether:phyg"
+				icon: "aether:phyg_spawn_egg"
+				id: "766C714F6CA7A951"
+				title: "Phyg"
+				type: "kill"
+				value: 100L
+			}]
+			x: -6.5d
+			y: -2.0d
+		}
+		{
+			dependencies: ["60D086AA010E354D"]
+			id: "4CAA5326DA831C89"
+			tasks: [{
+				entity: "aether:sheepuff"
+				icon: "aether:sheepuff_spawn_egg"
+				id: "547B18B35AB00EB1"
+				title: "Sheepuff"
+				type: "kill"
+				value: 100L
+			}]
+			x: -9.5d
+			y: -5.0d
+		}
+		{
+			dependencies: ["60D086AA010E354D"]
+			id: "182D318632060AE6"
+			tasks: [{
+				entity: "aether:valkyrie"
+				icon: "aether:valkyrie_spawn_egg"
+				id: "645FAFB72B6DC952"
+				title: "Valkyrie"
+				type: "kill"
+				value: 100L
+			}]
+			x: -6.5d
+			y: -4.0d
+		}
+		{
+			dependencies: ["60D086AA010E354D"]
+			id: "47257A12CB04611C"
+			tasks: [{
+				entity: "aether:mimic"
+				icon: "aether:mimic_spawn_egg"
+				id: "6384D37CDF90FAE7"
+				title: "Mimic"
+				type: "kill"
+				value: 100L
+			}]
+			x: -7.5d
+			y: -1.0d
+		}
+		{
+			dependencies: ["60D086AA010E354D"]
+			id: "0C53556A16546848"
+			tasks: [{
+				entity: "aether:blue_swet"
+				icon: "aether:blue_swet_spawn_egg"
+				id: "70EC2CCBB04B61F3"
+				title: "Blue Swet"
+				type: "kill"
+				value: 100L
+			}]
+			x: -8.5d
+			y: -5.5d
+		}
+		{
+			dependencies: ["60D086AA010E354D"]
+			id: "178E0DB199552F1C"
+			tasks: [{
+				entity: "aether:flying_cow"
+				icon: "aether:flying_cow_spawn_egg"
+				id: "4187E1424FC3F333"
+				title: "Flying Cow"
+				type: "kill"
+				value: 100L
+			}]
+			x: -8.5d
+			y: -0.5d
+		}
+		{
+			dependencies: ["44CF0B636284BBE4"]
+			id: "4C36A0AD55DC6008"
+			tasks: [{
+				entity: "minecraft:strider"
+				icon: "moa_decor_toys:lavagante"
+				id: "23C3A660CC9D9726"
+				title: "Strider"
+				type: "kill"
+				value: 100L
+			}]
+			x: 5.5d
+			y: -4.0d
+		}
+		{
+			dependencies: ["44CF0B636284BBE4"]
+			id: "6EACEA4190CF06C7"
+			tasks: [{
+				entity: "minecraft:zoglin"
+				icon: "moa_decor_toys:zoglin"
+				id: "33F0929173904324"
+				title: "Zoglin"
+				type: "kill"
+				value: 100L
+			}]
+			x: 1.5d
+			y: -2.0d
+		}
+		{
+			dependencies: ["44CF0B636284BBE4"]
+			id: "0CFA25B14D293954"
+			tasks: [{
+				entity: "alexsmobs:laviathan"
+				icon: "alexsmobs:spawn_egg_laviathan"
+				id: "534F0A80A080F49E"
+				title: "Laviathan"
+				type: "kill"
+				value: 100L
+			}]
+			x: 5.5d
+			y: -2.0d
+		}
+		{
+			dependencies: ["44CF0B636284BBE4"]
+			id: "27372D0566153C5F"
+			tasks: [{
+				entity: "alexsmobs:straddler"
+				icon: "alexsmobs:spawn_egg_straddler"
+				id: "4DFDAFA86462422F"
+				title: "Straddler"
+				type: "kill"
+				value: 100L
+			}]
+			x: 1.5d
+			y: -4.0d
+		}
+		{
+			dependencies: ["566887F55B280022"]
+			hide_until_deps_complete: true
+			icon: "biomesoplenty:origin_grass_block"
+			id: "5AD9E1CAEF32BAD4"
+			shape: "octagon"
+			size: 2.0d
+			tasks: [{
+				id: "43DF311371ECF2EF"
+				title: "Overworld Passive Mob"
+				type: "checkmark"
+			}]
+			x: 4.0d
+			y: 6.5d
+		}
+		{
+			dependencies: ["5AD9E1CAEF32BAD4"]
+			id: "04614B5A889CB296"
+			tasks: [{
+				entity: "minecraft:cow"
+				icon: "moa_decor_toys:vaca"
+				id: "5D027C197358A8E4"
+				title: "Cow"
+				type: "kill"
+				value: 100L
+			}]
+			x: 4.0d
+			y: 4.0d
+		}
+		{
+			dependencies: ["5AD9E1CAEF32BAD4"]
+			id: "159EBA989BA22BA2"
+			tasks: [{
+				entity: "minecraft:sheep"
+				icon: "moa_decor_toys:ovejablanca"
+				id: "51FD853335926F6C"
+				title: "Sheep"
+				type: "kill"
+				value: 100L
+			}]
+			x: 1.5d
+			y: 6.5d
+		}
+		{
+			dependencies: ["5AD9E1CAEF32BAD4"]
+			id: "2B7E1E3441D52527"
+			tasks: [{
+				entity: "minecraft:pig"
+				icon: "moa_decor_toys:cerdo"
+				id: "6BFC8658B0160025"
+				title: "Pig"
+				type: "kill"
+				value: 100L
+			}]
+			x: 6.5d
+			y: 6.5d
+		}
+		{
+			dependencies: ["5AD9E1CAEF32BAD4"]
+			id: "019AAB2D46120D9D"
+			tasks: [{
+				entity: "minecraft:chicken"
+				icon: "moa_decor_toys:gallina"
+				id: "72913C9D685D5201"
+				title: "Chicken"
+				type: "kill"
+				value: 100L
+			}]
+			x: 4.0d
+			y: 9.0d
+		}
+		{
+			dependencies: ["5AD9E1CAEF32BAD4"]
+			id: "4FA88E5A75F865D1"
+			tasks: [{
+				entity: "minecraft:rabbit"
+				icon: "moa_decor_toys:conejoblanco"
+				id: "047197295AE5D901"
+				title: "Rabbit"
+				type: "kill"
+				value: 100L
+			}]
+			x: 3.0d
+			y: 4.5d
+		}
+		{
+			dependencies: ["5AD9E1CAEF32BAD4"]
+			id: "46586323259522C7"
+			tasks: [{
+				entity: "minecraft:squid"
+				icon: "moa_decor_toys:calamar"
+				id: "170D231335A513CB"
+				title: "Squid"
+				type: "kill"
+				value: 100L
+			}]
+			x: 5.0d
+			y: 4.5d
+		}
+		{
+			dependencies: ["5AD9E1CAEF32BAD4"]
+			id: "318262D68EDA553B"
+			tasks: [{
+				entity: "minecraft:llama"
+				icon: "moa_decor_toys:llamablanca"
+				id: "6AFAC3E795E283EC"
+				title: "Llama"
+				type: "kill"
+				value: 100L
+			}]
+			x: 3.0d
+			y: 8.5d
+		}
+		{
+			dependencies: ["5AD9E1CAEF32BAD4"]
+			id: "4433A6AE2B534F62"
+			tasks: [{
+				entity: "minecraft:horse"
+				icon: "moa_decor_toys:caballogris_m"
+				id: "6F117866876BAB51"
+				title: "Horse"
+				type: "kill"
+				value: 100L
+			}]
+			x: 5.0d
+			y: 8.5d
+		}
+		{
+			dependencies: ["5AD9E1CAEF32BAD4"]
+			id: "028F6270CFAEC10F"
+			tasks: [{
+				entity: "minecraft:donkey"
+				icon: "moa_decor_toys:burro"
+				id: "5A4F39136C2D4D29"
+				title: "Donkey"
+				type: "kill"
+				value: 100L
+			}]
+			x: 6.0d
+			y: 7.5d
+		}
+		{
+			dependencies: ["5AD9E1CAEF32BAD4"]
+			id: "794EDD8F19124882"
+			tasks: [{
+				entity: "minecraft:bee"
+				icon: "moa_decor_toys:abeja"
+				id: "091F61CE1CE5A701"
+				title: "Bee"
+				type: "kill"
+				value: 100L
+			}]
+			x: 6.0d
+			y: 5.5d
+		}
+		{
+			dependencies: ["5AD9E1CAEF32BAD4"]
+			id: "0D985EE1771C5DDF"
+			tasks: [{
+				entity: "minecraft:cat"
+				icon: "moa_decor_toys:gatosiames"
+				id: "4947485CEC9C8327"
+				title: "Cat"
+				type: "kill"
+				value: 100L
+			}]
+			x: 2.0d
+			y: 7.5d
+		}
+		{
+			dependencies: ["5AD9E1CAEF32BAD4"]
+			id: "63D80224E4C89F68"
+			tasks: [{
+				entity: "minecraft:bat"
+				icon: "moa_decor_toys:murcielago"
+				id: "2CD0496EB60EF0FF"
+				title: "Bat"
+				type: "kill"
+				value: 100L
+			}]
+			x: 2.0d
+			y: 5.5d
+		}
+		{
+			dependencies: ["566887F55B280022"]
+			hide_until_deps_complete: true
+			icon: "biomeswevegone:lush_grass_block"
+			id: "123B8C13713B191C"
+			shape: "octagon"
+			size: 2.0d
+			tasks: [{
+				id: "3005E1A65132D1B6"
+				title: "Overworld Rarest Mob"
+				type: "checkmark"
+			}]
+			x: -9.0d
+			y: 6.5d
+		}
+		{
+			dependencies: ["123B8C13713B191C"]
+			id: "1ADD0F92892D50C6"
+			tasks: [{
+				entity: "minecraft:parrot"
+				icon: "moa_decor_toys:lororojo"
+				id: "1BC9DDD284E77E52"
+				title: "Parrot"
+				type: "kill"
+				value: 100L
+			}]
+			x: -8.0d
+			y: 4.5d
+		}
+		{
+			dependencies: ["123B8C13713B191C"]
+			id: "07EBA67CA3F18AA1"
+			tasks: [{
+				entity: "minecraft:ravager"
+				icon: "moa_decor_toys:devastador"
+				id: "7D46F5EAD4897160"
+				title: "Ravager"
+				type: "kill"
+				value: 100L
+			}]
+			x: -10.0d
+			y: 4.5d
+		}
+		{
+			dependencies: ["123B8C13713B191C"]
+			id: "6319D640B4463F47"
+			tasks: [{
+				entity: "minecraft:axolotl"
+				icon: "moa_decor_toys:ajolotecian"
+				id: "25B39D6E5E6EC192"
+				title: "Axolotl"
+				type: "kill"
+				value: 100L
+			}]
+			x: -9.0d
+			y: 4.0d
+		}
+		{
+			dependencies: ["123B8C13713B191C"]
+			id: "77A55AD8C1C62884"
+			tasks: [{
+				entity: "minecraft:snow_golem"
+				icon: "moa_decor_toys:golemdenieve"
+				id: "4992DA43465C4571"
+				title: "Snow Golem"
+				type: "kill"
+				value: 100L
+			}]
+			x: -11.0d
+			y: 5.5d
+		}
+		{
+			dependencies: ["123B8C13713B191C"]
+			id: "6AFBE058FA5B7E07"
+			tasks: [{
+				entity: "minecraft:iron_golem"
+				icon: "moa_decor_toys:golemdehierro"
+				id: "2A71D2AFAAE63A3F"
+				title: "Iron Golem"
+				type: "kill"
+				value: 100L
+			}]
+			x: -11.5d
+			y: 6.5d
+		}
+		{
+			dependencies: ["123B8C13713B191C"]
+			id: "561BE342D9165C47"
+			tasks: [{
+				entity: "minecraft:vex"
+				icon: "moa_decor_toys:vex"
+				id: "6D0FE8DC6E8F6AB3"
+				title: "Vex"
+				type: "kill"
+				value: 100L
+			}]
+			x: -7.0d
+			y: 5.5d
+		}
+		{
+			dependencies: ["123B8C13713B191C"]
+			id: "077199B638E694E9"
+			tasks: [{
+				entity: "minecraft:evoker"
+				icon: "moa_decor_toys:invocador"
+				id: "345F10A58CCD4FCD"
+				title: "Evoker"
+				type: "kill"
+				value: 100L
+			}]
+			x: -11.0d
+			y: 7.5d
+		}
+		{
+			dependencies: ["123B8C13713B191C"]
+			id: "685A3C85F8B3C492"
+			tasks: [{
+				entity: "minecraft:dolphin"
+				icon: "moa_decor_toys:delfin"
+				id: "1D739FC15C00EA99"
+				title: "Dolphin"
+				type: "kill"
+				value: 100L
+			}]
+			x: -8.0d
+			y: 8.5d
+		}
+		{
+			dependencies: ["123B8C13713B191C"]
+			id: "47BFACB70A146605"
+			tasks: [{
+				entity: "minecraft:guardian"
+				icon: "moa_decor_toys:guardian"
+				id: "0DCBD036406AB010"
+				title: "Guardian"
+				type: "kill"
+				value: 100L
+			}]
+			x: -7.0d
+			y: 7.5d
+		}
+		{
+			dependencies: ["123B8C13713B191C"]
+			id: "0EF3E439ED5942CB"
+			tasks: [{
+				entity: "minecraft:elder_guardian"
+				icon: "moa_decor_toys:guardiananciano"
+				id: "59F8C05686A124C5"
+				title: "Elder Guardian"
+				type: "kill"
+				value: 100L
+			}]
+			x: -6.5d
+			y: 6.5d
+		}
+		{
+			dependencies: ["123B8C13713B191C"]
+			id: "7849A634AE2571D5"
+			tasks: [{
+				entity: "minecraft:mooshroom"
+				icon: "moa_decor_toys:champivaca"
+				id: "5B2291E4B69543D2"
+				title: "Mooshroom"
+				type: "kill"
+				value: 100L
+			}]
+			x: -10.0d
+			y: 8.5d
+		}
+		{
+			dependencies: ["123B8C13713B191C"]
+			id: "7982B6B95BC773FC"
+			tasks: [{
+				entity: "minecraft:glow_squid"
+				icon: "moa_decor_toys:calamarbrillante"
+				id: "3ED6211EE261177D"
+				title: "Glow Squid"
+				type: "kill"
+				value: 100L
+			}]
+			x: -9.0d
+			y: 9.0d
+		}
+		{
+			dependencies: ["63BE260A29A1CF14"]
+			hide_until_deps_complete: true
+			id: "0052BE85FAE2E1B6"
+			rewards: [{
+				exclude_from_claim_all: true
+				id: "04285FD9C297B1E5"
+				table_id: 8372605355213825803L
+				type: "random"
+			}]
+			tasks: [{
+				id: "1A08CD15FF32C285"
+				stat: "minecraft:mob_kills"
+				type: "stat"
+				value: 2000
+			}]
+			x: -2.5d
+			y: 8.0d
+		}
+	]
+	title: "Mob killed"
+}

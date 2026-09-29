@@ -520,6 +520,7 @@
         "fallbackReasons": {}
       }
     },
-    "extractSource": "stub-cube-overrides-zip"
+    "extractSource": "stub-cube-overrides-zip",
+    "archive": "patch.zip"
   }
 }

@@ -161,7 +161,7 @@ jobs:
 
           # 已汉化过的包重跑时 index 不会变化:从日志兜底找产物路径
           if not path:
-              m = re.search(r"产出:\s*(\S+?)/zh_cn\.snbt", log_text)
+              m = re.search(r"产出\s+\d+\s+个文件\s*→\s*(packs/\S+?)/?\s*$", log_text, re.M)
               if m:
                   path = m.group(1)
           if not path:
@@ -172,9 +172,12 @@ jobs:
           failed = status not in ("done", "already_localized", "no_ftbq") or code in (1, 3)
           label = "failed" if failed else "done"
 
+          # 交付物统一为 patch.zip(entry.stats.archive);老 lang 条目才回退 zh_cn.snbt
+          archive = str(stats.get("archive") or "")
+          asset = archive or "zh_cn.snbt"
           download = ""
           if status == "done" and path:
-              download = f"https://raw.githubusercontent.com/{repo}/{branch}/{path}/zh_cn.snbt"
+              download = f"https://raw.githubusercontent.com/{repo}/{branch}/{path}/{asset}"
 
           title = {
               "done": "翻译完成",
@@ -198,7 +201,7 @@ jobs:
                   lines.append(f"- 整合包:`{name}`")
               lines.append(f"- 状态:`{status}`")
               if path:
-                  lines.append(f"- 产物:`{path}/zh_cn.snbt`")
+                  lines.append(f"- 产物:`{path}/{asset}`")
               if download:
                   lines.append(f"- 下载:<{download}>")
               if status == "no_ftbq":

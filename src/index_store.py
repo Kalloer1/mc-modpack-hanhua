@@ -44,6 +44,7 @@ __all__ = [
     "index_path",
     "artifact_dir",
     "artifact_path",
+    "patch_path",
     "meta_path",
     "entry_key",
     "empty_index",
@@ -65,6 +66,7 @@ DEFAULT_STATUS = "pending"
 PACKS_DIRNAME = "packs"
 INDEX_FILENAME = "index.json"
 SNBT_FILENAME = "zh_cn.snbt"
+PATCH_FILENAME = "patch.zip"  # M4 起统一交付物:解压到整合包根目录即覆盖
 META_FILENAME = "meta.json"
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -110,8 +112,18 @@ def artifact_dir(source, project_id, file_id, root=None) -> Path:
 
 
 def artifact_path(source, project_id, file_id, root=None) -> Path:
-    """译后 SNBT 成品路径 …/zh_cn.snbt。"""
+    """【遗留】旧版单文件成品路径 …/zh_cn.snbt。
+
+    M4 起交付物统一为 patch.zip(见 patch_path),lang 模式的 zh_cn.snbt 也移到
+    …/lang/ 子目录下,故本函数返回的顶层 zh_cn.snbt 已不再是真实产物,仅为向后兼容保留。
+    下载/展示请用 patch_path 或 entry.stats["archive"]。
+    """
     return artifact_dir(source, project_id, file_id, root=root) / SNBT_FILENAME
+
+
+def patch_path(source, project_id, file_id, root=None) -> Path:
+    """当前交付物路径 …/patch.zip(玩家解压到整合包根目录即覆盖)。"""
+    return artifact_dir(source, project_id, file_id, root=root) / PATCH_FILENAME
 
 
 def meta_path(source, project_id, file_id, root=None) -> Path:
@@ -234,11 +246,12 @@ def _apply_status(entry: dict, status: str, translated_at=None) -> None:
 
 
 def upsert_entry(index: dict, source, project_id, file_id, *, name=None, mc_version=None,
-                 status=None, stats=None, translated_at=None) -> tuple[dict, bool]:
+                 status=None, stats=None, replace_stats=False, translated_at=None) -> tuple[dict, bool]:
     """新增或更新一条 entry,返回 (entry, 是否新建)。
 
     语义:查重命中已有 entry 则就地更新;参数为 None 表示保留原值;
-    stats 做浅合并(方便增量追加统计);status="done" 时自动补 translatedAt。
+    stats 默认做浅合并(方便增量追加统计);status="done" 时自动补 translatedAt。
+    replace_stats=True 时整体替换 stats(重跑时清除上一次残留的 error/fileList 等 stale 键)。
     """
     existing = find_entry(index, source, project_id, file_id)
     if existing is None:
@@ -253,8 +266,11 @@ def upsert_entry(index: dict, source, project_id, file_id, *, name=None, mc_vers
         existing["name"] = str(name)
     if mc_version is not None:
         existing["mcVersion"] = str(mc_version)
-    if stats:
-        existing["stats"] = {**(existing.get("stats") or {}), **stats}
+    if stats is not None:
+        if replace_stats:
+            existing["stats"] = dict(stats)
+        elif stats:
+            existing["stats"] = {**(existing.get("stats") or {}), **stats}
     if status is not None:
         _apply_status(existing, status, translated_at)
     elif translated_at is not None:
@@ -263,10 +279,11 @@ def upsert_entry(index: dict, source, project_id, file_id, *, name=None, mc_vers
 
 
 def update_status(index: dict, source, project_id, file_id, status, *, name=None, mc_version=None,
-                  stats=None, translated_at=None) -> dict:
+                  stats=None, replace_stats=False, translated_at=None) -> dict:
     """更新状态(entry 不存在则顺手补建),返回 entry。"""
     entry, _ = upsert_entry(index, source, project_id, file_id, name=name, mc_version=mc_version,
-                            status=status, stats=stats, translated_at=translated_at)
+                            status=status, stats=stats, replace_stats=replace_stats,
+                            translated_at=translated_at)
     return entry
 
 
@@ -373,6 +390,19 @@ def _self_test() -> int:
         except ValueError:
             bad = True
         check(bad, "损坏 JSON 应报错而非返回空索引")
+
+        # 12) replace_stats:重跑成功应清除上次 failed 残留的 stale 键
+        idx2 = empty_index()
+        update_status(idx2, "cf", "9", "9", "failed", stats={"error": "boom"})
+        update_status(idx2, "cf", "9", "9", "done", stats={"archive": "patch.zip"},
+                      replace_stats=True)
+        st = find_entry(idx2, "cf", "9", "9")["stats"]
+        check("error" not in st and st.get("archive") == "patch.zip",
+              "replace_stats 应整体替换 stats,清掉旧 error")
+        # 默认浅合并语义保持不变
+        update_status(idx2, "cf", "9", "9", "done", stats={"extra": 1})
+        check(find_entry(idx2, "cf", "9", "9")["stats"].get("archive") == "patch.zip",
+              "默认(不 replace)应保留已有 stats 键")
 
     print(f"[index_store] 自测通过({checks} 项检查)")
     return 0

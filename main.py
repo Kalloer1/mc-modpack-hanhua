@@ -115,10 +115,12 @@ def _record(index: dict, source: str, project_id, file_id, status: str, *,
 
     先 upsert 一条占位再 update_status:index_store.build_entry 建新条目时
     不会自动补 translatedAt,只有 update 路径的 _apply_status 会补。
+    stats 整体替换(replace_stats):每次运行都产出该结局的完整 stats,
+    重跑成功时必须清掉上一次 failed 残留的 error / 已消失文件的 fileList 等 stale 键。
     """
     index_store.upsert_entry(index, source, project_id, file_id)
     entry = index_store.update_status(index, source, project_id, file_id, status,
-                                      name=name, stats=stats)
+                                      name=name, stats=stats, replace_stats=True)
     index_store.save_index(index)
     if status == "done":
         index_store.write_meta(entry)

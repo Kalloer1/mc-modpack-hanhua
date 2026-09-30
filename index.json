@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-29T19:24:15Z",
+  "updatedAt": "2026-09-30T02:10:33Z",
   "entries": [
     {
       "source": "cf",
@@ -12,7 +12,6 @@
       "path": "packs/cf/602101/8016358",
       "translatedAt": "2026-09-29T18:05:08Z",
       "stats": {
-        "error": "zip 里没有 config/ftbquests/quests/lang/en_us.snbt;包内 ftbquests 相关条目示例: ['overrides/config/ftbquests/quests/chapter_groups.snbt', 'overrides/config/ftbquests/quests/data.snbt', 'overrides/config/ftbquests/quests/chapters/alarm.snbt', 'overrides/config/ftbquests/quests/chapters/apotheosis.snbt', 'overrides/config/ftbquests/quests/chapters/armor.snbt', 'overrides/config/ftbquests/quests/chapters/armor_",
         "fields": 331,
         "translated": 330,
         "skipped": 1,
@@ -537,9 +536,7 @@
       "status": "no_ftbq",
       "path": "packs/cf/843494/4666106",
       "translatedAt": null,
-      "stats": {
-        "error": "zip 里没有 config/ftbquests/quests/lang/en_us.snbt;包内 ftbquests 相关条目示例: ['overrides/config/ftbquests/quests/chapter_groups.snbt', 'overrides/config/ftbquests/quests/data.snbt', 'overrides/config/ftbquests/quests/chapters/bumblemancy.snbt', 'overrides/config/ftbquests/quests/chapters/flower_magic.snbt', 'overrides/config/ftbquests/quests/chapters/productive_bee_breeding.snbt', 'overrides/config/ftbque"
-      }
+      "stats": {}
     },
     {
       "source": "modpacks",
